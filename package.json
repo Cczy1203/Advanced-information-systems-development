@@ -1,0 +1,23 @@
+{
+  "name": "hospital-patient-administration-system",
+  "version": "0.1.0",
+  "description": "Initial project scaffold for the Hospital Patient Administration System case study.",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "lint": "node --check src/index.js && node --check src/config.js && node --check src/services/patientService.js && node --check src/utils/logger.js && node --check src/workers/referralWorker.js"
+  },
+  "keywords": [
+    "bpmn",
+    "camunda",
+    "healthcare",
+    "workflow"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "camunda-external-task-client-js": "^2.3.0",
+    "dotenv": "^16.4.5"
+  }
+}
