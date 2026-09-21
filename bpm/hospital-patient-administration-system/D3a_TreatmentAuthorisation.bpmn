@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_jycse95" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.51.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <bpmn:collaboration id="Collaboration_44i58hj">
+    <bpmn:participant id="Participant_zsm33z7" processRef="Process_80r83d0" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_80r83d0" name="Hospital Patient Administration System" isExecutable="true" camunda:historyTimeToLive="180">
+    <bpmn:laneSet id="LaneSet_m3jii8s">
+      <bpmn:lane id="Lane_xsj7jbs" name="Treatment / Chemotherapy Bookings Team">
+        <bpmn:flowNodeRef>Activity_51flxu1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_5lqti2w</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_b7u0qfg" name="Consultant / Clinical Team">
+        <bpmn:flowNodeRef>Event_9eq4bc1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_bewv81b</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_q9dsno2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_22x0the</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_h39fsfu</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_j0a722z</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Event_9eq4bc1" name="Patient agrees to treatment">
+      <bpmn:outgoing>Flow_aiwntw6</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_bewv81b" name="Record patient consent">
+      <bpmn:incoming>Flow_aiwntw6</bpmn:incoming>
+      <bpmn:outgoing>Flow_kndg2un</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_q9dsno2" name="Complete treatment booking request">
+      <bpmn:documentation>Proposed treatment, start date, number and frequency of cycles, reviews between cycles and any special resources.</bpmn:documentation>
+      <bpmn:incoming>Flow_kndg2un</bpmn:incoming>
+      <bpmn:outgoing>Flow_zoola5g</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_22x0the" name="Authorised by clinical professional?">
+      <bpmn:incoming>Flow_zoola5g</bpmn:incoming>
+      <bpmn:outgoing>Flow_lo9uwdz</bpmn:outgoing>
+      <bpmn:outgoing>Flow_22t49nw</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_h39fsfu" name="Record authorisation, author and date">
+      <bpmn:incoming>Flow_lo9uwdz</bpmn:incoming>
+      <bpmn:outgoing>Flow_28oky36</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_j0a722z" name="Request not authorised - not processed">
+      <bpmn:documentation>An unauthorised or incomplete request is rejected and is not processed by administrative staff.</bpmn:documentation>
+      <bpmn:incoming>Flow_22t49nw</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Activity_51flxu1" name="Receive authorised booking request">
+      <bpmn:incoming>Flow_28oky36</bpmn:incoming>
+      <bpmn:outgoing>Flow_u59jlg0</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_5lqti2w" name="Treatment booking request issued">
+      <bpmn:incoming>Flow_u59jlg0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_aiwntw6" sourceRef="Event_9eq4bc1" targetRef="Activity_bewv81b" />
+    <bpmn:sequenceFlow id="Flow_kndg2un" sourceRef="Activity_bewv81b" targetRef="Activity_q9dsno2" />
+    <bpmn:sequenceFlow id="Flow_zoola5g" sourceRef="Activity_q9dsno2" targetRef="Gateway_22x0the" />
+    <bpmn:sequenceFlow id="Flow_lo9uwdz" name="Authorised" sourceRef="Gateway_22x0the" targetRef="Activity_h39fsfu" />
+    <bpmn:sequenceFlow id="Flow_22t49nw" name="Not authorised" sourceRef="Gateway_22x0the" targetRef="Event_j0a722z" />
+    <bpmn:sequenceFlow id="Flow_28oky36" sourceRef="Activity_h39fsfu" targetRef="Activity_51flxu1" />
+    <bpmn:sequenceFlow id="Flow_u59jlg0" sourceRef="Activity_51flxu1" targetRef="Event_5lqti2w" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_44i58hj">
+      <bpmndi:BPMNShape id="Participant_zsm33z7_di" bpmnElement="Participant_zsm33z7" isHorizontal="true">
+        <dc:Bounds x="150" y="40" width="1302" height="430" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_xsj7jbs_di" bpmnElement="Lane_xsj7jbs" isHorizontal="true">
+        <dc:Bounds x="150" y="300" width="1302" height="170" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_b7u0qfg_di" bpmnElement="Lane_b7u0qfg" isHorizontal="true">
+        <dc:Bounds x="150" y="70" width="1302" height="230" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_9eq4bc1_di" bpmnElement="Event_9eq4bc1">
+        <dc:Bounds x="206" y="114" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="182" y="155" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_bewv81b_di" bpmnElement="Activity_bewv81b">
+        <dc:Bounds x="312" y="92" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_q9dsno2_di" bpmnElement="Activity_q9dsno2">
+        <dc:Bounds x="542" y="92" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_22x0the_di" bpmnElement="Gateway_22x0the" isMarkerVisible="true">
+        <dc:Bounds x="772" y="107" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="745" y="69.5" width="104" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_h39fsfu_di" bpmnElement="Activity_h39fsfu">
+        <dc:Bounds x="916" y="92" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_j0a722z_di" bpmnElement="Event_j0a722z">
+        <dc:Bounds x="978" y="218" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="958" y="259" width="76" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_51flxu1_di" bpmnElement="Activity_51flxu1">
+        <dc:Bounds x="1146" y="351" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_5lqti2w_di" bpmnElement="Event_5lqti2w">
+        <dc:Bounds x="1376" y="373" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1348" y="414" width="92" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_aiwntw6_di" bpmnElement="Flow_aiwntw6">
+        <di:waypoint x="242" y="132" />
+        <di:waypoint x="312" y="132" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_kndg2un_di" bpmnElement="Flow_kndg2un">
+        <di:waypoint x="472" y="132" />
+        <di:waypoint x="542" y="132" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_zoola5g_di" bpmnElement="Flow_zoola5g">
+        <di:waypoint x="702" y="132" />
+        <di:waypoint x="772" y="132" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_lo9uwdz_di" bpmnElement="Flow_lo9uwdz">
+        <di:waypoint x="822" y="132" />
+        <di:waypoint x="916" y="132" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="843" y="109" width="53" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_22t49nw_di" bpmnElement="Flow_22t49nw">
+        <di:waypoint x="797" y="157" />
+        <di:waypoint x="797" y="236" />
+        <di:waypoint x="978" y="236" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="834" y="248" width="72" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_28oky36_di" bpmnElement="Flow_28oky36">
+        <di:waypoint x="1076" y="132" />
+        <di:waypoint x="1226" y="132" />
+        <di:waypoint x="1226" y="351" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_u59jlg0_di" bpmnElement="Flow_u59jlg0">
+        <di:waypoint x="1306" y="391" />
+        <di:waypoint x="1376" y="391" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
