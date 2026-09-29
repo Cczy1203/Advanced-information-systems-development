@@ -1,0 +1,124 @@
+{
+  "components": [
+    {
+      "label": "Slot reference from the scheduling service",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_083",
+        "columns": null
+      },
+      "id": "Field_083",
+      "key": "chosenSlotRef",
+      "validate": {
+        "required": true,
+        "maxLength": 40
+      }
+    },
+    {
+      "subtype": "datetime",
+      "label": "Appointment date and time",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_084",
+        "columns": null
+      },
+      "id": "Field_084",
+      "key": "appointmentDateTime",
+      "validate": {
+        "required": true
+      },
+      "disallowPassedDates": true,
+      "disabled": false
+    },
+    {
+      "label": "Clinic location",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_085",
+        "columns": null
+      },
+      "id": "Field_085",
+      "key": "appointmentLocation",
+      "validate": {
+        "required": true,
+        "maxLength": 120
+      }
+    },
+    {
+      "label": "Priority",
+      "values": [
+        {
+          "label": "Routine",
+          "value": "Routine"
+        },
+        {
+          "label": "Urgent",
+          "value": "Urgent"
+        },
+        {
+          "label": "Two week wait",
+          "value": "Two week wait"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_086",
+        "columns": null
+      },
+      "id": "Field_086",
+      "key": "appointmentPriority",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "An interpreter is needed",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_087",
+        "columns": null
+      },
+      "id": "Field_087",
+      "key": "interpreterRequired",
+      "defaultValue": false
+    },
+    {
+      "label": "Access or communication needs",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_088",
+        "columns": null
+      },
+      "id": "Field_088",
+      "key": "patientAccessibilityNeeds",
+      "description": "For example a large print letter, a step free route, or a carer attending.",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Booked by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_089",
+        "columns": null
+      },
+      "id": "Field_089",
+      "key": "chosenBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "choose-appointment-slot",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Booking a new patient appointment. The slot is confirmed in the hospital system and any access requirement is captured at the same time so the clinic can prepare."
+}

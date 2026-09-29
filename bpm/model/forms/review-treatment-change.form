@@ -1,0 +1,116 @@
+{
+  "components": [
+    {
+      "label": "What is being asked for?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_130",
+        "columns": null
+      },
+      "id": "Field_130",
+      "key": "modificationReason",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Requested by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_131",
+        "columns": null
+      },
+      "id": "Field_131",
+      "key": "requestedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Was the request submitted through the system?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_132",
+        "columns": null
+      },
+      "id": "Field_132",
+      "key": "requestFormallySubmitted",
+      "description": "Email and telephone requests are not processed until they are formally authorised.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Type of change",
+      "type": "select",
+      "layout": {
+        "row": "Row_133",
+        "columns": null
+      },
+      "id": "Field_133",
+      "key": "changeCategory",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Date change",
+          "value": "Date change"
+        },
+        {
+          "label": "Dose change",
+          "value": "Dose change"
+        },
+        {
+          "label": "Regimen change",
+          "value": "Regimen change"
+        },
+        {
+          "label": "Stop treatment",
+          "value": "Stop treatment"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "label": "Notes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_134",
+        "columns": null
+      },
+      "id": "Field_134",
+      "key": "notes",
+      "properties": {
+        "rows": 3
+      }
+    }
+  ],
+  "type": "default",
+  "id": "review-treatment-change",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "First pass at a treatment change request. A change that only arrived informally is sent back for proper authorisation."
+}

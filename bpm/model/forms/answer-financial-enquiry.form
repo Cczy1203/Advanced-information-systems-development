@@ -1,0 +1,94 @@
+{
+  "components": [
+    {
+      "label": "Enquiry reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_175",
+        "columns": null
+      },
+      "id": "Field_175",
+      "key": "enquiryRef",
+      "validate": {
+        "required": true,
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "What is the patient asking about?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_176",
+        "columns": null
+      },
+      "id": "Field_176",
+      "key": "enquirySummary",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Answer given",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_177",
+        "columns": null
+      },
+      "id": "Field_177",
+      "key": "responseGiven",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Is the enquiry resolved?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_178",
+        "columns": null
+      },
+      "id": "Field_178",
+      "key": "resolvedNow",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Answered by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_179",
+        "columns": null
+      },
+      "id": "Field_179",
+      "key": "answeredBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "answer-financial-enquiry",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Payment and funding enquiries passed over by the call handling team."
+}

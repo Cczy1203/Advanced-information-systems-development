@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-09-28 21:04:52",
+  "formsDeployed": 36,
+  "formsCovered": 3,
+  "formsMissing": [
+    "answer-administrative-enquiry",
+    "answer-financial-enquiry",
+    "authorise-treatment-modification",
+    "authorise-urgent-treatment",
+    "chase-funding-approval",
+    "chase-pre-authorisation",
+    "check-referral-pack",
+    "clinical-review-advice",
+    "confirm-follow-up-appointment",
+    "contact-consultant-overdue-letter",
+    "correct-clinic-letter",
+    "decide-cancellation-action",
+    "decide-refund",
+    "determine-funding-route",
+    "draft-clinic-letter",
+    "investigate-unconfirmed-payment",
+    "log-enquiry",
+    "manual-charge-entry",
+    "process-clinic-letter",
+    "record-consent-and-treatment-request",
+    "record-cycle-delay",
+    "record-telephone-contact-attempt",
+    "record-treatment-decline",
+    "refer-to-higher-management",
+    "resolve-dispatch-problem",
+    "review-appointment-availability",
+    "review-booking-delay",
+    "review-chemotherapy-cycle",
+    "review-declined-payment",
+    "review-financial-impact",
+    "review-outstanding-correspondence",
+    "review-treatment-change",
+    "triage-clinical-enquiry"
+  ],
+  "covered": [
+    {
+      "form": "choose-appointment-slot",
+      "task": "Choose and confirm the appointment",
+      "elementId": "OUT_Task_ChooseSlot",
+      "pool": "outpatient-bookings",
+      "processInstanceKey": "2251799813892202",
+      "at": "21:04:52"
+    },
+    {
+      "form": "notify-referrer-outcome",
+      "task": "Record the decision and notify the referring organisation",
+      "elementId": "SEC_Task_NotifyReferrer",
+      "pool": "medical-secretaries",
+      "processInstanceKey": "2251799813892171",
+      "at": "21:04:52"
+    },
+    {
+      "form": "review-referral",
+      "task": "Review the referral and record the clinical decision",
+      "elementId": "CON_Task_ReviewReferral",
+      "pool": "consultants",
+      "processInstanceKey": "2251799813891549",
+      "at": "21:04:02"
+    }
+  ],
+  "driverErrors": [],
+  "scenarios": [
+    {
+      "id": "CON-review",
+      "status": "PASS",
+      "gained": [
+        "review-referral"
+      ],
+      "missing": []
+    },
+    {
+      "id": "SEC-outcome",
+      "status": "PASS",
+      "gained": [
+        "notify-referrer-outcome"
+      ],
+      "missing": []
+    }
+  ]
+}

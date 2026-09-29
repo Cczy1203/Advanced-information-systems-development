@@ -1,0 +1,131 @@
+{
+  "components": [
+    {
+      "label": "Clinical decision",
+      "type": "radio",
+      "layout": {
+        "row": "Row_029",
+        "columns": null
+      },
+      "id": "Field_029",
+      "key": "clinicalDecision",
+      "description": "Only a Consultant may answer this.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "ACCEPT",
+          "value": "ACCEPT"
+        },
+        {
+          "label": "REJECT",
+          "value": "REJECT"
+        },
+        {
+          "label": "REDIRECT",
+          "value": "REDIRECT"
+        },
+        {
+          "label": "REQUEST_CLINICAL_INFORMATION",
+          "value": "REQUEST_CLINICAL_INFORMATION"
+        }
+      ]
+    },
+    {
+      "label": "Reason for the decision",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_030",
+        "columns": null
+      },
+      "id": "Field_030",
+      "key": "clinicalDecisionReason",
+      "description": "This is what appears in the audit record and in any letter back to the referrer.",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Speciality to redirect to",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_031",
+        "columns": null
+      },
+      "id": "Field_031",
+      "key": "redirectSpeciality",
+      "validate": {
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Priority confirmed at review",
+      "type": "select",
+      "layout": {
+        "row": "Row_032",
+        "columns": null
+      },
+      "id": "Field_032",
+      "key": "clinicalPriorityConfirmed",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Routine",
+          "value": "Routine"
+        },
+        {
+          "label": "Urgent",
+          "value": "Urgent"
+        },
+        {
+          "label": "Two week wait",
+          "value": "Two week wait"
+        }
+      ]
+    },
+    {
+      "label": "Deciding clinician",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_033",
+        "columns": null
+      },
+      "id": "Field_033",
+      "key": "decidingClinician",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Date of decision",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_034",
+        "columns": null
+      },
+      "id": "Field_034",
+      "key": "decisionDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date"
+    }
+  ],
+  "type": "default",
+  "id": "review-referral",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "The clinical decision on a referral. The reason and the deciding clinician are kept for audit and cannot be edited once the decision is recorded."
+}

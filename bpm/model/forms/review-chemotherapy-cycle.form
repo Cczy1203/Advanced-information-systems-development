@@ -1,0 +1,112 @@
+{
+  "components": [
+    {
+      "label": "Cycle number being reviewed",
+      "type": "number",
+      "layout": {
+        "row": "Row_046",
+        "columns": null
+      },
+      "id": "Field_046",
+      "key": "cycleNumber",
+      "validate": {
+        "required": true,
+        "min": 1,
+        "max": 30
+      }
+    },
+    {
+      "label": "Blood results have been reviewed",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_047",
+        "columns": null
+      },
+      "id": "Field_047",
+      "key": "bloodResultsReviewed",
+      "defaultValue": false
+    },
+    {
+      "label": "Outcome of the review",
+      "type": "radio",
+      "layout": {
+        "row": "Row_048",
+        "columns": null
+      },
+      "id": "Field_048",
+      "key": "cycleReviewOutcome",
+      "description": "Fit to continue books the next cycle. Delay or change the plan goes back to the bookings team.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "FIT_TO_CONTINUE",
+          "value": "FIT_TO_CONTINUE"
+        },
+        {
+          "label": "DELAY",
+          "value": "DELAY"
+        },
+        {
+          "label": "CHANGE_PLAN",
+          "value": "CHANGE_PLAN"
+        }
+      ]
+    },
+    {
+      "label": "Notes to support the decision",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_049",
+        "columns": null
+      },
+      "id": "Field_049",
+      "key": "cycleReviewNotes",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_050",
+        "columns": null
+      },
+      "id": "Field_050",
+      "key": "reviewClinician",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Review date",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_051",
+        "columns": null
+      },
+      "id": "Field_051",
+      "key": "reviewDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date"
+    }
+  ],
+  "type": "default",
+  "id": "review-chemotherapy-cycle",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Clinical review before a further cycle. Administrative teams cannot make this decision and the form says so on the face of it."
+}

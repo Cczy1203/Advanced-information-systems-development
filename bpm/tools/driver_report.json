@@ -1,0 +1,574 @@
+{
+  "generatedAt": "2026-09-28 21:28:33",
+  "formsDeployed": 36,
+  "formsCovered": 36,
+  "formsMissing": [],
+  "covered": [
+    {
+      "form": "answer-administrative-enquiry",
+      "task": "Answer the administrative question",
+      "elementId": "CALL_Task_AnswerAdmin",
+      "pool": "call-handling",
+      "processInstanceKey": "2251799813929943",
+      "at": "21:28:30"
+    },
+    {
+      "form": "answer-financial-enquiry",
+      "task": "Answer the payment or funding enquiry",
+      "elementId": "FIN_Task_AnswerEnquiry",
+      "pool": "finance-team",
+      "processInstanceKey": "2251799813927207",
+      "at": "21:28:18"
+    },
+    {
+      "form": "authorise-treatment-modification",
+      "task": "Authorise the treatment modification",
+      "elementId": "CON_Task_AuthoriseModification",
+      "pool": "consultants",
+      "processInstanceKey": "2251799813927997",
+      "at": "21:28:21"
+    },
+    {
+      "form": "authorise-urgent-treatment",
+      "task": "Authorise urgent treatment without confirmed payment",
+      "elementId": "CON_Task_AuthoriseUrgentTreatment",
+      "pool": "consultants",
+      "processInstanceKey": "2251799813925859",
+      "at": "21:28:05"
+    },
+    {
+      "form": "chase-funding-approval",
+      "task": "Chase the outstanding funding approval",
+      "elementId": "TRT_Task_ReviewFundingTimeout",
+      "pool": "treatment-bookings",
+      "processInstanceKey": "2251799813928161",
+      "at": "21:28:22"
+    },
+    {
+      "form": "chase-pre-authorisation",
+      "task": "Chase the insurer for pre-authorisation",
+      "elementId": "FIN_Task_ChasePreAuthorisation",
+      "pool": "finance-team",
+      "processInstanceKey": "2251799813926742",
+      "at": "21:28:14"
+    },
+    {
+      "form": "check-referral-pack",
+      "task": "Check referral pack against the document checklist",
+      "elementId": "SEC_Task_CheckPack",
+      "pool": "medical-secretaries",
+      "processInstanceKey": "2251799813926173",
+      "at": "21:28:06"
+    },
+    {
+      "form": "choose-appointment-slot",
+      "task": "Choose and confirm the appointment",
+      "elementId": "OUT_Task_ChooseSlot",
+      "pool": "outpatient-bookings",
+      "processInstanceKey": "2251799813928525",
+      "at": "21:28:23"
+    },
+    {
+      "form": "clinical-review-advice",
+      "task": "Provide the clinical review outcome",
+      "elementId": "CON_Task_ClinicalReview",
+      "pool": "consultants",
+      "processInstanceKey": "2251799813929545",
+      "at": "21:28:28"
+    },
+    {
+      "form": "confirm-follow-up-appointment",
+      "task": "Confirm the follow-up appointment",
+      "elementId": "OUT_Task_ConfirmFollowUp",
+      "pool": "outpatient-bookings",
+      "processInstanceKey": "2251799813929792",
+      "at": "21:28:28"
+    },
+    {
+      "form": "contact-consultant-overdue-letter",
+      "task": "Contact the responsible Consultant",
+      "elementId": "ADM_Task_ContactConsultant",
+      "pool": "administrative-management",
+      "processInstanceKey": "2251799813930324",
+      "at": "21:28:31"
+    },
+    {
+      "form": "correct-clinic-letter",
+      "task": "Correct and re-approve the clinic letter",
+      "elementId": "CON_Task_CorrectLetter",
+      "pool": "consultants",
+      "processInstanceKey": "2251799813925736",
+      "at": "21:28:03"
+    },
+    {
+      "form": "decide-cancellation-action",
+      "task": "Decide whether another appointment is offered",
+      "elementId": "OUT_Task_DecideNextAction",
+      "pool": "outpatient-bookings",
+      "processInstanceKey": "2251799813929222",
+      "at": "21:28:25"
+    },
+    {
+      "form": "decide-refund",
+      "task": "Decide whether a refund is due",
+      "elementId": "FIN_Task_DecideRefund",
+      "pool": "finance-team",
+      "processInstanceKey": "2251799813926974",
+      "at": "21:28:16"
+    },
+    {
+      "form": "determine-funding-route",
+      "task": "Determine the funding route and record the approval",
+      "elementId": "FIN_Task_DetermineFunding",
+      "pool": "finance-team",
+      "processInstanceKey": "2251799813928341",
+      "at": "21:28:21"
+    },
+    {
+      "form": "draft-clinic-letter",
+      "task": "Draft and approve the clinic letter",
+      "elementId": "CON_Task_DraftLetter",
+      "pool": "consultants",
+      "processInstanceKey": "2251799813925461",
+      "at": "21:28:02"
+    },
+    {
+      "form": "investigate-unconfirmed-payment",
+      "task": "Investigate the unconfirmed payment",
+      "elementId": "FIN_Task_InvestigatePayment",
+      "pool": "finance-team",
+      "processInstanceKey": "2251799813926875",
+      "at": "21:28:15"
+    },
+    {
+      "form": "log-enquiry",
+      "task": "Log the enquiry, classify it and set a priority",
+      "elementId": "CALL_Task_LogEnquiry",
+      "pool": "call-handling",
+      "processInstanceKey": "2251799813929943",
+      "at": "21:28:29"
+    },
+    {
+      "form": "manual-charge-entry",
+      "task": "Price the treatment manually",
+      "elementId": "FIN_Task_ManualCharge",
+      "pool": "finance-team",
+      "processInstanceKey": "2251799813926615",
+      "at": "21:28:11"
+    },
+    {
+      "form": "notify-referrer-outcome",
+      "task": "Record the decision and notify the referring organisation",
+      "elementId": "SEC_Task_NotifyReferrer",
+      "pool": "medical-secretaries",
+      "processInstanceKey": "2251799813926376",
+      "at": "21:28:07"
+    },
+    {
+      "form": "process-clinic-letter",
+      "task": "Check and process the approved clinic letter",
+      "elementId": "SEC_Task_ProcessLetter",
+      "pool": "medical-secretaries",
+      "processInstanceKey": "2251799813926478",
+      "at": "21:28:09"
+    },
+    {
+      "form": "record-consent-and-treatment-request",
+      "task": "Record consent and complete the treatment booking request",
+      "elementId": "CON_Task_RecordConsent",
+      "pool": "consultants",
+      "processInstanceKey": "2251799813924543",
+      "at": "21:27:59"
+    },
+    {
+      "form": "record-cycle-delay",
+      "task": "Record the delay and re-plan the cycle",
+      "elementId": "TRT_Task_RecordDelay",
+      "pool": "treatment-bookings",
+      "processInstanceKey": "2251799813927304",
+      "at": "21:28:19"
+    },
+    {
+      "form": "record-telephone-contact-attempt",
+      "task": "Attempt to telephone the patient",
+      "elementId": "SUB_CallHandling_Contact_Attempt",
+      "pool": "call-handling",
+      "processInstanceKey": "2251799813930055",
+      "at": "21:28:30"
+    },
+    {
+      "form": "record-treatment-decline",
+      "task": "Record the decline and arrange clinical follow-up",
+      "elementId": "OUT_Task_RecordDecline",
+      "pool": "outpatient-bookings",
+      "processInstanceKey": "2251799813929437",
+      "at": "21:28:26"
+    },
+    {
+      "form": "refer-to-higher-management",
+      "task": "Refer the case to higher management",
+      "elementId": "ADM_Task_ReferHigher",
+      "pool": "administrative-management",
+      "processInstanceKey": "2251799813930427",
+      "at": "21:28:33"
+    },
+    {
+      "form": "resolve-dispatch-problem",
+      "task": "Resolve the distribution problem and pick another channel",
+      "elementId": "SUB_Secretaries_Dispatch_Chase",
+      "pool": "medical-secretaries",
+      "processInstanceKey": "2251799813926478",
+      "at": "21:28:10"
+    },
+    {
+      "form": "review-appointment-availability",
+      "task": "Decide what to do without a suitable slot",
+      "elementId": "OUT_Task_ReviewAvailability",
+      "pool": "outpatient-bookings",
+      "processInstanceKey": "2251799813928615",
+      "at": "21:28:23"
+    },
+    {
+      "form": "review-booking-delay",
+      "task": "Review the delay and agree the next step",
+      "elementId": "PCW_Task_ReviewDelay",
+      "pool": "patient-pathway-coordinators",
+      "processInstanceKey": "2251799813930121",
+      "at": "21:28:30"
+    },
+    {
+      "form": "review-chemotherapy-cycle",
+      "task": "Review blood results and decide on the next cycle",
+      "elementId": "CON_Task_ReviewCycle",
+      "pool": "consultants",
+      "processInstanceKey": "2251799813924748",
+      "at": "21:28:00"
+    },
+    {
+      "form": "review-declined-payment",
+      "task": "Decide how to handle the failed payment",
+      "elementId": "TRT_Task_ReviewDeclinedPayment",
+      "pool": "treatment-bookings",
+      "processInstanceKey": "2251799813927591",
+      "at": "21:28:20"
+    },
+    {
+      "form": "review-financial-impact",
+      "task": "Review the financial impact of the treatment change",
+      "elementId": "FIN_Task_ReviewImpact",
+      "pool": "finance-team",
+      "processInstanceKey": "2251799813927088",
+      "at": "21:28:17"
+    },
+    {
+      "form": "review-outstanding-correspondence",
+      "task": "Review the outstanding correspondence list",
+      "elementId": "SUB_Pathway_Report_Review",
+      "pool": "patient-pathway-coordinators",
+      "processInstanceKey": "2251799813930183",
+      "at": "21:28:30"
+    },
+    {
+      "form": "review-referral",
+      "task": "Review the referral and record the clinical decision",
+      "elementId": "CON_Task_ReviewReferral",
+      "pool": "consultants",
+      "processInstanceKey": "2251799813924454",
+      "at": "21:27:58"
+    },
+    {
+      "form": "review-treatment-change",
+      "task": "Review the treatment change request",
+      "elementId": "TRT_Task_ReviewModification",
+      "pool": "treatment-bookings",
+      "processInstanceKey": "2251799813927391",
+      "at": "21:28:20"
+    },
+    {
+      "form": "triage-clinical-enquiry",
+      "task": "Triage the enquiry and respond",
+      "elementId": "CNS_Task_TriageEnquiry",
+      "pool": "clinical-nurse-specialists",
+      "processInstanceKey": "2251799813929723",
+      "at": "21:28:28"
+    }
+  ],
+  "driverErrors": [],
+  "scenarios": [
+    {
+      "id": "CON-review",
+      "status": "PASS",
+      "gained": [
+        "review-referral"
+      ],
+      "missing": []
+    },
+    {
+      "id": "CON-consent",
+      "status": "PASS",
+      "gained": [
+        "record-consent-and-treatment-request"
+      ],
+      "missing": []
+    },
+    {
+      "id": "CON-cycle",
+      "status": "PASS",
+      "gained": [
+        "review-chemotherapy-cycle"
+      ],
+      "missing": []
+    },
+    {
+      "id": "CON-modification",
+      "status": "PASS",
+      "gained": [
+        "authorise-treatment-modification"
+      ],
+      "missing": []
+    },
+    {
+      "id": "CON-letter",
+      "status": "PASS",
+      "gained": [
+        "draft-clinic-letter"
+      ],
+      "missing": []
+    },
+    {
+      "id": "CON-correction",
+      "status": "PASS",
+      "gained": [
+        "correct-clinic-letter"
+      ],
+      "missing": []
+    },
+    {
+      "id": "CON-urgent",
+      "status": "PASS",
+      "gained": [
+        "authorise-urgent-treatment"
+      ],
+      "missing": []
+    },
+    {
+      "id": "CON-advice",
+      "status": "PASS",
+      "gained": [
+        "clinical-review-advice"
+      ],
+      "missing": []
+    },
+    {
+      "id": "SEC-pack",
+      "status": "PASS",
+      "gained": [
+        "check-referral-pack"
+      ],
+      "missing": []
+    },
+    {
+      "id": "SEC-outcome",
+      "status": "PASS",
+      "gained": [
+        "notify-referrer-outcome"
+      ],
+      "missing": []
+    },
+    {
+      "id": "SEC-letter",
+      "status": "PASS",
+      "gained": [
+        "process-clinic-letter",
+        "resolve-dispatch-problem"
+      ],
+      "missing": []
+    },
+    {
+      "id": "FIN-manual-charge",
+      "status": "PASS",
+      "gained": [
+        "determine-funding-route",
+        "manual-charge-entry"
+      ],
+      "missing": []
+    },
+    {
+      "id": "FIN-chase",
+      "status": "PASS",
+      "gained": [
+        "chase-pre-authorisation"
+      ],
+      "missing": []
+    },
+    {
+      "id": "FIN-investigate",
+      "status": "PASS",
+      "gained": [
+        "investigate-unconfirmed-payment"
+      ],
+      "missing": []
+    },
+    {
+      "id": "FIN-refund",
+      "status": "PASS",
+      "gained": [
+        "decide-refund"
+      ],
+      "missing": []
+    },
+    {
+      "id": "FIN-impact",
+      "status": "PASS",
+      "gained": [
+        "review-financial-impact"
+      ],
+      "missing": []
+    },
+    {
+      "id": "FIN-enquiry",
+      "status": "PASS",
+      "gained": [
+        "answer-financial-enquiry"
+      ],
+      "missing": []
+    },
+    {
+      "id": "TRT-delay",
+      "status": "PASS",
+      "gained": [
+        "record-cycle-delay"
+      ],
+      "missing": []
+    },
+    {
+      "id": "TRT-modification",
+      "status": "PASS",
+      "gained": [
+        "review-treatment-change"
+      ],
+      "missing": []
+    },
+    {
+      "id": "TRT-declined-payment",
+      "status": "PASS",
+      "gained": [
+        "review-declined-payment"
+      ],
+      "missing": []
+    },
+    {
+      "id": "TRT-funding-timeout",
+      "status": "PASS",
+      "gained": [
+        "chase-funding-approval"
+      ],
+      "missing": []
+    },
+    {
+      "id": "OUT-book",
+      "status": "PASS",
+      "gained": [
+        "choose-appointment-slot"
+      ],
+      "missing": []
+    },
+    {
+      "id": "OUT-no-slot",
+      "status": "PASS",
+      "gained": [
+        "review-appointment-availability"
+      ],
+      "missing": []
+    },
+    {
+      "id": "OUT-follow-up",
+      "status": "PASS",
+      "gained": [
+        "confirm-follow-up-appointment"
+      ],
+      "missing": []
+    },
+    {
+      "id": "OUT-cancellation",
+      "status": "PASS",
+      "gained": [
+        "decide-cancellation-action"
+      ],
+      "missing": []
+    },
+    {
+      "id": "OUT-decline",
+      "status": "PASS",
+      "gained": [
+        "record-treatment-decline"
+      ],
+      "missing": []
+    },
+    {
+      "id": "OUT-admin-enquiry",
+      "status": "PASS",
+      "gained": [
+        "answer-administrative-enquiry"
+      ],
+      "missing": []
+    },
+    {
+      "id": "CNS-triage",
+      "status": "PASS",
+      "gained": [
+        "triage-clinical-enquiry"
+      ],
+      "missing": []
+    },
+    {
+      "id": "CALL-enquiry",
+      "status": "PASS",
+      "gained": [
+        "log-enquiry",
+        "answer-administrative-enquiry"
+      ],
+      "missing": []
+    },
+    {
+      "id": "CALL-phone-contact",
+      "status": "PASS",
+      "gained": [
+        "record-telephone-contact-attempt"
+      ],
+      "missing": []
+    },
+    {
+      "id": "PCW-delay",
+      "status": "PASS",
+      "gained": [
+        "review-booking-delay"
+      ],
+      "missing": []
+    },
+    {
+      "id": "PCW-weekly-report",
+      "status": "PASS",
+      "gained": [
+        "review-outstanding-correspondence"
+      ],
+      "missing": []
+    },
+    {
+      "id": "ADM-overdue-letter",
+      "status": "PASS",
+      "gained": [
+        "contact-consultant-overdue-letter"
+      ],
+      "missing": []
+    },
+    {
+      "id": "ADM-higher",
+      "status": "PASS",
+      "gained": [
+        "refer-to-higher-management"
+      ],
+      "missing": []
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "components": [
+    {
+      "label": "What happened?",
+      "type": "select",
+      "layout": {
+        "row": "Row_102",
+        "columns": null
+      },
+      "id": "Field_102",
+      "key": "appointmentOutcome",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "CANCELLED_BY_PATIENT",
+          "value": "CANCELLED_BY_PATIENT"
+        },
+        {
+          "label": "DECLINED",
+          "value": "DECLINED"
+        },
+        {
+          "label": "DID_NOT_ATTEND",
+          "value": "DID_NOT_ATTEND"
+        },
+        {
+          "label": "CANCELLED_BY_HOSPITAL",
+          "value": "CANCELLED_BY_HOSPITAL"
+        }
+      ]
+    },
+    {
+      "label": "Reason given",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_103",
+        "columns": null
+      },
+      "id": "Field_103",
+      "key": "cancellationReason",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "What happens next?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_104",
+        "columns": null
+      },
+      "id": "Field_104",
+      "key": "cancellationAction",
+      "description": "Clinical review and discharge decisions belong to the clinical team.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "REBOOK",
+          "value": "REBOOK"
+        },
+        {
+          "label": "CLINICAL_REVIEW",
+          "value": "CLINICAL_REVIEW"
+        },
+        {
+          "label": "CLOSE_AND_INFORM_REFERRER",
+          "value": "CLOSE_AND_INFORM_REFERRER"
+        }
+      ]
+    },
+    {
+      "label": "Offer another appointment within (days)",
+      "type": "number",
+      "layout": {
+        "row": "Row_booking_action",
+        "columns": 6
+      },
+      "id": "Field_105",
+      "key": "rebookWithinDays",
+      "validate": {
+        "min": 1,
+        "max": 180
+      }
+    },
+    {
+      "label": "How should the patient be told?",
+      "type": "select",
+      "layout": {
+        "row": "Row_booking_action",
+        "columns": 6
+      },
+      "id": "Field_106",
+      "key": "communicationChannel",
+      "values": [
+        {
+          "label": "Letter",
+          "value": "Letter"
+        },
+        {
+          "label": "Telephone",
+          "value": "Telephone"
+        },
+        {
+          "label": "Secure email",
+          "value": "Secure email"
+        }
+      ]
+    },
+    {
+      "label": "The patient has been told what the options are",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_107",
+        "columns": null
+      },
+      "id": "Field_107",
+      "key": "patientInformedOfOptions",
+      "defaultValue": false
+    },
+    {
+      "label": "Recorded by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_108",
+        "columns": null
+      },
+      "id": "Field_108",
+      "key": "recordedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "decide-cancellation-action",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Cancellations, declines and missed appointments all land here. Administrative staff coordinate the next step; they do not decide whether treatment continues."
+}

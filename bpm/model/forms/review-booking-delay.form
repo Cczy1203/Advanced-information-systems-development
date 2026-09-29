@@ -1,0 +1,127 @@
+{
+  "components": [
+    {
+      "label": "What does this delay need?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_205",
+        "columns": null
+      },
+      "id": "Field_205",
+      "key": "delayAction",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "CLINICAL_REVIEW",
+          "value": "CLINICAL_REVIEW"
+        },
+        {
+          "label": "KEEP_PATIENT_INFORMED",
+          "value": "KEEP_PATIENT_INFORMED"
+        },
+        {
+          "label": "WIDEN_SEARCH",
+          "value": "WIDEN_SEARCH"
+        }
+      ]
+    },
+    {
+      "label": "Main reason for the delay",
+      "type": "select",
+      "layout": {
+        "row": "Row_206",
+        "columns": null
+      },
+      "id": "Field_206",
+      "key": "delayReason",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "No clinic capacity",
+          "value": "No clinic capacity"
+        },
+        {
+          "label": "External service unavailable",
+          "value": "External service unavailable"
+        },
+        {
+          "label": "Funding not approved",
+          "value": "Funding not approved"
+        },
+        {
+          "label": "Patient unavailable",
+          "value": "Patient unavailable"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "label": "Days delayed so far",
+      "type": "number",
+      "layout": {
+        "row": "Row_207",
+        "columns": null
+      },
+      "id": "Field_207",
+      "key": "daysDelayed",
+      "validate": {
+        "min": 0
+      }
+    },
+    {
+      "label": "The patient has been kept informed",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_208",
+        "columns": null
+      },
+      "id": "Field_208",
+      "key": "patientInformed",
+      "defaultValue": false
+    },
+    {
+      "label": "Notes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_209",
+        "columns": null
+      },
+      "id": "Field_209",
+      "key": "notes",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_210",
+        "columns": null
+      },
+      "id": "Field_210",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "review-booking-delay",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Used when a booking could not be made inside the clinically requested window, or is still pending on an external service."
+}

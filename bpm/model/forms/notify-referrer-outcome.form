@@ -1,0 +1,129 @@
+{
+  "components": [
+    {
+      "label": "Outcome recorded",
+      "type": "select",
+      "layout": {
+        "row": "Row_011",
+        "columns": null
+      },
+      "id": "Field_011",
+      "key": "referralOutcome",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "REJECTED",
+          "value": "REJECTED"
+        },
+        {
+          "label": "REDIRECTED",
+          "value": "REDIRECTED"
+        },
+        {
+          "label": "CLINICAL_INFO_REQUESTED",
+          "value": "CLINICAL_INFO_REQUESTED"
+        },
+        {
+          "label": "ACCEPTED",
+          "value": "ACCEPTED"
+        }
+      ]
+    },
+    {
+      "label": "Reason to pass to the referrer",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_012",
+        "columns": null
+      },
+      "id": "Field_012",
+      "key": "referralOutcomeReason",
+      "description": "Use the Consultant's own wording. Do not add clinical opinion of your own.",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "How was the referrer told?",
+      "type": "select",
+      "layout": {
+        "row": "Row_013",
+        "columns": null
+      },
+      "id": "Field_013",
+      "key": "notificationMethod",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Letter",
+          "value": "Letter"
+        },
+        {
+          "label": "Secure email",
+          "value": "Secure email"
+        },
+        {
+          "label": "Telephone call",
+          "value": "Telephone call"
+        }
+      ]
+    },
+    {
+      "label": "Who at the referring organisation?",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_014",
+        "columns": null
+      },
+      "id": "Field_014",
+      "key": "referrerContactName",
+      "validate": {
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Contact email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_015",
+        "columns": null
+      },
+      "id": "Field_015",
+      "key": "referrerContactEmail",
+      "validate": {
+        "maxLength": 120
+      }
+    },
+    {
+      "label": "Recorded by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_016",
+        "columns": null
+      },
+      "id": "Field_016",
+      "key": "outcomeRecordedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "notify-referrer-outcome",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Records the Consultant's decision and how the referring organisation was told about it."
+}

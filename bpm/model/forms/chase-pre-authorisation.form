@@ -1,0 +1,120 @@
+{
+  "components": [
+    {
+      "label": "Who was spoken to",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_150",
+        "columns": null
+      },
+      "id": "Field_150",
+      "key": "payerContactName",
+      "validate": {
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Payer reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_151",
+        "columns": null
+      },
+      "id": "Field_151",
+      "key": "payerReference",
+      "validate": {
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Outcome of the contact",
+      "type": "radio",
+      "layout": {
+        "row": "Row_152",
+        "columns": null
+      },
+      "id": "Field_152",
+      "key": "outcome",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Approved",
+          "value": "Approved"
+        },
+        {
+          "label": "Declined",
+          "value": "Declined"
+        },
+        {
+          "label": "Awaiting response",
+          "value": "Awaiting response"
+        }
+      ]
+    },
+    {
+      "label": "Authorisation reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_preauth",
+        "columns": 6
+      },
+      "id": "Field_153",
+      "key": "authorisationRef",
+      "validate": {
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Approved amount",
+      "type": "number",
+      "layout": {
+        "row": "Row_preauth",
+        "columns": 6
+      },
+      "id": "Field_154",
+      "key": "approvedAmount",
+      "validate": {
+        "min": 0
+      }
+    },
+    {
+      "label": "Notes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_155",
+        "columns": null
+      },
+      "id": "Field_155",
+      "key": "notes",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Chased by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_156",
+        "columns": null
+      },
+      "id": "Field_156",
+      "key": "chasedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "chase-pre-authorisation",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Following up an insurer or funding organisation that has not yet authorised treatment."
+}

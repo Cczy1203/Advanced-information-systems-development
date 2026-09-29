@@ -1,0 +1,135 @@
+{
+  "components": [
+    {
+      "label": "Refund decision",
+      "type": "radio",
+      "layout": {
+        "row": "Row_164",
+        "columns": null
+      },
+      "id": "Field_164",
+      "key": "refundDecision",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "FULL_REFUND",
+          "value": "FULL_REFUND"
+        },
+        {
+          "label": "PARTIAL_REFUND",
+          "value": "PARTIAL_REFUND"
+        },
+        {
+          "label": "NO_REFUND",
+          "value": "NO_REFUND"
+        }
+      ]
+    },
+    {
+      "label": "Refund amount",
+      "type": "number",
+      "layout": {
+        "row": "Row_165",
+        "columns": null
+      },
+      "id": "Field_165",
+      "key": "refundAmount",
+      "validate": {
+        "min": 0
+      }
+    },
+    {
+      "label": "Amount originally taken",
+      "type": "number",
+      "layout": {
+        "row": "Row_166",
+        "columns": null
+      },
+      "id": "Field_166",
+      "key": "paidAmount",
+      "validate": {
+        "min": 0
+      }
+    },
+    {
+      "label": "Reason for the decision",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_167",
+        "columns": null
+      },
+      "id": "Field_167",
+      "key": "refundReason",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Refund method",
+      "type": "select",
+      "layout": {
+        "row": "Row_168",
+        "columns": null
+      },
+      "id": "Field_168",
+      "key": "refundMethod",
+      "values": [
+        {
+          "label": "Original card",
+          "value": "Original card"
+        },
+        {
+          "label": "Bank transfer",
+          "value": "Bank transfer"
+        },
+        {
+          "label": "Credit on account",
+          "value": "Credit on account"
+        }
+      ]
+    },
+    {
+      "label": "Decision date",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_169",
+        "columns": null
+      },
+      "id": "Field_169",
+      "key": "decisionDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date"
+    },
+    {
+      "label": "Decided by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_170",
+        "columns": null
+      },
+      "id": "Field_170",
+      "key": "decidedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "decide-refund",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Refunds are a Finance decision. Clinical staff may explain the treatment decision, but only someone with financial authority approves the money."
+}

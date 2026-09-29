@@ -1,0 +1,95 @@
+{
+  "components": [
+    {
+      "label": "What is the position now?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_120",
+        "columns": null
+      },
+      "id": "Field_120",
+      "key": "fundingChaseOutcome",
+      "description": "Choose recheck once the approval is actually in the system.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "RECHECK",
+          "value": "RECHECK"
+        },
+        {
+          "label": "STILL_WAITING",
+          "value": "STILL_WAITING"
+        },
+        {
+          "label": "DECLINED",
+          "value": "DECLINED"
+        }
+      ]
+    },
+    {
+      "label": "Who was spoken to",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_121",
+        "columns": null
+      },
+      "id": "Field_121",
+      "key": "payerContactName",
+      "validate": {
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Payer reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_122",
+        "columns": null
+      },
+      "id": "Field_122",
+      "key": "payerReference",
+      "validate": {
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Notes from the chase",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_123",
+        "columns": null
+      },
+      "id": "Field_123",
+      "key": "chaseNotes",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Chased by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_124",
+        "columns": null
+      },
+      "id": "Field_124",
+      "key": "chasedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "chase-funding-approval",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Used when a funding decision has not come back inside the expected window."
+}

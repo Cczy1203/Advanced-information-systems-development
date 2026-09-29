@@ -1,0 +1,153 @@
+Static checks, release v7.0 — run on model/UFCEP6-0-3_Hospital_Patient_Pathway_v2.bpmn
+recorded 2026-09-27 20:11 on Darwin 27.0.0 arm64
+sha256 75987c841e8b5233312afa285b754d2e87517427a70a5c926fee326f4efcf42d
+
+=================== 1. tools/analyse_layout.py ===================
+==========================================================================
+LAYOUT REPORT  UFCEP6-0-3_Hospital_Patient_Pathway_v2.bpmn
+==========================================================================
+shapes 358 | sequence flows 298 | message flows 15 | pools 15
+
+[sequence flows] overlapping/parallel-adjacent segment pairs: 0 (total overlap 0 px)
+
+[message flows] overlapping/parallel-adjacent segment pairs: 0 (total overlap 0 px)
+
+[diagonals] sequence 0 px total, message 0 px total
+[crossings] sequence-flow segment crossings: 95
+[through-shapes] (flow, shape) pairs where a line runs inside an unrelated shape: 0
+
+[bends] sequence flows: mean 0.9, max 5, flows with >4 bends: 1
+
+[pools] 15 pools, 14 lanes; clear gap between pools: min 104 px, mean 104 px
+[alignment] distinct node left-edges: 54 for 329 nodes
+[containment] subProcess elements: 3 | callActivity elements: 0
+==========================================================================
+
+=================== 2. tools/verify_preservation.py ==============
+PASS 15 participants, names unchanged  -- v2.0 15 / v2.1 15, missing none
+PASS 39 user tasks present  -- v2.1 has 39
+PASS user task ids identical  -- missing none
+PASS every user task has zeebe:formDefinition + formId  -- []
+PASS every user task has zeebe:assignmentDefinition candidateGroups  -- []
+PASS user task forms unchanged  -- changed []
+PASS user task candidate groups unchanged
+PASS 47 service tasks present  -- v2.1 has 47
+PASS service task ids identical  -- missing none
+PASS service task job types unchanged  -- changed []
+PASS no service task lost its job type
+PASS gateway type present: exclusiveGateway  -- 35 found
+PASS gateway type present: inclusiveGateway  -- 3 found
+PASS gateway type present: parallelGateway  -- 2 found
+PASS gateway type present: eventBasedGateway  -- 2 found
+PASS exception path present: referral rejected / unreadable  -- REFERRAL_PACK_UNREADABLE
+PASS exception path present: referral pack incomplete  -- REFERRAL_PACK_INCOMPLETE
+PASS exception path present: external service unavailable  -- EXTERNAL_RESOURCE_UNAVAILABLE
+PASS exception path present: correspondence service unavailable  -- CORRESPONDENCE_SERVICE_FAILED
+PASS exception path present: scheduling service unavailable  -- SCHEDULING_SERVICE_UNAVAILABLE
+PASS exception path present: payment provider unavailable  -- PAYMENT_PROVIDER_UNAVAILABLE
+PASS exception path present: payment confirmation lost  -- PAYMENT_CONFIRMATION_LOST
+PASS exception path present: charge calculation failed  -- CHARGE_CALCULATION_FAILED
+PASS exception path present: treatment request unauthorised  -- TREATMENT_REQUEST_UNAUTHORISED
+PASS 7 day letter chase timer P7D  -- timers seen: ['P14D', 'P3D', 'P5D', 'P7D', 'PT1H', 'R/PT168H']
+PASS weekly repeat chase R/PT168H
+PASS 14 day appointment reminder timer P14D
+PASS letter escalation rung: letter.overdue-flagged (letter gone overdue)
+PASS letter escalation rung: letter.escalation-admin-manager (one month: to the admin manager)
+PASS letter escalation rung: letter.escalation-higher-management (three months: to higher management)
+PASS letter escalation rung: letter.escalation-recorded (escalation outcome written back)
+PASS letter escalation chain unchanged from v2.0
+PASS boundary event present: Rejected
+PASS boundary event present: Unreadable
+PASS boundary event present: Incomplete
+PASS boundary event present: No confirmation
+PASS boundary event present: Provider down
+PASS boundary event present: Service down
+PASS boundary event present: Unavailable
+PASS boundary event present: No capacity
+PASS boundary event present: Not authorised
+PASS no two drawn message flows share a pair of pools  -- 15 message flows over 15 pool pairs
+PASS every system-boundary hand-off is drawn  -- missing []
+PASS nothing but an exception or a boundary hand-off is drawn  -- unexpected []
+PASS the exception hand-offs that were drawn before are still drawn  -- 11 exception hand-offs drawn
+PASS no end event merges more than one terminating path  -- merged []
+PASS no end event is left with nothing reaching it  -- orphan []
+PASS v2.0 declares modeler:executionPlatform = Camunda Cloud  -- got 'Camunda Cloud'
+PASS v2.0 targets engine 8.10.0  -- got '8.10.0'
+PASS v2.0 free of Camunda 7 attribute camunda:formKey
+PASS v2.0 free of Camunda 7 attribute camunda:assignee
+PASS v2.0 free of Camunda 7 attribute camunda:class
+PASS v2.0 free of Camunda 7 attribute camunda:delegateExpression
+PASS v2.0 free of Camunda 7 attribute activiti:
+PASS v2.0 free of Camunda 7 attribute camunda:historyTimeToLive
+PASS v2.1 declares modeler:executionPlatform = Camunda Cloud  -- got 'Camunda Cloud'
+PASS v2.1 targets engine 8.10.0  -- got '8.10.0'
+PASS v2.1 free of Camunda 7 attribute camunda:formKey
+PASS v2.1 free of Camunda 7 attribute camunda:assignee
+PASS v2.1 free of Camunda 7 attribute camunda:class
+PASS v2.1 free of Camunda 7 attribute camunda:delegateExpression
+PASS v2.1 free of Camunda 7 attribute activiti:
+PASS v2.1 free of Camunda 7 attribute camunda:historyTimeToLive
+PASS subprocess steps are all present in the XML  -- 31 inner elements
+PASS every element has a shape or an edge  -- undrawn []
+PASS every collapsed subprocess step carries DI, so the box can be opened  -- no DI for []
+PASS no diagram element points at a missing element  -- orphan DI []
+
+67 checks, 67 passed, 0 failed
+
+=================== 3. tools/validate_model.js ===================
+parse warnings      : 0
+unresolved refs     : 0
+participants        : 15
+processes           : 9 | executable: 9
+dangling seq refs   : 0
+user tasks no form  : 0
+user tasks no group : 0
+service tasks no job type: 0
+RESULT: clean - Modeler would report no problems
+
+=================== 4. bpmnlint (bpmnlint:recommended) ===========
+
+
+/Users/cczy/Desktop/v7.0/model/UFCEP6-0-3_Hospital_Patient_Pathway_v2.bpmn
+  SEC_Task_CheckPack                  warning  Incoming flows do not join                           fake-join           
+  SEC_Throw_InfoRequested             warning  Incoming flows do not join                           fake-join           
+  SUB_Secretaries_Dispatch_Prepare    warning  Incoming flows do not join                           fake-join           
+  CON_Task_AuthoriseModification      warning  Incoming flows do not join                           fake-join           
+  CON_Task_DraftLetter                warning  Incoming flows do not join                           fake-join           
+  CON_Task_ClinicalReview             warning  Incoming flows do not join                           fake-join           
+  FIN_Auto_RecordApproval             warning  Incoming flows do not join                           fake-join           
+  FIN_Throw_FundingDecision           warning  Incoming flows do not join                           fake-join           
+  FIN_Throw_InvestigationResolved     warning  Incoming flows do not join                           fake-join           
+  FIN_Throw_RefundDelayed             warning  Incoming flows do not join                           fake-join           
+  FIN_Throw_FinanceOutcome            warning  Incoming flows do not join                           fake-join           
+  CNS_Task_TriageEnquiry              warning  Incoming flows do not join                           fake-join           
+  CNS_Auto_RecordAdvice               warning  Incoming flows do not join                           fake-join           
+  CALL_Catch_EnquiryResolved          warning  Incoming flows do not join                           fake-join           
+  SUB_CallHandling_Contact_Attempt    warning  Incoming flows do not join                           fake-join           
+  TRT_Throw_FundingCheck              warning  Incoming flows do not join                           fake-join           
+  TRT_Auto_PreparePayment             warning  Incoming flows do not join                           fake-join           
+  TRT_Throw_PaymentUnresolved         warning  Incoming flows do not join                           fake-join           
+  TRT_Auto_CreateSeries               warning  Incoming flows do not join                           fake-join           
+  TRT_Auto_CheckExternalResources     warning  Incoming flows do not join                           fake-join           
+  TRT_Throw_CycleCapacityIssue        warning  Incoming flows do not join                           fake-join           
+  TRT_Throw_CompSeries                warning  Incoming flows do not join                           fake-join           
+  OUT_Auto_CheckPriority              warning  Incoming flows do not join                           fake-join           
+  OUT_Auto_DispatchAppointmentLetter  warning  Incoming flows do not join                           fake-join           
+  OUT_Task_ReviewAvailability         warning  Incoming flows do not join                           fake-join           
+  OUT_Throw_FollowUpEscalation        warning  Incoming flows do not join                           fake-join           
+  PCW_Task_ReviewDelay                warning  Incoming flows do not join                           fake-join           
+  ADM_Throw_EscalationRecorded        warning  Incoming flows do not join                           fake-join           
+  TRT_IGW_ReadyToBook                 warning  Element type <bpmn:InclusiveGateway> is discouraged  no-inclusive-gateway
+  OUT_GW_NotifyChannels               warning  Element type <bpmn:InclusiveGateway> is discouraged  no-inclusive-gateway
+  OUT_GW_NotifyJoin                   warning  Element type <bpmn:InclusiveGateway> is discouraged  no-inclusive-gateway
+
+✖ 31 problems (0 errors, 31 warnings)
+
+=================== 5. engine runs on the shipped model ==========
+  run-happy-path.log                3 x 'incidents: none',  8 forms, driven: 
+  run-exception-path.log            1 x 'incidents: none',  1 forms, driven: 
+  run-declined-payment.log          3 x 'incidents: none',  9 forms, driven: TRT_Task_ReviewDeclinedPayment
+  run-confirmation-lost.log         3 x 'incidents: none', 10 forms, driven: FIN_Task_InvestigatePayment, CON_Task_AuthoriseUrgen
+  run-overdue-escalation.log        1 x 'incidents: none', 10 forms, driven: SUB_Pathway_Report_Review, ADM_Task_ReferHigher
+  run-escalation-manager.log        1 x 'incidents: none', 10 forms, driven: SUB_Pathway_Report_Review, ADM_Task_ContactConsultan
+  run-compensation.log              3 x 'incidents: none',  6 forms, driven: 

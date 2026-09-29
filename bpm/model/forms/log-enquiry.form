@@ -1,0 +1,168 @@
+{
+  "components": [
+    {
+      "label": "Enquiry reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_186",
+        "columns": null
+      },
+      "id": "Field_186",
+      "key": "enquiryRef",
+      "validate": {
+        "required": true,
+        "minLength": 3,
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "How did the enquiry come in?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_187",
+        "columns": null
+      },
+      "id": "Field_187",
+      "key": "enquiryChannel",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Telephone",
+          "value": "Telephone"
+        },
+        {
+          "label": "Email",
+          "value": "Email"
+        },
+        {
+          "label": "Post",
+          "value": "Post"
+        },
+        {
+          "label": "In person",
+          "value": "In person"
+        }
+      ]
+    },
+    {
+      "label": "What kind of enquiry is it?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_188",
+        "columns": null
+      },
+      "id": "Field_188",
+      "key": "enquiryCategory",
+      "description": "Clinical enquiries go to a qualified clinical professional. Call handlers do not advise.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "ADMINISTRATIVE",
+          "value": "ADMINISTRATIVE"
+        },
+        {
+          "label": "FINANCIAL",
+          "value": "FINANCIAL"
+        },
+        {
+          "label": "CLINICAL",
+          "value": "CLINICAL"
+        }
+      ]
+    },
+    {
+      "label": "Priority",
+      "type": "radio",
+      "layout": {
+        "row": "Row_189",
+        "columns": null
+      },
+      "id": "Field_189",
+      "key": "enquiryPriority",
+      "description": "Urgent clinical concerns are flagged immediately. The full urgency rules are still being agreed.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "URGENT",
+          "value": "URGENT"
+        },
+        {
+          "label": "ROUTINE",
+          "value": "ROUTINE"
+        }
+      ]
+    },
+    {
+      "label": "What is the enquiry about?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_190",
+        "columns": null
+      },
+      "id": "Field_190",
+      "key": "enquirySummary",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Caller name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_191",
+        "columns": null
+      },
+      "id": "Field_191",
+      "key": "callerName",
+      "validate": {
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Contact number or email",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_192",
+        "columns": null
+      },
+      "id": "Field_192",
+      "key": "callerContact",
+      "validate": {
+        "maxLength": 120
+      }
+    },
+    {
+      "label": "Logged by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_193",
+        "columns": null
+      },
+      "id": "Field_193",
+      "key": "loggedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "log-enquiry",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Every enquiry gets a record, a category and a priority before it goes anywhere."
+}

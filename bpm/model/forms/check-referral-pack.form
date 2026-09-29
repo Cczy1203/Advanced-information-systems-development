@@ -1,0 +1,232 @@
+{
+  "components": [
+    {
+      "label": "Patient reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_001",
+        "columns": null
+      },
+      "id": "Field_001",
+      "key": "patientRef",
+      "description": "Copy it from the referral exactly. Every hand-off in the pathway is keyed on this, so a wrong reference follows the patient through the whole service.",
+      "validate": {
+        "required": true,
+        "minLength": 4,
+        "maxLength": 24
+      }
+    },
+    {
+      "label": "Referral reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_002",
+        "columns": null
+      },
+      "id": "Field_002",
+      "key": "referralRef",
+      "description": "The reference the referring organisation quoted.",
+      "validate": {
+        "required": true,
+        "minLength": 3,
+        "maxLength": 30
+      }
+    },
+    {
+      "label": "Where did the referral come from?",
+      "type": "select",
+      "layout": {
+        "row": "Row_003",
+        "columns": null
+      },
+      "id": "Field_003",
+      "key": "referralSource",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "GP surgery",
+          "value": "GP surgery"
+        },
+        {
+          "label": "Another hospital",
+          "value": "Another hospital"
+        },
+        {
+          "label": "Internal transfer",
+          "value": "Internal transfer"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "label": "Date on the referral",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_004",
+        "columns": null
+      },
+      "id": "Field_004",
+      "key": "referralDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date"
+    },
+    {
+      "label": "Speciality the referral is for",
+      "type": "select",
+      "layout": {
+        "row": "Row_005",
+        "columns": null
+      },
+      "id": "Field_005",
+      "key": "referralSpeciality",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Medical oncology",
+          "value": "Medical oncology"
+        },
+        {
+          "label": "Clinical oncology",
+          "value": "Clinical oncology"
+        },
+        {
+          "label": "Haematology",
+          "value": "Haematology"
+        },
+        {
+          "label": "Chemotherapy day unit",
+          "value": "Chemotherapy day unit"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "label": "Priority stated by the referrer",
+      "type": "radio",
+      "layout": {
+        "row": "Row_006",
+        "columns": null
+      },
+      "id": "Field_006",
+      "key": "referralPriority",
+      "description": "Copy what the referrer wrote. Do not upgrade or downgrade it here.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Routine",
+          "value": "Routine"
+        },
+        {
+          "label": "Urgent",
+          "value": "Urgent"
+        },
+        {
+          "label": "Two week wait",
+          "value": "Two week wait"
+        }
+      ]
+    },
+    {
+      "label": "Documents received with the referral",
+      "type": "checklist",
+      "layout": {
+        "row": "Row_007",
+        "columns": null
+      },
+      "id": "Field_007",
+      "key": "supportingDocuments",
+      "description": "Tick everything that is actually attached. Missing items are worked out from this, so an unticked box means the document is chased.",
+      "values": [
+        {
+          "label": "Referral letter",
+          "value": "referral-letter"
+        },
+        {
+          "label": "Blood test results",
+          "value": "blood-tests"
+        },
+        {
+          "label": "Imaging report",
+          "value": "imaging-report"
+        },
+        {
+          "label": "Histology or biopsy report",
+          "value": "histology-report"
+        },
+        {
+          "label": "Signed consent form",
+          "value": "consent-form"
+        },
+        {
+          "label": "Other clinical documentation",
+          "value": "other-clinical-documentation"
+        }
+      ]
+    },
+    {
+      "label": "Anything else about the pack",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_008",
+        "columns": null
+      },
+      "id": "Field_008",
+      "key": "documentChecklistNotes",
+      "description": "For example a document that will not open, or a page that is illegible.",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "I have checked the pack against the speciality checklist",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_009",
+        "columns": null
+      },
+      "id": "Field_009",
+      "key": "packChecked",
+      "description": "Required before the referral can move on.",
+      "defaultValue": false
+    },
+    {
+      "label": "Checked by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_010",
+        "columns": null
+      },
+      "id": "Field_010",
+      "key": "receivedBy",
+      "description": "Your name, so the check is traceable.",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "check-referral-pack",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Medical Secretaries record what arrived with the referral. This form never asks for a view on whether the referral is clinically appropriate - that is the Consultant's call."
+}

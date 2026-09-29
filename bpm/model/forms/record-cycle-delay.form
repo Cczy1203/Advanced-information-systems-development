@@ -1,0 +1,82 @@
+{
+  "components": [
+    {
+      "label": "Cycle number",
+      "type": "number",
+      "layout": {
+        "row": "Row_125",
+        "columns": null
+      },
+      "id": "Field_125",
+      "key": "cycleNumber",
+      "validate": {
+        "required": true,
+        "min": 1,
+        "max": 30
+      }
+    },
+    {
+      "label": "Reason for the delay",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_126",
+        "columns": null
+      },
+      "id": "Field_126",
+      "key": "delayReason",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Proposed new start date",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_127",
+        "columns": null
+      },
+      "id": "Field_127",
+      "key": "newProposedStartDate",
+      "subtype": "date",
+      "disallowPassedDates": true
+    },
+    {
+      "label": "The patient has been told",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_128",
+        "columns": null
+      },
+      "id": "Field_128",
+      "key": "patientInformed",
+      "defaultValue": false
+    },
+    {
+      "label": "Recorded by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_129",
+        "columns": null
+      },
+      "id": "Field_129",
+      "key": "recordedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "record-cycle-delay",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Recording a clinically agreed delay and replanning the cycle."
+}

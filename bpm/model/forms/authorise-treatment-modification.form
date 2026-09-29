@@ -1,0 +1,119 @@
+{
+  "components": [
+    {
+      "label": "Reason for the change",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_052",
+        "columns": null
+      },
+      "id": "Field_052",
+      "key": "modificationReason",
+      "description": "Say what changed clinically, not just what the new schedule should be.",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Is this urgent for patient safety?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_053",
+        "columns": null
+      },
+      "id": "Field_053",
+      "key": "modificationUrgent",
+      "description": "Urgent changes are applied straight away and the financial impact is reviewed afterwards.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Does this affect a charge or a payment already taken?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_054",
+        "columns": null
+      },
+      "id": "Field_054",
+      "key": "modificationAffectsFinance",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "New plan",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_055",
+        "columns": null
+      },
+      "id": "Field_055",
+      "key": "alternativePlan",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Authorised by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_056",
+        "columns": null
+      },
+      "id": "Field_056",
+      "key": "modificationAuthorisedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Date authorised",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_057",
+        "columns": null
+      },
+      "id": "Field_057",
+      "key": "modificationDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date"
+    }
+  ],
+  "type": "default",
+  "id": "authorise-treatment-modification",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "A treatment change only counts once it has been authorised here. A change asked for by email or over the phone is not processed until this record exists."
+}

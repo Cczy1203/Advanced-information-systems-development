@@ -1,0 +1,120 @@
+{
+  "components": [
+    {
+      "label": "What did the provider report?",
+      "type": "select",
+      "layout": {
+        "row": "Row_114",
+        "columns": null
+      },
+      "id": "Field_114",
+      "key": "paymentStatus",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "DECLINED",
+          "value": "DECLINED"
+        },
+        {
+          "label": "CANCELLED",
+          "value": "CANCELLED"
+        },
+        {
+          "label": "INCOMPLETE",
+          "value": "INCOMPLETE"
+        }
+      ]
+    },
+    {
+      "label": "Message from the provider",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_115",
+        "columns": null
+      },
+      "id": "Field_115",
+      "key": "providerMessage",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "What should happen?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_116",
+        "columns": null
+      },
+      "id": "Field_116",
+      "key": "declinedAction",
+      "description": "A retry gets a new payment reference, so the patient is never charged twice.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "RETRY_PAYMENT",
+          "value": "RETRY_PAYMENT"
+        },
+        {
+          "label": "LEAVE_WITH_FINANCE",
+          "value": "LEAVE_WITH_FINANCE"
+        },
+        {
+          "label": "CANCEL_BOOKING",
+          "value": "CANCEL_BOOKING"
+        }
+      ]
+    },
+    {
+      "label": "The patient has been told the payment did not go through",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_117",
+        "columns": null
+      },
+      "id": "Field_117",
+      "key": "patientInformed",
+      "defaultValue": false
+    },
+    {
+      "label": "Notes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_118",
+        "columns": null
+      },
+      "id": "Field_118",
+      "key": "notes",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_119",
+        "columns": null
+      },
+      "id": "Field_119",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "review-declined-payment",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Payment did not go through. The booking stays unconfirmed until this is resolved, and a second attempt must not create a duplicate charge."
+}
