@@ -1,8 +1,49 @@
+# --- Dependencies ---
 node_modules/
-.env
-.DS_Store
 npm-debug.log*
+
+# --- Build output ---
+dist/
+build/
 coverage/
-.vscode/
+*.class
+*.jar
+
+# Everything under a target/ directory is build output and stays out of the
+# repository, with one exception: the runnable worker jar. RUNBOOK.md and
+# DEPLOYMENT.md start the workers from that exact path, and the brief asks for a
+# runnable initial release, so the shaded jar ships with the submission.
+target/
+!bpm/workers/target/
+bpm/workers/target/*
+!bpm/workers/target/hospital-external-workers-1.0.0.jar
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# --- IDE / editors ---
 .idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Local config / secrets ---
+.env
+.env.local
+*.local
+
+# --- Logs and scratch, but the run logs are evidence and are kept ---
 *.log
+!bpm/screenshots/*.log
+tmp/
+.tmp/
