@@ -1,0 +1,111 @@
+{
+  "components": [
+    {
+      "label": "What went wrong?",
+      "type": "select",
+      "layout": {
+        "row": "Row_024",
+        "columns": null
+      },
+      "id": "Field_024",
+      "key": "dispatchFailureReason",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Recipient address rejected",
+          "value": "Recipient address rejected"
+        },
+        {
+          "label": "Channel unavailable",
+          "value": "Channel unavailable"
+        },
+        {
+          "label": "Letter not accepted",
+          "value": "Letter not accepted"
+        },
+        {
+          "label": "No response from the service",
+          "value": "No response from the service"
+        }
+      ]
+    },
+    {
+      "label": "Channel to try next",
+      "type": "radio",
+      "layout": {
+        "row": "Row_025",
+        "columns": null
+      },
+      "id": "Field_025",
+      "key": "alternativeChannel",
+      "description": "Pick a channel the recipient has agreed to.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Secure email",
+          "value": "Secure email"
+        },
+        {
+          "label": "Post",
+          "value": "Post"
+        },
+        {
+          "label": "Collection in person",
+          "value": "Collection in person"
+        }
+      ]
+    },
+    {
+      "label": "The patient has been told about the delay",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_026",
+        "columns": null
+      },
+      "id": "Field_026",
+      "key": "patientInformedOfDelay",
+      "defaultValue": false
+    },
+    {
+      "label": "What was done",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_027",
+        "columns": null
+      },
+      "id": "Field_027",
+      "key": "resolutionNotes",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Dealt with by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_028",
+        "columns": null
+      },
+      "id": "Field_028",
+      "key": "resolvedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "resolve-dispatch-problem",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Used when the correspondence service rejects a clinic letter, or never answers."
+}

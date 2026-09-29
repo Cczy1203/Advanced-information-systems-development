@@ -1,0 +1,219 @@
+{
+  "components": [
+    {
+      "label": "Has the patient agreed to proceed with treatment?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_035",
+        "columns": null
+      },
+      "id": "Field_035",
+      "key": "consentGiven",
+      "description": "Record what the patient actually said, not what was recommended.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Consent discussed with",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_036",
+        "columns": null
+      },
+      "id": "Field_036",
+      "key": "consentDiscussedWith",
+      "description": "Leave blank if the patient consented on their own behalf.",
+      "validate": {
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Proposed treatment",
+      "type": "select",
+      "layout": {
+        "row": "Row_037",
+        "columns": null
+      },
+      "id": "Field_037",
+      "key": "treatmentPlan",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Chemotherapy",
+          "value": "Chemotherapy"
+        },
+        {
+          "label": "Radiotherapy",
+          "value": "Radiotherapy"
+        },
+        {
+          "label": "Immunotherapy",
+          "value": "Immunotherapy"
+        },
+        {
+          "label": "Combination",
+          "value": "Combination"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ],
+      "conditional": {
+        "hide": "=consentGiven = false"
+      }
+    },
+    {
+      "label": "Required start date",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_038",
+        "columns": null
+      },
+      "id": "Field_038",
+      "key": "treatmentStartDate",
+      "subtype": "date"
+    },
+    {
+      "label": "Number of cycles",
+      "type": "number",
+      "layout": {
+        "row": "Row_039",
+        "columns": null
+      },
+      "id": "Field_039",
+      "key": "cycleCount",
+      "validate": {
+        "required": true,
+        "min": 1,
+        "max": 30
+      }
+    },
+    {
+      "label": "Days between cycles",
+      "type": "number",
+      "layout": {
+        "row": "Row_040",
+        "columns": null
+      },
+      "id": "Field_040",
+      "key": "cycleIntervalDays",
+      "validate": {
+        "required": true,
+        "min": 1,
+        "max": 90
+      }
+    },
+    {
+      "label": "A clinical review is needed between cycles",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_041",
+        "columns": null
+      },
+      "id": "Field_041",
+      "key": "reviewsBetweenCycles",
+      "defaultValue": false
+    },
+    {
+      "label": "Special resources likely to be needed",
+      "type": "checklist",
+      "layout": {
+        "row": "Row_042",
+        "columns": null
+      },
+      "id": "Field_042",
+      "key": "specialResources",
+      "values": [
+        {
+          "label": "Laboratory",
+          "value": "Laboratory"
+        },
+        {
+          "label": "Imaging",
+          "value": "Imaging"
+        },
+        {
+          "label": "Pharmacy",
+          "value": "Pharmacy"
+        },
+        {
+          "label": "Day unit chair",
+          "value": "Day unit chair"
+        },
+        {
+          "label": "Isolation room",
+          "value": "Isolation room"
+        },
+        {
+          "label": "Interpreter",
+          "value": "Interpreter"
+        }
+      ]
+    },
+    {
+      "label": "Treatment booking reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_043",
+        "columns": null
+      },
+      "id": "Field_043",
+      "key": "treatmentBookingRef",
+      "validate": {
+        "required": true,
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Authorising clinician",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_044",
+        "columns": null
+      },
+      "id": "Field_044",
+      "key": "authorisingClinician",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "If the patient is not proceeding, what was discussed?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_045",
+        "columns": null
+      },
+      "id": "Field_045",
+      "key": "declineReason",
+      "properties": {
+        "rows": 3
+      }
+    }
+  ],
+  "type": "default",
+  "id": "record-consent-and-treatment-request",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Completed at the new patient appointment. If the patient agrees to proceed, the whole treatment booking request has to be filled in here - an incomplete request cannot be authorised."
+}

@@ -1,0 +1,108 @@
+{
+  "components": [
+    {
+      "label": "Why is the patient not proceeding?",
+      "type": "select",
+      "layout": {
+        "row": "Row_109",
+        "columns": null
+      },
+      "id": "Field_109",
+      "key": "declineReason",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Patient choice",
+          "value": "Patient choice"
+        },
+        {
+          "label": "Patient unwell",
+          "value": "Patient unwell"
+        },
+        {
+          "label": "Treatment no longer appropriate",
+          "value": "Treatment no longer appropriate"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "label": "What was discussed with the patient?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_110",
+        "columns": null
+      },
+      "id": "Field_110",
+      "key": "declineNotes",
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Does a clinician need to review the pathway?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_111",
+        "columns": null
+      },
+      "id": "Field_111",
+      "key": "clinicalFollowUpRequired",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Clinician already spoken to",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_112",
+        "columns": null
+      },
+      "id": "Field_112",
+      "key": "discussedWithClinician",
+      "validate": {
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Recorded by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_113",
+        "columns": null
+      },
+      "id": "Field_113",
+      "key": "recordedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "record-treatment-decline",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "The patient has decided not to go ahead. The decision on whether the pathway continues is the clinical team's, so this form only records and routes."
+}

@@ -1,0 +1,84 @@
+{
+  "components": [
+    {
+      "label": "What does the change need?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_171",
+        "columns": null
+      },
+      "id": "Field_171",
+      "key": "impactAction",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "ADJUST_CHARGE",
+          "value": "ADJUST_CHARGE"
+        },
+        {
+          "label": "REFUND_REQUIRED",
+          "value": "REFUND_REQUIRED"
+        },
+        {
+          "label": "NO_CHANGE",
+          "value": "NO_CHANGE"
+        }
+      ]
+    },
+    {
+      "label": "Amount affected",
+      "type": "number",
+      "layout": {
+        "row": "Row_172",
+        "columns": null
+      },
+      "id": "Field_172",
+      "key": "impactAmount",
+      "validate": {
+        "min": 0
+      }
+    },
+    {
+      "label": "What was reviewed",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_173",
+        "columns": null
+      },
+      "id": "Field_173",
+      "key": "impactNotes",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_174",
+        "columns": null
+      },
+      "id": "Field_174",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "review-financial-impact",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Used when a treatment change touches a charge, a funding approval or a payment already taken."
+}

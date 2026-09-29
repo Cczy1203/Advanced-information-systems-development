@@ -1,0 +1,100 @@
+{
+  "components": [
+    {
+      "label": "What was queried?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_068",
+        "columns": null
+      },
+      "id": "Field_068",
+      "key": "correctionReason",
+      "description": "Quote the query from the Medical Secretary so the trail is clear.",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Sections changed",
+      "type": "checklist",
+      "layout": {
+        "row": "Row_069",
+        "columns": null
+      },
+      "id": "Field_069",
+      "key": "correctedSections",
+      "values": [
+        {
+          "label": "Diagnosis",
+          "value": "Diagnosis"
+        },
+        {
+          "label": "Clinical findings",
+          "value": "Clinical findings"
+        },
+        {
+          "label": "Treatment decisions",
+          "value": "Treatment decisions"
+        },
+        {
+          "label": "Follow-up arrangements",
+          "value": "Follow-up arrangements"
+        },
+        {
+          "label": "Instructions to communicate",
+          "value": "Instructions to communicate"
+        }
+      ]
+    },
+    {
+      "label": "Do you approve the corrected letter?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_070",
+        "columns": null
+      },
+      "id": "Field_070",
+      "key": "letterApproved",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Approved by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_071",
+        "columns": null
+      },
+      "id": "Field_071",
+      "key": "approvingClinician",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "correct-clinic-letter",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Used when a letter comes back because of a possible clinical error. Administrative staff cannot change clinical meaning, so it returns to the Consultant."
+}

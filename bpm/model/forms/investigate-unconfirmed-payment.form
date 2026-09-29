@@ -1,0 +1,118 @@
+{
+  "components": [
+    {
+      "label": "Payment reference under investigation",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_157",
+        "columns": null
+      },
+      "id": "Field_157",
+      "key": "paymentReference",
+      "validate": {
+        "required": true,
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "The provider's transaction list has been checked",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_158",
+        "columns": null
+      },
+      "id": "Field_158",
+      "key": "providerStatementChecked",
+      "defaultValue": false
+    },
+    {
+      "label": "Was the money actually taken?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_159",
+        "columns": null
+      },
+      "id": "Field_159",
+      "key": "paymentFound",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Matched transaction reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_invest",
+        "columns": 6
+      },
+      "id": "Field_160",
+      "key": "matchedTransactionRef",
+      "validate": {
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Amount taken",
+      "type": "number",
+      "layout": {
+        "row": "Row_invest",
+        "columns": 6
+      },
+      "id": "Field_161",
+      "key": "amountTaken",
+      "validate": {
+        "min": 0
+      }
+    },
+    {
+      "label": "What was found",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_162",
+        "columns": null
+      },
+      "id": "Field_162",
+      "key": "investigationNotes",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Investigated by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_163",
+        "columns": null
+      },
+      "id": "Field_163",
+      "key": "investigatedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "investigate-unconfirmed-payment",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "The provider took a payment but no confirmation reached the hospital. Nobody asks the patient for money again until this has been checked."
+}

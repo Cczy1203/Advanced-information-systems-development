@@ -1,0 +1,144 @@
+{
+  "components": [
+    {
+      "label": "Enquiry reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_225",
+        "columns": null
+      },
+      "id": "Field_225",
+      "key": "enquiryRef",
+      "validate": {
+        "required": true,
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Type of administrative enquiry",
+      "type": "select",
+      "layout": {
+        "row": "Row_226",
+        "columns": null
+      },
+      "id": "Field_226",
+      "key": "enquiryCategory",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Appointment date, time or location",
+          "value": "Appointment date, time or location"
+        },
+        {
+          "label": "Referral progress",
+          "value": "Referral progress"
+        },
+        {
+          "label": "Clinic letter query",
+          "value": "Clinic letter query"
+        },
+        {
+          "label": "Transport or access",
+          "value": "Transport or access"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "label": "Answer given",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_227",
+        "columns": null
+      },
+      "id": "Field_227",
+      "key": "responseGiven",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Answered with the information you have?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_228",
+        "columns": null
+      },
+      "id": "Field_228",
+      "key": "answerableNow",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "If not, which team has it now?",
+      "type": "select",
+      "layout": {
+        "row": "Row_229",
+        "columns": null
+      },
+      "id": "Field_229",
+      "key": "handedToTeam",
+      "values": [
+        {
+          "label": "Outpatient bookings",
+          "value": "Outpatient bookings"
+        },
+        {
+          "label": "Medical secretaries",
+          "value": "Medical secretaries"
+        },
+        {
+          "label": "Pathway coordinators",
+          "value": "Pathway coordinators"
+        },
+        {
+          "label": "Finance",
+          "value": "Finance"
+        }
+      ]
+    },
+    {
+      "label": "Answered by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_230",
+        "columns": null
+      },
+      "id": "Field_230",
+      "key": "answeredBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "answer-administrative-enquiry",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Shared by the call handling team and the outpatient bookings team so an enquiry record looks the same whichever team answers it."
+}

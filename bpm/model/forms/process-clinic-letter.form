@@ -1,0 +1,158 @@
+{
+  "components": [
+    {
+      "label": "Letter reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_017",
+        "columns": null
+      },
+      "id": "Field_017",
+      "key": "letterRef",
+      "validate": {
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Date of the appointment the letter refers to",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_018",
+        "columns": null
+      },
+      "id": "Field_018",
+      "key": "consultationDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date"
+    },
+    {
+      "label": "Recipients confirmed",
+      "type": "checklist",
+      "layout": {
+        "row": "Row_019",
+        "columns": null
+      },
+      "id": "Field_019",
+      "key": "letterRecipients",
+      "description": "Check each recipient against the letter the Consultant approved.",
+      "values": [
+        {
+          "label": "Patient",
+          "value": "patient"
+        },
+        {
+          "label": "Patient's GP",
+          "value": "gp"
+        },
+        {
+          "label": "Referring hospital",
+          "value": "referring-hospital"
+        },
+        {
+          "label": "Another healthcare provider",
+          "value": "other-provider"
+        },
+        {
+          "label": "Other professional",
+          "value": "other-professional"
+        }
+      ]
+    },
+    {
+      "label": "Checks completed",
+      "type": "checklist",
+      "layout": {
+        "row": "Row_020",
+        "columns": null
+      },
+      "id": "Field_020",
+      "key": "adminChecksCarriedOut",
+      "values": [
+        {
+          "label": "Patient identifiers correct",
+          "value": "Patient identifiers correct"
+        },
+        {
+          "label": "Recipient list confirmed",
+          "value": "Recipient list confirmed"
+        },
+        {
+          "label": "Formatting corrected",
+          "value": "Formatting corrected"
+        },
+        {
+          "label": "Accessible format applied",
+          "value": "Accessible format applied"
+        },
+        {
+          "label": "Translation arranged",
+          "value": "Translation arranged"
+        }
+      ]
+    },
+    {
+      "label": "Does anything look like a clinical error?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_021",
+        "columns": null
+      },
+      "id": "Field_021",
+      "key": "clinicalErrorSuspected",
+      "description": "If yes the letter goes back to the Consultant. Administrative staff must not change clinical meaning.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "What looks wrong?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_022",
+        "columns": null
+      },
+      "id": "Field_022",
+      "key": "clinicalErrorDetails",
+      "description": "Describe the query factually so the Consultant can act on it.",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Processed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_023",
+        "columns": null
+      },
+      "id": "Field_023",
+      "key": "processedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "process-clinic-letter",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Administrative processing of an approved clinic letter. Formatting and administrative errors may be corrected here; anything that looks like a clinical error goes back to the Consultant."
+}

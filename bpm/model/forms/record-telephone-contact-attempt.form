@@ -1,0 +1,111 @@
+{
+  "components": [
+    {
+      "label": "What happened on the call?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_194",
+        "columns": null
+      },
+      "id": "Field_194",
+      "key": "contactOutcome",
+      "description": "Record the attempt even when nobody answered - the pattern matters.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "REACHED",
+          "value": "REACHED"
+        },
+        {
+          "label": "NO_ANSWER",
+          "value": "NO_ANSWER"
+        },
+        {
+          "label": "WRONG_NUMBER",
+          "value": "WRONG_NUMBER"
+        },
+        {
+          "label": "WANTS_ALTERNATIVE",
+          "value": "WANTS_ALTERNATIVE"
+        }
+      ]
+    },
+    {
+      "label": "Attempt number",
+      "type": "number",
+      "layout": {
+        "row": "Row_195",
+        "columns": null
+      },
+      "id": "Field_195",
+      "key": "contactAttempts",
+      "description": "Three attempts then the bookings team is told the patient could not be reached.",
+      "validate": {
+        "required": true,
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "label": "The patient asked for a different appointment",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_196",
+        "columns": null
+      },
+      "id": "Field_196",
+      "key": "patientRequestsAlternative",
+      "defaultValue": false
+    },
+    {
+      "label": "Date the patient asked for",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_197",
+        "columns": null
+      },
+      "id": "Field_197",
+      "key": "preferredAlternativeDate",
+      "subtype": "date"
+    },
+    {
+      "label": "Notes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_198",
+        "columns": null
+      },
+      "id": "Field_198",
+      "key": "contactNotes",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Attempted by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_199",
+        "columns": null
+      },
+      "id": "Field_199",
+      "key": "attemptedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "record-telephone-contact-attempt",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Short notice appointments also need a telephone call. Every attempt is recorded, including the wrong number and the patient who wants a different date."
+}

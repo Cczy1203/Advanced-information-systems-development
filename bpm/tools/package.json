@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bpmn-moddle": "^10.3.1",
+    "zeebe-bpmn-moddle": "^2.0.0"
+  }
+}

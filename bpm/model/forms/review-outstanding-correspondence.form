@@ -1,0 +1,97 @@
+{
+  "components": [
+    {
+      "label": "Worst case days outstanding",
+      "type": "number",
+      "layout": {
+        "row": "Row_200",
+        "columns": null
+      },
+      "id": "Field_200",
+      "key": "letterOverdueDays",
+      "description": "Seven days or less is on target. Over thirty days goes to the Administrative Manager, over ninety goes higher.",
+      "validate": {
+        "required": true,
+        "min": 0,
+        "max": 365
+      }
+    },
+    {
+      "label": "Letters reviewed",
+      "type": "number",
+      "layout": {
+        "row": "Row_201",
+        "columns": null
+      },
+      "id": "Field_201",
+      "key": "outstandingLettersReviewed",
+      "validate": {
+        "min": 0
+      }
+    },
+    {
+      "label": "Action for this batch",
+      "type": "radio",
+      "layout": {
+        "row": "Row_202",
+        "columns": null
+      },
+      "id": "Field_202",
+      "key": "reminderAction",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "SEND_REMINDER",
+          "value": "SEND_REMINDER"
+        },
+        {
+          "label": "ESCALATE_MANAGER",
+          "value": "ESCALATE_MANAGER"
+        },
+        {
+          "label": "ESCALATE_HIGHER",
+          "value": "ESCALATE_HIGHER"
+        }
+      ]
+    },
+    {
+      "label": "Any valid reason recorded for the delay",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_203",
+        "columns": null
+      },
+      "id": "Field_203",
+      "key": "reasonForDelay",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_204",
+        "columns": null
+      },
+      "id": "Field_204",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "review-outstanding-correspondence",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Weekly review of clinic letters that have slipped past the seven day target."
+}

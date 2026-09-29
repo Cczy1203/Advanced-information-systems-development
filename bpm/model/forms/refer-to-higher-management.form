@@ -1,0 +1,113 @@
+{
+  "components": [
+    {
+      "label": "Letter reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_219",
+        "columns": null
+      },
+      "id": "Field_219",
+      "key": "letterRef",
+      "validate": {
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Months outstanding",
+      "type": "number",
+      "layout": {
+        "row": "Row_220",
+        "columns": null
+      },
+      "id": "Field_220",
+      "key": "monthsOutstanding",
+      "validate": {
+        "required": true,
+        "min": 1,
+        "max": 60
+      }
+    },
+    {
+      "label": "Which team?",
+      "type": "select",
+      "layout": {
+        "row": "Row_221",
+        "columns": null
+      },
+      "id": "Field_221",
+      "key": "higherManagementTeam",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Clinical directorate",
+          "value": "Clinical directorate"
+        },
+        {
+          "label": "Medical director",
+          "value": "Medical director"
+        },
+        {
+          "label": "Executive team",
+          "value": "Executive team"
+        }
+      ]
+    },
+    {
+      "label": "Why is this being escalated?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_222",
+        "columns": null
+      },
+      "id": "Field_222",
+      "key": "reasonForEscalation",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Date of referral",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_223",
+        "columns": null
+      },
+      "id": "Field_223",
+      "key": "referralDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date"
+    },
+    {
+      "label": "Referred by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_224",
+        "columns": null
+      },
+      "id": "Field_224",
+      "key": "referredBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "refer-to-higher-management",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Anything still outstanding after three months leaves the pathway team and goes up."
+}

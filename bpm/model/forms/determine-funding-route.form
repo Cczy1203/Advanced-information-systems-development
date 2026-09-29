@@ -1,0 +1,183 @@
+{
+  "components": [
+    {
+      "label": "Funding route",
+      "type": "radio",
+      "layout": {
+        "row": "Row_135",
+        "columns": null
+      },
+      "id": "Field_135",
+      "key": "fundingRoute",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "HOSPITAL_FUNDED",
+          "value": "HOSPITAL_FUNDED"
+        },
+        {
+          "label": "INSURER_APPROVED",
+          "value": "INSURER_APPROVED"
+        },
+        {
+          "label": "PATIENT_PAYS",
+          "value": "PATIENT_PAYS"
+        },
+        {
+          "label": "EXEMPTION",
+          "value": "EXEMPTION"
+        }
+      ]
+    },
+    {
+      "label": "Responsible funding organisation",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_funder",
+        "columns": 6
+      },
+      "id": "Field_136",
+      "key": "funderName",
+      "description": "Required for insurer or funding organisation routes.",
+      "validate": {
+        "maxLength": 120
+      }
+    },
+    {
+      "label": "Authorisation reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_funder",
+        "columns": 6
+      },
+      "id": "Field_137",
+      "key": "authorisationRef",
+      "validate": {
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Approved amount",
+      "type": "number",
+      "layout": {
+        "row": "Row_amount",
+        "columns": 6
+      },
+      "id": "Field_138",
+      "key": "approvedAmount",
+      "validate": {
+        "min": 0
+      }
+    },
+    {
+      "label": "Currency",
+      "type": "select",
+      "layout": {
+        "row": "Row_amount",
+        "columns": 6
+      },
+      "id": "Field_139",
+      "key": "currency",
+      "values": [
+        {
+          "label": "GBP",
+          "value": "GBP"
+        },
+        {
+          "label": "EUR",
+          "value": "EUR"
+        },
+        {
+          "label": "USD",
+          "value": "USD"
+        }
+      ]
+    },
+    {
+      "label": "Limits attached to the approval",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_140",
+        "columns": null
+      },
+      "id": "Field_140",
+      "key": "fundingLimitations",
+      "description": "For example a capped number of cycles or a named treatment only.",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Exemption reason",
+      "type": "select",
+      "layout": {
+        "row": "Row_141",
+        "columns": null
+      },
+      "id": "Field_141",
+      "key": "exemptionReason",
+      "values": [
+        {
+          "label": "Not applicable",
+          "value": "Not applicable"
+        },
+        {
+          "label": "Overseas visitor exemption",
+          "value": "Overseas visitor exemption"
+        },
+        {
+          "label": "Clinical trial",
+          "value": "Clinical trial"
+        },
+        {
+          "label": "Prescribed special service",
+          "value": "Prescribed special service"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "label": "Decision date",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_142",
+        "columns": null
+      },
+      "id": "Field_142",
+      "key": "approvalDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date"
+    },
+    {
+      "label": "Decided by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_143",
+        "columns": null
+      },
+      "id": "Field_143",
+      "key": "decidedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "determine-funding-route",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "The funding decision. The responsible organisation, the authorisation reference, the approved amount and any limits all have to be recorded."
+}

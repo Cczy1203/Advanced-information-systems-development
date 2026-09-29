@@ -1,0 +1,122 @@
+{
+  "components": [
+    {
+      "label": "How should this be handled?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_090",
+        "columns": null
+      },
+      "id": "Field_090",
+      "key": "availabilityAction",
+      "description": "Widening the search keeps the clinical window. Escalating hands it to the pathway team.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "WIDEN_SEARCH",
+          "value": "WIDEN_SEARCH"
+        },
+        {
+          "label": "OFFER_NEXT_AVAILABLE",
+          "value": "OFFER_NEXT_AVAILABLE"
+        },
+        {
+          "label": "ESCALATE",
+          "value": "ESCALATE"
+        }
+      ]
+    },
+    {
+      "label": "Why was nothing available?",
+      "type": "select",
+      "layout": {
+        "row": "Row_091",
+        "columns": null
+      },
+      "id": "Field_091",
+      "key": "noSlotReason",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "No clinic capacity",
+          "value": "No clinic capacity"
+        },
+        {
+          "label": "Consultant unavailable",
+          "value": "Consultant unavailable"
+        },
+        {
+          "label": "Required resource unavailable",
+          "value": "Required resource unavailable"
+        },
+        {
+          "label": "Patient asked for a different period",
+          "value": "Patient asked for a different period"
+        }
+      ]
+    },
+    {
+      "label": "Search again from",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_092",
+        "columns": null
+      },
+      "id": "Field_092",
+      "key": "preferredFromDate",
+      "subtype": "date"
+    },
+    {
+      "label": "Search again to",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_093",
+        "columns": null
+      },
+      "id": "Field_093",
+      "key": "preferredToDate",
+      "subtype": "date"
+    },
+    {
+      "label": "Notes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_094",
+        "columns": null
+      },
+      "id": "Field_094",
+      "key": "notes",
+      "properties": {
+        "rows": 3
+      }
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_095",
+        "columns": null
+      },
+      "id": "Field_095",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "review-appointment-availability",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "What to do when the scheduling service has nothing inside the period the Consultant asked for. The appointment is never quietly moved outside that window."
+}

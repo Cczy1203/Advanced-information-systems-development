@@ -1,0 +1,189 @@
+UFCEP6-0-3 - static checks, release v14.0
+==============================================================================
+
+Captured on the shipped file. Every line below is the output of a command that
+can be run again; nothing here is asserted from memory. The SHA-256 of the file
+these checks were run against is recorded first, so this file can be re-verified
+rather than trusted.
+
+    7bd812adbb9bf04342fcbcf3a832ee8438663198c1b43c14dc940f9213f5c65d  model/UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn
+    (regenerated 2026-09-28; two consecutive `python3 tools/build_v2.py` runs produce
+     the same bytes)
+
+The engine runs for this release are the logs beside this file:
+`run-happy-path-v14.log`, `run-exception-path-v14.log` and
+`run-external-participants-v14.log` - see section 8.
+
+
+==============================================================================
+1. BUILD - tools/build_v2.py (spec consistency: gateway defaults, form bindings, cell collisions)
+==============================================================================
+
+Every user task has a form, every service task a job type, every exclusive
+gateway exactly one default flow, and no two elements share a grid cell. The
+35 distinct job types are unchanged from v7.0: the four supplier-side service
+tasks reuse the hospital's own job types.
+
+$ python3 tools/build_v2.py
+
+pools 15 | nodes 342 | flows 314 | message flows 22 | forms 36
+channel width 137 px | canvas 5812 x 15184
+
+
+==============================================================================
+2. PARSE - tools/validate_model.js (the bpmn-moddle the Modeler uses, Zeebe descriptor loaded)
+==============================================================================
+
+$ node tools/validate_model.js model/UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn
+
+parse warnings      : 0
+unresolved refs     : 0
+participants        : 15
+processes           : 15 | executable: 9
+dangling seq refs   : 0
+user tasks no form  : 0
+user tasks no group : 0
+service tasks no job type: 0
+RESULT: clean - Modeler would report no problems
+
+
+==============================================================================
+3. LINT - bpmnlint under the project's own .bpmnlintrc (bpmnlint:recommended)
+==============================================================================
+
+v7.0 reported 0 errors and 32 warnings against this config; v14 reports 0
+errors and 31.
+
+$ npx bpmnlint model/UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn
+
+OUT_GW_NotifyJoin                   warning  Element type <bpmn:InclusiveGateway> is discouraged  no-inclusive-gateway
+
+✖ 31 problems (0 errors, 31 warnings)
+
+
+==============================================================================
+4. PRESERVATION - tools/verify_preservation.py
+==============================================================================
+
+$ python3 tools/verify_preservation.py
+
+70 checks, 70 passed, 0 failed
+
+PASS all 47 v2.0 service tasks present  -- missing none
+PASS the only service tasks added are the four supplier-side ones  -- added ['COR_Task_Dispatch', 'EXT_Task_CheckCapacity', 'PAY_Task_Process', 'SCH_Task_FindSlots']
+PASS every white-box outside hand-off is drawn  -- missing []
+PASS nothing but an exception, boundary or white-box hand-off is drawn  -- unexpected []
+PASS every outside participant is connected to another pool  -- floating []
+PASS every outside participant now has a process of its own  -- still a black box []
+
+
+==============================================================================
+5. LAYOUT - tools/analyse_layout.py
+==============================================================================
+
+$ python3 tools/analyse_layout.py model/UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn
+
+==========================================================================
+LAYOUT REPORT  UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn
+==========================================================================
+shapes 386 | sequence flows 314 | message flows 22 | pools 15
+
+[sequence flows] overlapping/parallel-adjacent segment pairs: 0 (total overlap 0 px)
+
+[message flows] overlapping/parallel-adjacent segment pairs: 0 (total overlap 0 px)
+
+[diagonals] sequence 0 px total, message 0 px total
+[crossings] sequence-flow segment crossings: 95
+[through-shapes] (flow, shape) pairs where a line runs inside an unrelated shape: 0
+
+[bends] sequence flows: mean 0.9, max 5, flows with >4 bends: 1
+
+[pools] 15 pools, 20 lanes; clear gap between pools: min 104 px, mean 104 px
+[alignment] distinct node left-edges: 55 for 351 nodes
+[containment] subProcess elements: 3 | callActivity elements: 0
+==========================================================================
+
+
+==============================================================================
+6. CENSUS - parsed from the file
+==============================================================================
+
+participants            15      (v7.0: 15)
+black-box participants   0      (v7.0: 6)
+processes drawn         15      all carry a process; 9 executable in the main file,
+                                the 6 outside participants drawn but not deployed
+                                (EXTERNAL_PROCESSES_EXECUTABLE = False)
+lanes                   20      (v7.0: 14)
+user tasks              39      (unchanged) with 36 forms (unchanged)
+service tasks           51      (v7.0: 47) - 47 hospital + 4 supplier-side
+distinct job types      35      (unchanged)
+messages                65      (v7.0: 57)
+sequence flows         329      (v7.0: 313) - 314 main plane + 15 inside sub-processes
+drawn message flows     22      (v7.0: 15), over 22 distinct element pairs
+start events            49      (v7.0: 43)
+end events              72      (v7.0: 66), none merged
+exclusive gateways      35 / inclusive 3 / parallel 2 / event-based 2  (unchanged)
+boundary events         18      (unchanged)
+named error codes        9      (unchanged)
+canvas                  5,812 x 15,184 px  (v7.0: 5,332 x 14,176)
+
+==============================================================================
+7. RENDER - tools/render_diagram.sh (bpmn-js 17.11.1 in headless Chromium)
+==============================================================================
+
+2231685 bytes  diagram/hospital-patient-pathway-v14.png
+     1110715 bytes  diagram/hospital-patient-pathway-v14.svg
+
+bpmn-js imported the collaboration with no error and produced the SVG and PNG above.
+
+==============================================================================
+8. ENGINE - local c8run 8.10.0-alpha5
+==============================================================================
+
+$ ./tools/deploy.sh
+  deployment key 2251799813952610
+  9 process definitions v2 and 36 forms v2 deployed (medical-secretaries,
+  consultants, outpatient-bookings, treatment-bookings, finance-team,
+  clinical-nurse-specialists, call-handling, patient-pathway-coordinators,
+  administrative-management)
+
+Deploying all fifteen processes executable is rejected by the append batch,
+which is why the shipped file sets EXTERNAL_PROCESSES_EXECUTABLE = False:
+
+  Can't append entry: ... valueType=PROCESS ... with size: 405002 this would
+  exceed the maximum batch size. [ currentBatchEntryCount: 24,
+  currentBatchSize: 4095764 ]
+
+The six outside participants are deployed from their own small file instead
+(tools/build_external_participants.py -> 30,279 bytes, 6 processes) and driven:
+
+$ python3 tools/check_external_participants.py
+  referring-organisation           COMPLETED  no incident
+  patient-representative           COMPLETED  no incident
+  external-scheduling-service      COMPLETED  no incident
+  external-correspondence-service  COMPLETED  no incident
+  external-payment-service         COMPLETED  no incident
+  external-clinical-services       COMPLETED  no incident
+  integration: referring-organisation throws referral.received    -> 1 new medical-secretaries instance
+  integration: patient-representative throws appointment.attended -> 1 new consultants instance
+  PASS - all outside participants ran and completed
+
+And every path the model carries was driven on this file, each with
+"incidents: none":
+
+  run-happy-path-v14.log           the normal path, 3 checkpoints
+  run-exception-path-v14.log       the unreadable pack, caught by the boundary
+                                   event and routed into the missing-information loop
+  run-declined-payment-v14.log     provider declines -> review -> retry approved
+  run-confirmation-lost-v14.log    no confirmation -> Finance investigates ->
+                                   clinician authorises urgent treatment
+  run-overdue-escalation-v14.log   letter ladder to higher management (short-timer variant)
+  run-escalation-manager-v14.log   the same ladder to the Administrative Manager
+  run-compensation-v14.log         capacity never arrives -> retry cap ->
+                                   TRT_Comp_ReleaseSeries completes
+
+The three clock-gated runs need the short-timer variant deployed
+(model/demo/..._v14_demo-timers.bpmn); the shipped file was redeployed afterwards.
+The demo's branch wait is DEMO_BRANCH_TIMEOUT (default 60 s) because a fixed 20 s
+window reported a working branch as "not reached" on a cold worker JVM.
+

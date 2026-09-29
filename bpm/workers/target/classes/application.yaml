@@ -1,0 +1,118 @@
+# =============================================================================
+# Hospital external workers - configuration template
+# =============================================================================
+# This file is read from the classpath at start up. A different file can be
+# supplied on the command line (`--config=/path/to/application.yaml`) or through
+# the environment (`WORKERS_CONFIG=/path/to/application.yaml`); it is merged over
+# this template, key by key.
+#
+# Every key can be overridden by an environment variable. The variable name is
+# the key path in upper case with dots and dashes replaced by underscores, for
+# example:
+#
+#   camunda.client.zeebe.gateway-address  ->  CAMUNDA_CLIENT_ZEEBE_GATEWAY_ADDRESS
+#   camunda.client.zeebe.plaintext        ->  CAMUNDA_CLIENT_ZEEBE_PLAINTEXT
+#   workers.max-jobs-active               ->  WORKERS_MAX_JOBS_ACTIVE
+#   workers.job-timeout-ms                ->  WORKERS_JOB_TIMEOUT_MS
+#   workers.poll-interval-ms              ->  WORKERS_POLL_INTERVAL_MS
+#   workers.execution-threads             ->  WORKERS_EXECUTION_THREADS
+#   demo.simulated-failure.enabled        ->  DEMO_SIMULATED_FAILURE_ENABLED
+#   demo.simulated-failure.job-types      ->  DEMO_SIMULATED_FAILURE_JOB_TYPES
+#   demo.simulated-failure.mode           ->  DEMO_SIMULATED_FAILURE_MODE
+#   demo.payment.status                   ->  DEMO_PAYMENT_STATUS
+#   demo.payment.status-once              ->  DEMO_PAYMENT_STATUS_ONCE
+#   demo.payment.refund-status            ->  DEMO_PAYMENT_REFUND_STATUS (or DEMO_REFUND_STATUS)
+#   demo.payment.confirmation-lost-mode   ->  DEMO_PAYMENT_CONFIRMATION_LOST_MODE
+#   demo.scheduling.force-no-slots        ->  DEMO_SCHEDULING_FORCE_NO_SLOTS (or DEMO_SCHEDULING_NO_SLOTS)
+#   demo.external.unavailable-resources   ->  DEMO_EXTERNAL_UNAVAILABLE_RESOURCES (or DEMO_EXTERNAL_UNAVAILABLE)
+#   demo.pathway.scenario                 ->  DEMO_PATHWAY_SCENARIO
+#   demo.pathway.reminder-cooldown-days   ->  DEMO_PATHWAY_REMINDER_COOLDOWN_DAYS
+#   demo.clock.today                      ->  DEMO_CLOCK_TODAY
+#   demo.clock.offset-days                ->  DEMO_CLOCK_OFFSET_DAYS
+# =============================================================================
+
+camunda:
+  client:
+    zeebe:
+      # gRPC gateway of the Camunda 8 cluster. c8run 8.10.0-alpha5 default below.
+      # Self-managed / c8run:  localhost:26500
+      # Camunda SaaS:          <cluster-id>.<region>.zeebe.camunda.io:443 (plaintext: false)
+      gateway-address: localhost:26500
+      # true  = plaintext gRPC (local c8run, docker-compose, no TLS)
+      # false = TLS, required by Camunda SaaS / any cluster behind a load balancer
+      plaintext: true
+      # Timeout applied to every gRPC request (publish message, complete/fail/throw error).
+      request-timeout-ms: 20000
+
+workers:
+  # Prefix used to name the job workers inside Zeebe; the job type is appended.
+  name-prefix: hospital-external-workers
+  # Maximum number of jobs activated (and held) by one worker at a time.
+  max-jobs-active: 32
+  # How long a job stays locked by this worker before the engine makes it
+  # available again. Must be longer than the slowest handler.
+  job-timeout-ms: 30000
+  # How often a worker polls the gateway for new jobs.
+  poll-interval-ms: 100
+  # Number of threads shared by all job workers.
+  execution-threads: 4
+
+demo:
+  # Simulated failure injection used by the demonstration. When enabled, the job
+  # types listed in `job-types` throw their documented BPMN error.
+  simulated-failure:
+    enabled: false
+    # Comma separated list of job types. An optional error code can be pinned
+    # with `job-type:ERROR_CODE`, e.g.
+    #   - correspondence.dispatch-letter:CORRESPONDENCE_SERVICE_FAILED
+    job-types: []
+    # always = every activation fails (demonstrates the BPMN error boundary)
+    # once   = only the first activation fails (demonstrates the engine retrying,
+    #          because the service task carries retries="3")
+    mode: always
+
+  payment:
+    # Forced result of payment.process-transaction:
+    #   APPROVED (default) | DECLINED | DUPLICATE | NO_CONFIRMATION
+    # NO_CONFIRMATION means the provider never replies: the worker fails the job,
+    # the engine retries it, and the caller's PT2H timer is what fires.
+    status: APPROVED
+    # true  = the forced status applies to the first transaction only, later ones
+    #         return APPROVED (nice for "decline, then the retry succeeds")
+    # false = the forced status applies to every transaction
+    status-once: true
+    # How the NO_CONFIRMATION status is reported:
+    #   bpmn-error = throw PAYMENT_CONFIRMATION_LOST, which the model catches with the
+    #                TRT_Bnd_ConfirmationLost boundary event and routes to Finance (default)
+    #   retry      = fail the job instead, leaving it retrying for the engine retry policy;
+    #                use this with a model whose caller waits on a timer
+    confirmation-lost-mode: bpmn-error
+    # Forced result of payment.process-refund: REFUNDED | REJECTED
+    refund-status: REFUNDED
+
+  scheduling:
+    # Force scheduling.find-appointment-slots to report NO_SLOTS.
+    force-no-slots: false
+
+  external:
+    # Comma separated resource names that external-resources.check-availability
+    # reports as unavailable, e.g. MRI,PET-CT
+    unavailable-resources: []
+
+  pathway:
+    # Which clinic letters the in-memory store seeds, so the 7 day / 1 month /
+    # 3 month escalation bands can be demonstrated:
+    #   SEVEN_DAYS    worst case 9 days   (band: one week to one month)
+    #   ONE_MONTH     worst case 45 days  (band: over one month)
+    #   THREE_MONTHS  worst case 120 days (band: over three months, default)
+    scenario: THREE_MONTHS
+    # 0 = a letter is never reminded twice (strict duplicate suppression).
+    # 7 = a letter may be reminded again after a week (realistic weekly chasing).
+    reminder-cooldown-days: 0
+
+  clock:
+    # Fixed date for demos so that day counts are reproducible, ISO-8601.
+    # Empty means "use the real system date".
+    today: ""
+    # Shift the clock by N days (applied after `today`), useful to age letters.
+    offset-days: 0

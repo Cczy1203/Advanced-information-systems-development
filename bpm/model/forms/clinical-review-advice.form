@@ -1,0 +1,104 @@
+{
+  "components": [
+    {
+      "label": "Enquiry reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_077",
+        "columns": null
+      },
+      "id": "Field_077",
+      "key": "enquiryRef",
+      "validate": {
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Clinical review outcome",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_078",
+        "columns": null
+      },
+      "id": "Field_078",
+      "key": "clinicalReviewOutcome",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Advice to pass back",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_079",
+        "columns": null
+      },
+      "id": "Field_079",
+      "key": "clinicalAdviceSummary",
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Does this need a face to face review?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_080",
+        "columns": null
+      },
+      "id": "Field_080",
+      "key": "needsConsultantReview",
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_081",
+        "columns": null
+      },
+      "id": "Field_081",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "Review date",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_082",
+        "columns": null
+      },
+      "id": "Field_082",
+      "key": "reviewDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date"
+    }
+  ],
+  "type": "default",
+  "id": "clinical-review-advice",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Consultant response to a clinical question raised by the nurse specialists or another team."
+}

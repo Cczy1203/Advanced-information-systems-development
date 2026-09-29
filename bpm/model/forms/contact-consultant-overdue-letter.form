@@ -1,0 +1,143 @@
+{
+  "components": [
+    {
+      "label": "Letter reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_211",
+        "columns": null
+      },
+      "id": "Field_211",
+      "key": "letterRef",
+      "validate": {
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Responsible Consultant",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_212",
+        "columns": null
+      },
+      "id": "Field_212",
+      "key": "consultantName",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    },
+    {
+      "label": "How were they contacted?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_213",
+        "columns": null
+      },
+      "id": "Field_213",
+      "key": "contactMethod",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Email",
+          "value": "Email"
+        },
+        {
+          "label": "Telephone",
+          "value": "Telephone"
+        },
+        {
+          "label": "In person",
+          "value": "In person"
+        }
+      ]
+    },
+    {
+      "label": "Has the letter been completed?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_214",
+        "columns": null
+      },
+      "id": "Field_214",
+      "key": "letterNowCompleted",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Expected completion date",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_215",
+        "columns": null
+      },
+      "id": "Field_215",
+      "key": "expectedCompletionDate",
+      "subtype": "date"
+    },
+    {
+      "label": "What was agreed?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_216",
+        "columns": null
+      },
+      "id": "Field_216",
+      "key": "escalationNotes",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Date of contact",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_217",
+        "columns": null
+      },
+      "id": "Field_217",
+      "key": "contactedOn",
+      "subtype": "date"
+    },
+    {
+      "label": "Contacted by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_218",
+        "columns": null
+      },
+      "id": "Field_218",
+      "key": "contactedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "contact-consultant-overdue-letter",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "A letter outstanding for more than a month is taken up with the responsible Consultant directly."
+}

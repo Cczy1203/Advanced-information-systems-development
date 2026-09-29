@@ -1,0 +1,121 @@
+{
+  "components": [
+    {
+      "label": "Enquiry reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_180",
+        "columns": null
+      },
+      "id": "Field_180",
+      "key": "enquiryRef",
+      "validate": {
+        "required": true,
+        "maxLength": 40
+      }
+    },
+    {
+      "label": "Does a Consultant need to look at this?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_181",
+        "columns": null
+      },
+      "id": "Field_181",
+      "key": "needsConsultantReview",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "true",
+          "value": "true"
+        },
+        {
+          "label": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Clinical assessment",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_182",
+        "columns": null
+      },
+      "id": "Field_182",
+      "key": "clinicalAssessment",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Advice given to the patient",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_183",
+        "columns": null
+      },
+      "id": "Field_183",
+      "key": "clinicalAdviceSummary",
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Priority",
+      "type": "select",
+      "layout": {
+        "row": "Row_184",
+        "columns": null
+      },
+      "id": "Field_184",
+      "key": "priority",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Urgent",
+          "value": "Urgent"
+        },
+        {
+          "label": "Same day",
+          "value": "Same day"
+        },
+        {
+          "label": "Routine",
+          "value": "Routine"
+        }
+      ]
+    },
+    {
+      "label": "Advised by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_185",
+        "columns": null
+      },
+      "id": "Field_185",
+      "key": "advisedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80
+      }
+    }
+  ],
+  "type": "default",
+  "id": "triage-clinical-enquiry",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Clinical enquiries are answered by a qualified clinical professional. Call handlers never diagnose or interpret results, so nothing reaches this form until it has been routed here."
+}
