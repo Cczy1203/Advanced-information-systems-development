@@ -1,4 +1,4 @@
-# v14 — the outside participants opened up
+# v14: the outside participants opened up
 
 **Release v14.0.** One file, one diagram: nine executable hospital processes and
 five external participants. No black-box pools remain.
@@ -6,23 +6,24 @@ five external participants. No black-box pools remain.
 The outside participants are drawn as **documentation pools**, not as executable
 processes. A supplier's pool shows the one step it performs and the hand-off in
 each direction, and it names the same job type the hospital's own service task
-already calls — so the Java worker does the work and the pool shows where that
-work sits in the collaboration. The patient participant carries the referral entry
-point. Nothing in the collaboration is a pool that only names a party and explains
+already calls. The Java worker does the work; the pool shows where that work sits
+in the collaboration. The patient participant carries the referral entry point.
+Nothing in the collaboration is a pool that only names a party and explains
 nothing.
 
 **Revision note (supersedes the counts further down).** An earlier build of v14
 made all six outside participants executable, including a referring-organisation
 pool, and that build was run and logged
 (`screenshots/run-external-participants-v14.log`). It is not the file in this
-release. The referring-organisation pool has been **removed** — a GP surgery that
-refers in sits outside a model that begins when the referral arrives — and the
-remaining five outside pools are drawn rather than deployed. Rows below that
-describe the executable build are kept for the record and marked as superseded.
+release. The referring-organisation pool has been **removed**: a GP surgery that
+refers in sits outside a model that begins when the referral arrives. The
+remaining five outside pools are drawn, and none of them is deployed as a
+process. Rows below that describe the executable build are kept for the record
+and marked as superseded.
 
-This document says what changed, why it is a correctness fix rather than
-decoration, how it was checked, and **what still has to be re-run on an engine
-before it can be presented as tested**.
+This document sets out what changed, why this is a correctness fix and not
+decoration, how it was checked, and what still has to be re-run on an engine
+before it can be presented as tested.
 
 ---
 
@@ -35,19 +36,19 @@ participants as pools with no process inside:
 |---|---|---|
 | `P_ReferringOrg` | *none* | 2 (referral in, information request out) |
 | `P_Correspondence` | *none* | 1 (dispatch sub-process → pool) |
-| `P_PaymentProvider` | *none* | **0 — the pool floated** |
-| `P_ExternalClinicalServices` | *none* | **0 — the pool floated** |
+| `P_PaymentProvider` | *none* | **0: the pool floated** |
+| `P_ExternalClinicalServices` | *none* | **0, the pool floated** |
 | `P_Patient` | *none* | 3 (attends, contacts, refund message) |
-| `P_ExternalScheduling` | *none* | **0 — the pool floated** |
+| `P_ExternalScheduling` | *none* | **0 (the pool floated)** |
 
 Two separate defects, and only one of them is cosmetic:
 
 1. **Nothing inside.** A reader could see that the hospital hands work to a
    supplier but not what the supplier does with it. The four suppliers are
-   described in the case study at the boundary — slots come back, the dispatch
+   described in the case study at the boundary: slots come back, the dispatch
    result comes back, the payment status, reference, date and amount come back,
-   and capacity is reported — so leaving them empty threw away information the
-   case study does give.
+   capacity is reported. Leaving them empty threw away information the case study
+   does give.
 2. **Three pools with no connection at all.** `P_PaymentProvider`,
    `P_ExternalClinicalServices` and `P_ExternalScheduling` were reached only from
    service tasks inside the hospital pools (`payment.process-transaction`,
@@ -58,7 +59,7 @@ Two separate defects, and only one of them is cosmetic:
    diagram that no line touches read as a modelling mistake, because they are one:
    a participant that exchanges no messages is not participating.
 
-The logic itself was not wrong — the hospital's calls, job types and error codes
+The logic itself was not wrong: the hospital's calls, job types and error codes
 are correct and match the case study. What was missing was the other half of each
 exchange.
 
@@ -104,9 +105,9 @@ existing drawing without adding information.
 `correspondence.dispatch-letter`, `payment.process-transaction` and
 `external-resources.check-availability` are four of the 35 job types the model
 already declares and the Java workers already subscribe to. The same worker
-therefore drives both ends of the same exchange — nothing new has to be written,
-no new job type appears, no new form appears, and the worker job-type table in
-`workers/README.md` stays true. The v14 job-type census is **35 distinct types,
+therefore drives both ends of the same exchange. Nothing new has to be written,
+no job type or form is added, and the worker job-type table in `workers/README.md`
+stays true. The v14 job-type census is **35 distinct types,
 unchanged**.
 
 **The hospital side is not touched.** Its twelve supplier-facing service tasks,
@@ -116,8 +117,8 @@ so a supplier that cannot answer is still
 `PAYMENT_PROVIDER_UNAVAILABLE` or `EXTERNAL_RESOURCE_UNAVAILABLE` on the
 hospital's own task, and every run recorded in `docs/03-test-record.md` still
 describes the nine hospital processes that are in this file. The two sides are the
-two ends of the same job type; the alternative — rewriting all twelve calls as
-message throw/catch pairs and deleting the eight boundary events — is §5.
+two ends of the same job type. The alternative, rewriting all twelve calls as
+message throw/catch pairs and deleting the eight boundary events, is §5.
 
 ## 4. How v14 was checked
 
@@ -136,13 +137,13 @@ workers built from `workers/` running.
 | No outside participant is a floating pool | `verify_preservation.py` (§6b) | checked against the earlier build; the script still expects the removed referring-organisation pool, see `docs/02-status.md` |
 | No outside participant is still a black box | `verify_preservation.py` (§6b) | all five have a `processRef` and a drawn hand-off |
 | **The nine hospital processes still deploy and run** | `./tools/deploy.sh`, then `tools/demo_scenario.py` and `--exception` | 9 process definitions + 36 forms deployed; happy path `incidents: none` at all three checkpoints; the unreadable pack caught by the boundary event and routed into the missing-information loop (`screenshots/run-*-v14.log`) |
-| ~~All six outside participants execute~~ **superseded** — the executable build is not this file | `tools/check_external_participants.py` against the second deployment | `referring-organisation`, `patient-representative`, `external-scheduling-service`, `external-correspondence-service`, `external-payment-service`, `external-clinical-services` — all **COMPLETED, no incident** (`screenshots/run-external-participants-v14.log`) |
+| ~~All six outside participants execute~~ **superseded**: the executable build is not this file | `tools/check_external_participants.py` against the second deployment | `referring-organisation`, `patient-representative`, `external-scheduling-service`, `external-correspondence-service`, `external-payment-service`, `external-clinical-services`; all **COMPLETED, no incident** (`screenshots/run-external-participants-v14.log`) |
 | **The integrations really fire** | same run | the referrer's throw of `referral.received` started a Medical Secretaries instance; the patient's throw of `appointment.attended` started a Consultants instance |
 
-The three new checks that matter for this release are the ones that would have
-caught the v7.0 defect: **every outside participant has a process of its own**,
-**every outside participant is connected to another pool**, and **no two drawn
-message flows share a pair of elements**.
+Three new checks matter for this release, and each one would have caught the v7.0
+defect: every outside participant has a process of its own; every outside
+participant is connected to another pool; and no two drawn message flows share a
+pair of elements.
 
 ### What running it found that checking it did not
 
@@ -151,7 +152,7 @@ Three defects, all fixed, none of which any static gate could see:
 1. **`documentation` was written after `extensionElements`.** The BPMN XSD wants
    `bpmn:tBaseElement` children in the order documentation, extensionElements.
    bpmn-moddle happily imports either order, bpmn-js renders either order, and the
-   Camunda deployer **rejects** the wrong one:
+   Camunda deployer rejects the wrong one:
    `cvc-complex-type.2.4.a: invalid content was found starting with element
    'documentation'`. It was latent for the whole life of the project because no
    process carried process-level documentation until the six outside participants
@@ -162,13 +163,13 @@ Three defects, all fixed, none of which any static gate could see:
    dispatch with no recipients (`CORRESPONDENCE_SERVICE_FAILED`) and
    `payment.process-transaction` requires a payment reference and a charge amount.
    Inside the hospital process those are guaranteed upstream; inside the supplier
-   process, driven with a bare request, they are not — so the first run produced
-   two incidents. Both steps now carry a `zeebe:ioMapping` that defaults the
+   process, driven with a bare request, they are not. The first run produced two
+   incidents. Both steps now carry a `zeebe:ioMapping` that defaults the
    fields, using the value when the request supplies it:
    `=if paymentReference = null then "SIMULATED-PAYMENT-REFERENCE" else paymentReference`.
 3. **The check script reused correlation keys.** Camunda 8 will not start a second
    instance on a message start event while an instance with the same correlation
-   key is still active — the same duplicate suppression the model relies on for
+   key is still active: the same duplicate suppression the model relies on for
    hand-offs (`docs/04-modelling-decisions.md` §2). The first version of the check
    published a fixed reference and reported "process did not start" for three
    processes. The check now uses a fresh reference per run, and the behaviour it
@@ -194,7 +195,7 @@ Three defects, all fixed, none of which any static gate could see:
 
 ## 5. Deployment: what the batch ceiling actually does, and what was verified
 
-**The ceiling is real, and it was measured rather than predicted.** Camunda 8
+**The ceiling is real, and it was measured.** Camunda 8
 stores the whole BPMN resource inside every process definition record, so a
 process count multiplies the resource size. Against c8run 8.10.0-alpha5, with all
 fifteen processes of the earlier build executable:
@@ -225,7 +226,7 @@ The other two ways out, neither needed here:
 1. **Raise the limit.** Set `zeebe.broker.network.maxMessageSize` above 4 MB in the
    broker configuration, set `EXTERNAL_PROCESSES_EXECUTABLE = True`, rebuild, and
    all fifteen deploy in one batch. Cleanest if the environment allows it, because
-   then the second file is unnecessary; **not** tested here.
+   then the second file is unnecessary; not tested here.
 2. **Split further.** The second file already is the split; nothing more is needed.
 
 **Still open, in order of what a reviewer would ask:**
@@ -237,16 +238,16 @@ The other two ways out, neither needed here:
 
 **Nothing that runs is left unrun.** Every path the model carries was driven on
 v14: the happy path, the unreadable pack, declined payment, confirmation lost, the
-two escalation rungs, compensation, and the outside participants — each with
+two escalation rungs, compensation, and the outside participants, each with
 `incidents: none` (`docs/03-test-record.md` §J11–J15).
 
-Two things this release deliberately does **not** claim:
+Two things this release deliberately does not claim:
 
 * The supplier processes are still not triggered by the hospital's service tasks.
   In Camunda 8 one process cannot call another except by message, and the
   hospital's call is a job (`scheduling.*`, `payment.*`, …). Making the two
-  genuinely consecutive — throw a request, wait for the response, keep the
-  existing exception handling — is the change described in
+  genuinely consecutive (throw a request, wait for the response, keep the
+  existing exception handling) is the change described in
   `docs/04-modelling-decisions.md` §1 as considered and deferred. It is the
   natural v15.
 * The second deployment file is a deployment artefact, not the deliverable: the

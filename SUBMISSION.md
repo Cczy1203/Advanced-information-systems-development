@@ -1,8 +1,9 @@
 # Submission index — UFCEP6-0-3 Initial Release
 
-**Version submitted: v14.0** — tag `v14.0-final`, commit recorded below.
+**Version submitted: v14.0**. Tag `v14.0-final`, commit recorded below.
 
-Everything the assessment asks for, and where it lives in this repository.
+This file lists everything the assessment asks for and where it sits in the
+repository.
 
 ## Runnable model
 
@@ -67,5 +68,5 @@ python3 tools/export_pdf.py --diagram   # diagram only
 python3 tools/export_pdf.py --docs      # documents only
 ```
 
-Requires Google Chrome for headless rendering. The diagram PDF is vector, so it
-can be zoomed without softening.
+Needs Google Chrome for headless rendering. The diagram PDF is vector, so it can
+be zoomed without softening.

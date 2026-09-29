@@ -1,4 +1,4 @@
-# Test record — v2.0, v2.1 and v7.0
+# Test record: v2.0, v2.1 and v7.0
 
 What was tested, what was expected, what actually happened, and what was fixed as
 a result. Machine: local c8run **8.10.0-alpha5** (`GET /v2/topology` → 200),
@@ -10,13 +10,13 @@ Camunda Modeler 5.51.0, JDK 25, Maven 3.9.9.
 > on c8run 8.10.0-alpha5. Two rows below are superseded for v14: the deployment is
 > nine processes plus a second file for the six outside participants rather than
 > one file of nine, and the drawn message flows are 22 rather than 15. The five
-> exception-branch runs in section I have not been repeated on v14 — the hospital
+> exception-branch runs in section I have not been repeated on v14: the hospital
 > processes are unchanged, but see section J3.
 
 Section H covers the v2.1 re-run. Everything before it is the v2.0 round, which
 v2.1 inherited unchanged.
 
-## A. Layout checks — `tools/analyse_layout.py`
+## A. Layout checks: `tools/analyse_layout.py`
 
 Run after every rebuild. The build is not accepted until the first two rows are
 zero.
@@ -32,16 +32,16 @@ zero.
 | A7 | Lanes present where a pool covers several desks | yes | 0 | 20 across 8 pools | 14 across 6 pools | yes |
 | A8 | Repetitive administration contained | yes | 0 subprocesses | 3 collapsed subprocesses | 3 collapsed subprocesses | yes |
 
-A4 is the one outstanding item: 4 flows still clip a boundary event sitting next
-to the one they belong to. They are cosmetic — a few pixels at the edge of a
-36 px circle — and were left rather than shifting the boundary events further,
-which would have detached them from the host edge. v2.1 did not make this worse:
-still 4, now out of 311 sequence flows.
+A4 is the one outstanding item. Four flows still clip a boundary event sitting
+next to the one they belong to; the clipping is cosmetic, a few pixels at the
+edge of a 36 px circle. They were left rather than shifting the boundary events
+further, which would have detached them from the host edge. v2.1 did not make
+this worse: still 4, out of 311 sequence flows.
 
 **Crossings** went 42 (v1.0) → 147 (v2.0) → **197 (v2.1)**. The v2.1 rise is the
-measured cost of merging 28 routine end events, and it was confirmed by A/B
-rather than assumed: same model with the merge switched off gives 147 crossings
-and 60 end events. See `05-v2.1-changes.md` §4.
+measured cost of merging 28 routine end events. An A/B run puts a number on it:
+the same model with the merge switched off gives 147 crossings and 60 end
+events. See `05-v2.1-changes.md` §4.
 
 ## B. Structural defects found and fixed while testing
 
@@ -67,14 +67,14 @@ These were all found by running the model, not by reading it.
 |---|---|---|---|
 | C1 | Deploy model + 36 forms to c8run | accepted, no errors | **9 process definitions, 36 forms** |
 | C2 | Re-deploy after every change | accepted | accepted, currently v3 |
-| C3 | 4 MB append batch | within limit | 397 KB resource × 9 processes — inside the limit, but this is the ceiling that forced the external suppliers to become black-box pools |
+| C3 | 4 MB append batch | within limit | 397 KB resource × 9 processes, inside the limit, but this is the ceiling that forced the external suppliers to become black-box pools |
 
 ## D. Path runs
 
 Both driven by `tools/demo_scenario.py`, which fills in each form over the REST
 API exactly as a person would in Tasklist.
 
-### D1 — Normal path (`screenshots/run-happy-path.log`)
+### D1. Normal path (`screenshots/run-happy-path.log`)
 
 Referral message → Medical Secretaries document check → Consultant decision
 (accept) → Outpatient Bookings slot choice → Call Handling telephone contact →
@@ -87,7 +87,7 @@ Four pools exchanged messages successfully (`medical-secretaries`, `consultants`
 `outpatient-bookings`, `call-handling`, then `treatment-bookings` and
 `finance-team`).
 
-### D2 — Exception path (`screenshots/run-exception-path.log`)
+### D2. Exception path (`screenshots/run-exception-path.log`)
 
 `--exception` sends `["referral-letter", "corrupt-scan"]` instead of a complete
 pack.
@@ -95,16 +95,16 @@ pack.
 **Expected:** `referral.check-supporting-documents` throws
 `REFERRAL_PACK_UNREADABLE`, the boundary event catches it, and the case leaves the
 main line rather than reaching a clinician.
-**Actual:** exactly that, with `incidents: none` — the BPMN error was caught, not
-escalated. In v2.0 the branch joins the missing-information loop
-(`SEC_EGW_InfoRequest`) rather than ending in a bare end event, which is the
+**Actual:** exactly that, with `incidents: none`. The BPMN error was caught and
+not escalated. In v2.0 the branch joins the missing-information loop
+(`SEC_EGW_InfoRequest`) instead of ending in a bare end event, which is the
 change the gap audit called for.
 
-### D3 — Not run
+### D3. Not run
 
 - The payment-declined and payment-confirmation-lost branches were not driven
   end to end.
-- The compensation handlers were not triggered in a live run.
+- No live run triggered the compensation handlers.
 - The three-month letter escalation was not driven.
 
 ## E. Workers
@@ -126,10 +126,10 @@ Captured through headless Chrome driving the real webapps, logging in as `demo`.
 | F2 | `screenshots/tasklist-camunda-form.png` | A claimed v2.0 task | Task opens, candidate group shown as `medical-secretaries`, assignable and claimable |
 | F3 | `screenshots/operate-processes.png` | Operate dashboard | "Medical Secretaries — 2 instances", "Call Handling Team — 1 instance", and **"Your processes are healthy — There are no incidents on any instances."** |
 
-### F4 — every form renders: 36 of 36, no failures
+### F4. Every form renders: 36 of 36, no failures
 
 The Task tab in Tasklist stayed empty, so the forms were checked directly with
-`@bpmn-io/form-js` — the same renderer Tasklist uses — in headless Chrome:
+`@bpmn-io/form-js` (the same renderer Tasklist uses) in headless Chrome:
 
 ```
 TOTAL=36 FAILED=0
@@ -150,9 +150,9 @@ render error: form field of type <date> not supported
 17 fields across the 36 forms used `"type": "date"`. **Camunda Forms has no
 `date` field type.** The supported types are textfield, textarea, number,
 checkbox, checklist, radio, select, taglist, datetime, group, dynamiclist, table,
-text, image, iframe, html, separator, spacer and button — a date-only field is a
-`datetime` field with `subtype: "date"`. Every form containing a date was
-therefore unrenderable, which is what left the Tasklist pane blank.
+text, image, iframe, html, separator, spacer and button. A date-only field is a
+`datetime` field with `subtype: "date"`. Every form that contained a date was
+therefore unrenderable. That is what left the Tasklist pane blank.
 
 Fixed in `tools/forms_spec.py`; the build now emits `datetime` with a subtype and
 the field-type census is clean:
@@ -167,10 +167,10 @@ the whole Camunda Forms mark.
 
 A second, smaller defect surfaced at the same time: `build_v2.py` imported
 `spec_v2` before `forms_spec`, and `spec_v2` puts the v1.0 tools directory on
-`sys.path` to port the model — so the v1.0 `forms_spec.py` was being loaded and
-the fix silently did not reach the generated files. Import order corrected.
+`sys.path` to port the model, so the v1.0 `forms_spec.py` was being loaded and
+the fix never reached the generated files. Import order corrected.
 
-### F5 — Tasklist still cannot display them, and that part is environmental
+### F5. Tasklist still cannot display them, and that part is environmental
 
 Tasklist requests `/v2/authentication/me` and gets **401**, including when the
 request carries basic credentials, so it cannot fetch the schema to draw:
@@ -181,7 +181,7 @@ basic auth: 401
 ```
 
 Tasklist's web session is not accepted by the orchestration API in this local
-c8run setup. That is a configuration matter, not a model one — and with F4
+c8run setup. That is a configuration matter, not a model one, and with F4
 proving all 36 forms render, the Forms deliverable no longer depends on it.
 
 ## G. Still to test
@@ -197,7 +197,7 @@ proving all 36 forms render, the Forms deliverable no longer depends on it.
 v2.1 only changes the drawing, so the risk was that the thinning had quietly
 broken a hand-off. Everything below was re-run against the rebuilt file.
 
-### H1 — Preservation, by parsing
+### H1. Preservation, by parsing
 
 `python3 tools/verify_preservation.py` compares v2.0 and v2.1 directly.
 
@@ -212,14 +212,14 @@ events, nine error codes, the 7-day and weekly chase timers, the four-rung lette
 escalation chain, and the absence of Camunda 7 attributes in both files. The full
 table is in `05-v2.1-changes.md` §3.
 
-### H2 — Deployment
+### H2. Deployment
 
 | # | Test | Expected | Actual |
 |---|---|---|---|
 | H2a | Deploy rebuilt model + 36 forms | accepted | **9 process definitions at v17, 36 forms at v18** |
 | H2b | Workers rebuilt and started | 37 subscriptions | **37 subscriptions on `localhost:26500`** |
 
-### H3 — Both paths re-run
+### H3. Both paths re-run
 
 | # | Test | Expected | Actual |
 |---|---|---|---|
@@ -234,36 +234,36 @@ not read message flows: the hand-off is the throw event's
 incidents is the evidence that removing 35 drawn dashed lines removed only
 drawing.
 
-### H4 — UI evidence, re-captured
+### H4. UI evidence, re-captured
 
 | # | Screenshot | What it shows |
 |---|---|---|
 | H4a | `screenshots/operate-dashboard.png` | **21 running instances, 0 with incident**, "Your processes are healthy" |
 | H4b | `screenshots/operate-processes.png` | Instance list: `Medical Secretaries` v17, `Call Handling Team` v17 |
-| H4c | `screenshots/operate-instance-completed.png` | A completed Medical Secretaries instance (started 14:18:40, ended 14:18:46) with the Instance History showing the executed steps, and the Variables tab listing the real run variables — `adminChecksCarriedOut`, `approvingClinician`, `authorizingClinician`, `chargeAmount`, `appointmentDate` |
+| H4c | `screenshots/operate-instance-completed.png` | A completed Medical Secretaries instance (started 14:18:40, ended 14:18:46) with the Instance History showing the executed steps, and the Variables tab listing the real run variables: `adminChecksCarriedOut`, `approvingClinician`, `authorizingClinician`, `chargeAmount`, `appointmentDate` |
 | H4d | `screenshots/tasklist-open-tasks.png` | Tasklist open tasks: "Attempt to telephone the patient — Call Handling Team", "Provide treatment decision information — Hospital Patient Administration System" |
 
 H4c is the useful one: it is a real completed instance with the actual executed
 path and the actual variables, not a dashboard summary.
 
-Note that Operate's instance list also shows `Team A process` and `Hospital
-Patient Administration System`. Those are **not ours** — they are leftovers from
-the c8run bundled demo still sitting in the same engine. Neither name appears in
+Operate's instance list also shows `Team A process` and `Hospital
+Patient Administration System`. Those are **not ours**: leftovers from the
+c8run bundled demo still sitting in the same engine. Neither name appears in
 any file in this project.
 
-### H5 — Camunda Modeler and diagram export
+### H5. Camunda Modeler and diagram export
 
 | # | Test | Expected | Actual |
 |---|---|---|---|
 | H5a | Open the model in Camunda Modeler 5.51.0 | no parse error, right platform | opened on **Camunda 8.10 (alpha)**, target **Local C8Run** |
 | H5b | Status bar error count | 0 | **0 errors** (`screenshots/camunda-modeler-v2.1-status-bar.png`) |
-| H5c | Status bar warning count | — | 30 warnings, all one rule: `no-bpmndi` on the collapsed subprocess steps. **Superseded in R3**: DI is now written for those steps and the warning family is gone — see §I2b |
+| H5c | Status bar warning count | — | 30 warnings, all one rule: `no-bpmndi` on the collapsed subprocess steps. **Superseded in R3**: DI is now written for those steps and the warning family is gone; see §I2b |
 | H5d | `node tools/validate_model.js` | 0 warnings, 0 unresolved refs | **0 warnings, 0 unresolved refs, 0 dangling flows, 0 user tasks without a form, 0 user tasks without a candidate group, 0 service tasks without a job type** |
 | H5e | `tools/render_diagram.sh` | SVG + high-res PNG, no import errors | **SVG 7,484 x 14,028, PNG 2.1 MB** |
 | H5f | `tools/export_sections.py` | one crop per pool | 15 section crops refreshed |
 
 H5c is the one thing worth reading twice. The 30 warnings are not modelling
-mistakes — running the same lint rule set the Modeler uses shows all 30 are
+mistakes. Running the same lint rule set the Modeler uses shows all 30 are
 `no-bpmndi`, raised against the steps inside the three collapsed sub-processes.
 Drawing those boxes open clears all 30 and costs 17 lines through an unrelated
 shape, which was judged the worse trade. The full breakdown is in
@@ -274,14 +274,14 @@ bpmn-moddle the Modeler uses, with the Zeebe descriptor loaded so that
 `zeebe:formDefinition` and `zeebe:assignmentDefinition` are understood rather
 than treated as unknown elements.
 
-### H6 — Known gaps after v2.1
+### H6. Known gaps after v2.1
 
 | # | Gap | Detail |
 |---|---|---|
 | H6a | Start events still 43 | Target was ≤2 per pool. Needs a message-protocol change; see `05-v2.1-changes.md` §4 |
-| H6b | Crossings 197 | Up from 147. **Closed in R3**: 94 — see §I |
-| H6c | 4 lines clip a boundary event | Unchanged from v2.0. **Closed in R3**: 0 — the sibling boundary events were 34 px apart on 36 px circles — see §I |
-| H6d | Sub-process boxes stay closed | Drawing them open measured 21 lines through a shape against 4; the boxes stay closed on the main plane, but their steps now carry DI so they open correctly in the Modeler — see §I2b |
+| H6b | Crossings 197 | Up from 147. **Closed in R3**: 94; see §I |
+| H6c | 4 lines clip a boundary event | Unchanged from v2.0. **Closed in R3**: 0. The sibling boundary events were 34 px apart on 36 px circles; see §I |
+| H6d | Sub-process boxes stay closed | Drawing them open measured 21 lines through a shape against 4; the boxes stay closed on the main plane, but their steps now carry DI so they open correctly in the Modeler. See §I2b |
 | H6e | Three exception branches still not driven live | Payment declined, payment confirmation lost, 3-month escalation |
 
 ---

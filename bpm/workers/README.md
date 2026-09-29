@@ -121,11 +121,11 @@ job activated
 ## Verified against the running engine
 
 Validation was performed against the live c8run 8.10.0-alpha5 cluster (gRPC `localhost:26500`, REST
-`http://localhost:8080`) using throwaway models in `/tmp` - never inside this directory:
+`http://localhost:8080`) using throwaway models in `/tmp`, never inside this directory:
 
-* `referral.check-supporting-documents` - success, `REFERRAL_PACK_INCOMPLETE` and
+* `referral.check-supporting-documents`: success, `REFERRAL_PACK_INCOMPLETE` and
   `REFERRAL_PACK_UNREADABLE` branches, plus the incomplete-pack output.
-* `publish-message` - a message throw event in one process started a second process through its
+* `publish-message`: a message throw event in one process started a second process through its
   message start event; a blank `correlationKey` failed the job three times and produced an incident
   naming the variable (no BPMN error).
 * All 35 domain job types in one 34-task process, completing with no incidents, including the
@@ -156,7 +156,7 @@ See the exact commands and observed output in the task report.
 * **Job type alias**: the model currently gives `PCW_Auto_FindOverdue` the shorter job type
   `pathway.find-overdue-letters`, so that worker subscribes to **both** names
   (`AbstractHospitalWorker.jobTypes()`); 36 worker classes therefore produce **37 job type
-  subscriptions** — the 35 model types, the one alias, and `publish-message`.
+  subscriptions**: the 35 model types, the one alias, and `publish-message`.
 * **Variable aliases**: because the hospital forms and the model variables are developed separately,
   several workers accept documented aliases (for example `amountTaken` for `paidAmount`,
   `matchedTransactionRef` for `paymentRef`, `cycleReviewOutcome` for `clinicalDecision`). The

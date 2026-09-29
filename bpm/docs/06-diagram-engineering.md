@@ -2,10 +2,10 @@
 
 This document replaces the earlier `06-visual-compaction.md`. That file described
 a third, much smaller compaction pass (9 lanes, 12 collapsed sub-processes, 15
-message flows, canvas 2,398 × 6,858) whose output was **never shipped**. The
-shipped model is the one described here. The earlier pass is written up in §5 as
-a rejected experiment, with the numbers that rejected it — they are the reason
-the drawing looks the way it does now.
+message flows, canvas 2,398 × 6,858) whose output was never shipped. The shipped
+model is the one described here. The earlier pass is written up in §5 as a
+rejected experiment, with the numbers that rejected it, and those numbers explain
+why the drawing looks the way it does now.
 
 Everything below is measured, never remembered:
 
@@ -26,7 +26,7 @@ One BPMN collaboration, one diagram, fifteen participants and fourteen lanes:
 | drawn shapes on the plane | 357 |
 | sequence flows | 298 |
 | drawn message flows | 15 |
-| end events | 65 — one per terminating path, none merged |
+| end events | 65: one per terminating path, none merged |
 | collapsed sub-processes | 3 |
 | canvas | 5,332 × 14,176 px |
 
@@ -35,10 +35,10 @@ is. It is meant to be read three ways, and all three are in `diagram/`:
 
 | artefact | what it is for |
 |---|---|
-| `hospital-patient-pathway-v2.svg` | the vector original — open it and zoom, the lines stay sharp |
+| `hospital-patient-pathway-v2.svg` | the vector original: open it and zoom, the lines stay sharp |
 | `hospital-patient-pathway-v2.png` | 7,484 × 14,468 raster of the same drawing |
 | `hospital-patient-pathway-v2-overview.png` | scaled to 2,400 px on the long edge, to see the whole shape at once |
-| `sections/NN_<pool>.png` | **one image per pool** — this is how a reader actually follows one team's work, at full size and with nothing else on the page |
+| `sections/NN_<pool>.png` | one image per pool: this is how a reader actually follows one team's work, at full size and with nothing else on the page |
 
 ## 2. How the routing works
 
@@ -69,21 +69,21 @@ was added or removed to make the drawing better.
 
 The v2.1 router picked the least-loaded corridor nearest the middle of a jump.
 That spreads the ink out, but a jump of eight rows still cut whatever was in
-between. v7.0 keeps that as the first pass and then **measures**: for every
+between. v7.0 keeps that as the first pass and then measures: for every
 dogleg it tries the corridors its own rows allow, counts how many other segments
 the resulting polyline would cut, keeps the best, and redraws. It repeats until a
 round changes nothing.
 
 The geometry phases were split out of `place()` into `_geometry()` so the
 optimiser can re-measure the whole drawing after each round without touching the
-row, corridor or port plan. The build stays deterministic — the same input gives
+row, corridor or port plan. The build stays deterministic. The same input gives
 the same file, byte for byte (verified: two consecutive runs produce the same
 SHA-256).
 
 ### 3.2 Boundary events no longer sit under the corridor tracks
 
 A boundary event straddles the bottom edge of its host, so it reaches into the
-corridor underneath — exactly where that corridor's horizontal runs want to go.
+corridor underneath, exactly where that corridor's horizontal runs want to go.
 Two fixes:
 
 * **Sibling spacing.** Two boundary events on one host were drawn 34 px apart on
@@ -133,14 +133,14 @@ finished, and the flows that were merged away had to travel to a shared circle
 instead of ending where they finish.
 
 Merging is switched off (`_merge_end_events` is kept in the generator but is no
-longer called), and the five joins inherited from v1.0 were split as well, so
-**no end event has more than one incoming flow**. End events went 32 → 65.
+longer called), and the five joins inherited from v1.0 were split as well, so no
+end event has more than one incoming flow. End events went 32 → 65.
 
 This is the change that paid for itself twice. Because each path now ends where
 it finishes, fewer flows need a long run to a distant circle: crossings fell from
 123 to 94 on their own, the busiest routing channel narrowed from 228 px to
 111 px, and the canvas lost 2,164 px of width. `tools/verify_preservation.py`
-now checks the invariant directly — no end event with more than one incoming
+now checks the invariant directly: no end event with more than one incoming
 flow, and no end event with none.
 
 One end event was deleted rather than kept: `SEC_End_PackIncomplete`. v2.0
@@ -150,22 +150,22 @@ terminal, and it showed up as a disconnected element once the merges were undone
 
 ### 3.6 Fifteen dashed lines instead of thirty-one
 
-A message flow is a picture of a hand-off. In Camunda 8 it is not what performs
-the hand-off — the throw event's `publish-message` job is — so the dashed line is
-documentation, and 31 of them running the height of the drawing cost far more
-attention than they returned.
+A message flow is a picture of a hand-off. In Camunda 8 the throw event's
+`publish-message` job performs the hand-off, so the dashed line is documentation;
+31 of them running the height of the drawing cost far more attention than they
+returned.
 
 What is drawn now:
 
-* **every exception and outcome hand-off** — a rejected referral, a request for
+* **every exception and outcome hand-off**: a rejected referral, a request for
   more information, a funding delay, a payment left unresolved, a refund the
   provider has not returned, an escalation to the manager or to higher
   management, an urgent clinical concern. These carry marks and are never
   thinned; and
-* **the four hand-offs that cross the system boundary** — the referral arriving
+* **the four hand-offs that cross the system boundary** (the referral arriving
   from the referring organisation, the clinic letter going out through the
   correspondence service, the patient attending the new patient appointment, and
-  the patient contacting the hospital.
+  the patient contacting the hospital).
 
 Everything else stays in the model as a throw/catch pair and still runs; it is
 simply not drawn. Dashed-line ink fell from 179,059 px to 61,613 px, a 66%
@@ -185,7 +185,7 @@ nothing can reach. Both were real, not linter pedantry.
 **`TRT_Throw_BookingPending`** was the head of the counted capacity retry. The
 v2.0 pass added a second timer branch and pointed the external-capacity boundary
 event straight at the release step, which left the whole record→cap→retry chain
-unreachable — so the "capped retry" the modelling document describes was doing
+unreachable. The "capped retry" the modelling document describes was doing
 nothing at runtime. The boundary now enters the chain it was built for: three
 attempts, then the provisional series is released and the pathway team is told.
 Behaviour on the driven paths is unchanged; they never reach that branch, because
@@ -207,7 +207,7 @@ element inside the collaboration is an implicit start.
 The first v2.1 pass removed the diagram interchange for the steps inside the
 three collapsed sub-processes, on the reasoning that a collapsed box never draws
 them. The effect was the opposite of the intent: `no-bpmndi` fires when DI is
-**missing**, so that change created 30 lint errors, and the boxes could not be
+missing, so that change created 30 lint errors, and the boxes could not be
 opened in the Modeler either.
 
 In v7.0 every inner element carries DI again, and the inner start and end events
@@ -256,14 +256,14 @@ Measured against the shipped model, that version is worse everywhere it matters:
 Three of those numbers are the whole argument. Compressing the drawing did not
 simplify the connections; it put them on top of one another and dragged them
 through the boxes. The shipped drawing reaches a *smaller* width than the
-compacted attempt without any of that — because it removed lines that carried
-nothing and gave every path its own ending, rather than shrinking the paper. A smaller canvas is not a more readable one. The earlier pass
-is also the reason this document exists: while it was in the tree, the prose and
-the model disagreed, which is exactly the configuration-management failure
-`docs/09-...` §1 raises as R-13.
+compacted attempt without any of that, because it removed lines that carried
+nothing and gave every path its own ending instead of shrinking the paper. A
+smaller canvas is not a more readable one. The earlier pass is also the reason
+this document exists: while it was in the tree, the prose and the model disagreed,
+which is the configuration-management failure `docs/09-...` §1 raises as R-13.
 
 The readability problem it was trying to solve is real, and it is answered
-instead by the per-pool section images in §1 — one pool per page, at full size.
+instead by the per-pool section images in §1: one pool per page, at full size.
 
 ## 6. Reproducing the drawing
 

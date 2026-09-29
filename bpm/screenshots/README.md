@@ -5,12 +5,12 @@ This folder is the demonstration evidence for the portfolio; the checks that can
 be re-run at any time are in `static-checks-v14.txt` (current file) and
 `static-checks-v7.0.txt` (the previous one).
 
-> **The v14 runs are the `*-v14.log` files — eight of them.** They were captured
+> **The v14 runs are the `*-v14.log` files, eight of them.** They were captured
 > against the shipped file (`model/UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn`,
 > SHA-256 `7bd812ad...`) on c8run 8.10.0-alpha5 and cover everything the model
 > carries: the happy path, the unreadable pack, declined payment, confirmation
 > lost, both letter-escalation rungs, compensation, and all six outside
-> participants — every one with `incidents: none`. **The images are still v7.0's**:
+> participants; every one reports `incidents: none`. **The images are still v7.0's**:
 > there are no Operate, Tasklist or Modeler screenshots of the white-box release.
 > Read the images as evidence for the nine hospital processes, which v14 did not
 > change.
@@ -19,13 +19,13 @@ be re-run at any time are in `static-checks-v14.txt` (current file) and
 
 | File | What it is |
 |---|---|
-| `static-checks-v14.txt` | **The current file's static evidence**: the build's own consistency checks, bpmn-moddle parse, `bpmnlint` (0 errors, 31 warnings), `tools/verify_preservation.py` (70/70) and `tools/analyse_layout.py` (0 overlaps, 0 diagonals, 0 lines through a shape, 95 crossings), each with its command line, plus the SHA-256 (`7bd812ad...`) of the model they were run against - and section 8 is the engine record: the deployment, the measured batch-ceiling rejection, the six outside participants completing, and the two integrations firing. |
+| `static-checks-v14.txt` | **The current file's static evidence**: the build's own consistency checks, bpmn-moddle parse, `bpmnlint` (0 errors, 31 warnings), `tools/verify_preservation.py` (70/70) and `tools/analyse_layout.py` (0 overlaps, 0 diagonals, 0 lines through a shape, 95 crossings), each with its command line, plus the SHA-256 (`7bd812ad...`) of the model they were run against. Section 8 is the engine record: the deployment, the measured batch-ceiling rejection, the six outside participants completing, and the two integrations firing. |
 | `static-checks-v7.0.txt` | The output of the same four gates run against v7.0: `tools/analyse_layout.py`, `tools/verify_preservation.py`, `tools/validate_model.js` (bpmn-moddle with the Zeebe descriptor) and `bpmnlint` under the project's own `bpmnlint:recommended` config. It carries the SHA-256 of the file it was run against, so it can be re-verified rather than trusted. |
 | `run-happy-path-v14.log` | **v14**: the normal path driven end to end on the shipped file, exit 0, `incidents: none` at all three checkpoints |
 | `run-exception-path-v14.log` | **v14**: the unreadable referral pack, caught by the boundary event and routed into the missing-information loop, `incidents: none` |
 | `run-external-participants-v14.log` | **v14**: all six outside participants started and driven to `COMPLETED` with no incident, and both integrations fired (referrer to Medical Secretaries, patient to Consultants). Produced by `tools/check_external_participants.py` |
 | `run-declined-payment-v14.log` | **v14**: the provider declines, the treatment team works the review task, the retry is approved, `incidents: none` |
-| `run-confirmation-lost-v14.log` | **v14**: the provider never confirms — Finance investigates and a clinician authorises urgent treatment, `incidents: none` |
+| `run-confirmation-lost-v14.log` | **v14**: the provider never confirms; Finance investigates and a clinician authorises urgent treatment, `incidents: none` |
 | `run-overdue-escalation-v14.log` | **v14**: the letter ladder to higher management (short-timer variant), `incidents: none` |
 | `run-escalation-manager-v14.log` | **v14**: the same ladder to the Administrative Manager (`DEMO_LETTER_OVERDUE_DAYS=45`), `incidents: none` |
 | `run-compensation-v14.log` | **v14**: capacity never arrives, the retry reaches its cap and **the compensation handler runs** (`TRT_Comp_ReleaseSeries`), `incidents: none` |
@@ -55,8 +55,8 @@ from models that are not in this folder.
 | `operate-instance-diagram.png` | The instance diagram for a running instance | v2.1 |
 | `operate-instance-medical-secretaries.png` | The Medical Secretaries instance, showing the hand-off | v2.1 |
 | `tasklist-open-tasks.png` | Tasklist: the open user tasks the model produced | v2.1 |
-| `tasklist-camunda-form.png` | A Camunda Form rendered open in Tasklist, captured on a clean engine against the shipped model — the evidence DEF-17 was raised for | v7.0 |
-| `camunda-forms-rendered.png` | The form-js render census — `TOTAL=36 FAILED=0`, the renderer Tasklist uses | v2.1 |
+| `tasklist-camunda-form.png` | A Camunda Form rendered open in Tasklist, captured on a clean engine against the shipped model: the evidence DEF-17 was raised for | v7.0 |
+| `camunda-forms-rendered.png` | The form-js render census: `TOTAL=36 FAILED=0`, the renderer Tasklist uses | v2.1 |
 | `camunda-modeler-v2.1-status-bar.png` | Camunda Modeler 5.51.0 status bar on platform Camunda 8.10 (alpha) | v2.1 |
 | `camunda-modeler-v2.1-model.png` | The collaboration open in the Modeler | v2.1 |
 | `camunda-modeler-v2.1-open.png` | The same, at 100% zoom | v2.1 |
@@ -70,8 +70,8 @@ from models that are not in this folder.
 were produced against the current file
 (`model/UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn`, SHA-256 `7bd812ad...`) and
 are current. `static-checks-v7.0.txt` describes the previous file. Everything
-else in this folder - the Operate, Tasklist, Modeler images and the v7.0 run logs
-- was captured against v7.0 and is evidence for the nine hospital processes,
+else in this folder, the Operate, Tasklist and Modeler images and the v7.0 run
+logs, was captured against v7.0 and is evidence for the nine hospital processes,
 which v14 did not change.
 
 The screenshots above were captured from the running system during the v1.0,

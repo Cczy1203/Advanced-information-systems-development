@@ -1,4 +1,4 @@
-# Section images — reading order
+# Section images: reading order
 
 One PNG per pool, at full size, with nothing else on the page. This is how the
 collaboration is meant to be read: the full drawing is a fourteen-participant wall
@@ -11,8 +11,8 @@ optimiser to keep the message hand-offs short and local, which is why it is not
 the order below. v14 re-optimised it, so the external services now sit beside the
 hospital teams that call them.
 
-**This is the order a reader should follow them in** — the path a patient takes
-through the service:
+**This is the order a reader should follow them in.** It is the path a patient
+takes through the service:
 
 | # | Read this | Why |
 |---|---|---|
@@ -46,8 +46,8 @@ end events. The images for the external participants are the same rule applied
 outside the hospital: a message that arrives, the step that does the work, and the
 answer that goes back.
 
-**v14 note.** Until v14 the outside suppliers were black boxes, and three of them —
-payments, treatment and diagnostics, scheduling — had no drawn connection at all.
+**v14 note.** Until v14 the outside suppliers were black boxes, and three of them
+(payments, treatment and diagnostics, scheduling) had no drawn connection at all.
 Each now carries a process of its own and a hand-off in each direction, so no pool
 on the drawing is a box that nothing points at. What they deliberately do *not*
 carry is invented hospital detail: an outside participant has no user task and no

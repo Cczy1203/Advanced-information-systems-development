@@ -63,8 +63,8 @@ cd "$PROJ/workers" && ./run-workers.sh
 ps aux | grep hospital-external-workers | grep -v grep   # expect a single PID
 ```
 
-> More than one copy is not fatal but they compete for the same job types and make
-> the logs unreadable — kill the extras before a demonstration.
+> More than one copy is not fatal, but they compete for the same job types and make
+> the logs unreadable. Kill the extras before a demonstration.
 
 ## 3. Deploy the model and the 36 forms
 
@@ -91,9 +91,9 @@ python3 auto_driver.py --all --report driver_report.json
 ```
 
 - 34 scenarios, roughly 80 seconds, no human input.
-- The driver starts each pool, plays any job the Java worker has not claimed
-  (only with `--with-jobs`, and only when the workers are stopped), replays the
-  pool-to-pool messages, and completes every user task through the API.
+- The driver starts each pool and replays the pool-to-pool messages, then completes
+  every user task through the API. It can also play any job the Java worker has not
+  claimed, but only with `--with-jobs` and only when the workers are stopped.
 - Useful extras: `--list` (scenarios + form names), `--scenario <id>` (repeatable),
   `--timeout <seconds>`, `--report <path>`.
 
@@ -104,7 +104,7 @@ cd "$PROJ/tools"
 python3 auto_driver.py --all --manual-forms --timeout 600
 ```
 
-The driver **never** completes a user task in this mode: it announces the task and
+The driver **never** completes a user task in this mode. It announces the task and
 waits for a human, then records what the human did.
 
 ```
@@ -119,14 +119,14 @@ How to read it:
 
 | Line                                  | Meaning                                                                       |
 | ------------------------------------- | ----------------------------------------------------------------------------- |
-| `>> ... form=<id> pool=<pool>`        | **the form this scenario is waiting for — do this one first**                 |
+| `>> ... form=<id> pool=<pool>`        | **the form this scenario is waiting for, so do this one first**               |
 | a line without `>>`                   | another pool's task, queued for a later scenario; completing it early is fine |
 | `form DONE <id>`                      | your click was recorded, the coverage list gained one form                    |
 | `-> PASS`                             | every form of that scenario is done; the driver moves on immediately          |
 | `-> PARTIAL / FAIL ... missing=[...]` | the timeout expired before someone finished those forms                       |
 
 `--timeout 600` gives each scenario 10 minutes of human time (the default in manual
-mode; overridable). The driver only ever waits — you can work at any pace, and it
+mode; overridable). The driver only ever waits. You can work at any pace, and it
 advances the moment the scenario's own forms are complete.
 
 ### 4.3 The Tasklist routine — same five clicks for every task
@@ -135,10 +135,10 @@ advances the moment the scenario's own forms are complete.
 2. Filter state **Created**, and **Unassigned** (or *Assigned to me*).
 3. Open the task → **Assign to me** → fill the fields. The business variables
    (patient reference, amounts, priorities) are already seeded by the driver, and
-   most fields offer selectable options — pick a sensible value.
+   most fields offer selectable options, so pick a sensible value.
 4. Click **Complete**. The next task appears.
 5. Glance at the terminal: the corresponding `form DONE ...` line must appear.
-   If it does not, you completed a different pool's task — keep going with the `>>` one.
+   If it does not, you completed a different pool's task. Keep going with the `>>` one.
 
 ---
 
@@ -152,7 +152,7 @@ forms covered: 36 / 36
 - `36 / 36` with no `missing forms:` line = all 36 forms were really driven (and, in
   manual mode, really filled by hand).
 - The JSON report lists, per form: task name, element id, pool, process instance key
-  and completion time — ready to paste into `docs/03-test-record.md` and `docs/08-test-plan.md`.
+  and completion time. That is ready to paste into `docs/03-test-record.md` and `docs/08-test-plan.md`.
 - Exit code is `0` when nothing is missing, `1` when forms are missing, `2` when the
   engine is unreachable.
 
@@ -186,7 +186,7 @@ print('ACTIVE:', len(d['items']), '| incidents:', sum(1 for i in d['items'] if i
 [print('  %-28s %d' % (k,v)) for k,v in c.most_common()]"
 ```
 
-Cancel one instance — **if and only if** you have checked the key, cancellation cannot be undone:
+Cancel one instance runs only if you have checked the key. Cancellation cannot be undone:
 
 ```bash
 curl -X POST http://localhost:8080/v2/process-instances/<processInstanceKey>/cancellation
@@ -196,18 +196,17 @@ curl -X POST http://localhost:8080/v2/process-instances/<processInstanceKey>/can
 
 ## 8. Why "all 36 in one go" works the way it does
 
-- The nine hospital processes are **nine independent instances**; they are joined by
+- The nine hospital processes are **nine independent instances**. They are joined by
   message hand-offs, not by one giant flow. The outside participants are documented
   in the same file: four suppliers, each with the single step it performs, and the
   patient, who owns the referral entry point.
-- One run of the driver covers 34 **scenarios**, not 34 forms: 36 forms sit on
+- One run of the driver covers 34 **scenarios**, not 34 forms. 36 forms sit on
   different branches (main path, declined referral, funding failure, escalation,
   enquiry, chemotherapy), and a scenario deliberately blanks or un-sets variables to
   force a branch. All branches together = all 36 forms.
-- In manual mode "all 36 in one go" means: the driver keeps the messages flowing and
+- In manual mode "all 36 in one go" means the driver keeps the messages flowing and
   queues every branch in turn, while Tasklist collects the tasks in one list for you
-  to work through. A pool that finishes its path simply ends — that is the design,
+  to work through. A pool that finishes its path simply ends. That is the design,
   not a broken chain.
 
 *Chinese companion version of this guide: `docs/12-tasklist-end-to-end-guide.md`.*
-
