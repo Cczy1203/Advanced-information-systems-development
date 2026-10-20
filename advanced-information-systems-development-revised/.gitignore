@@ -1,0 +1,75 @@
+# --- Dependencies ---
+node_modules/
+npm-debug.log*
+
+# --- Build output ---
+dist/
+build/
+coverage/
+*.class
+*.jar
+
+# Everything under a target/ directory is build output and stays out of the
+# repository, with one exception: the runnable worker jar. RUNBOOK.md and
+# DEPLOYMENT.md start the workers from that exact path, and the brief asks for a
+# runnable initial release, so the shaded jar ships with the submission.
+target/
+!bpm/workers/target/
+bpm/workers/target/*
+!bpm/workers/target/hospital-external-workers-1.0.0.jar
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# --- IDE / editors ---
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Local config / secrets ---
+.env
+.env.local
+*.local
+
+# --- Logs and scratch, but the run logs are evidence and are kept ---
+# The negation must cover the release subdirectories as well as the top level.
+# `!bpm/screenshots/*.log` alone does not reach `bpm/screenshots/v15/`, which
+# silently kept the v15 evidence out of the repository while docs/14 and docs/16
+# cited `workers-run1.out.log` and `workers-run2.out.log` as the persistence proof.
+*.log
+!bpm/screenshots/*.log
+!bpm/screenshots/**/*.log
+tmp/
+.tmp/
+
+# --- Local scratch and engine runtime ---
+# `_tools/` holds one-off analysis scripts. `_runtime/` is the working directory the
+# Camunda engine is started in, so the H2 database, engine logs, Zeebe data and the
+# process/lock files it writes all live there. Neither is part of the submission.
+_tools/
+_runtime/
+
+# --- H2 database files written by the workers (v15) ---
+# `database.url` defaults to jdbc:h2:file:./data/hospital, resolved against the
+# worker process working directory, so the store lands in bpm/workers/data/.
+# It is runtime state, not a deliverable: the schema and the reference data are
+# under version control in src/main/resources/db/{schema,seed}.sql, and the file is
+# recreated from those on the next start.
+bpm/workers/data/
+*.mv.db
+*.trace.db
+*.lock.db
+
+# Local scratch directory for throwaway analysis scripts. Not part of the submission.
+_probe/

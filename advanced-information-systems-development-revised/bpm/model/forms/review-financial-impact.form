@@ -1,0 +1,91 @@
+{
+  "components": [
+    {
+      "label": "What does the change need?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_171",
+        "columns": null
+      },
+      "id": "Field_171",
+      "key": "impactAction",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Adjust the charge",
+          "value": "ADJUST_CHARGE"
+        },
+        {
+          "label": "A refund is required",
+          "value": "REFUND_REQUIRED"
+        },
+        {
+          "label": "No change to the account",
+          "value": "NO_CHANGE"
+        }
+      ],
+      "description": "Required. Choose one. What does the change need?."
+    },
+    {
+      "label": "Amount affected",
+      "type": "number",
+      "layout": {
+        "row": "Row_172",
+        "columns": null
+      },
+      "id": "Field_172",
+      "key": "impactAmount",
+      "validate": {
+        "min": 0,
+        "max": 1000000
+      },
+      "description": "Optional. Enter a number between 0 and 1000000."
+    },
+    {
+      "label": "What was reviewed",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_173",
+        "columns": null
+      },
+      "id": "Field_173",
+      "key": "impactNotes",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe what was reviewed in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_174",
+        "columns": null
+      },
+      "id": "Field_174",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter reviewed by."
+    }
+  ],
+  "type": "default",
+  "id": "review-financial-impact",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Used when a treatment change touches a charge, a funding approval or a payment already taken."
+}

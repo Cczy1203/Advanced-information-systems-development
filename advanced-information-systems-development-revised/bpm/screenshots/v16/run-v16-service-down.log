@@ -1,0 +1,32 @@
+   5  user task   SEC_Task_NotifyReferrer            Record the decision and notify the referring organisation
+   7  service     OUT_Auto_CheckPriority
+   7  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+   9  service     OUT_Auto_FindSlots
+   9  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  11  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  13  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  15  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  17  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  19  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  21  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  23  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  25  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  27  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  29  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  31  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  33  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  35  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  37  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  39  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  41  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  43  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  45  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  47  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  49  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  51  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  53  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  55  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  57  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+  59  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+
+stopped after 60 steps (--max-steps). instance still ACTIVE.

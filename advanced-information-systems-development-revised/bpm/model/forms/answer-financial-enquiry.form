@@ -1,0 +1,103 @@
+{
+  "components": [
+    {
+      "label": "Enquiry reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_175",
+        "columns": null
+      },
+      "id": "Field_175",
+      "key": "enquiryRef",
+      "validate": {
+        "required": true,
+        "maxLength": 40,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+        "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+      },
+      "description": "Required. Enter enquiry reference."
+    },
+    {
+      "label": "What is the patient asking about?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_176",
+        "columns": null
+      },
+      "id": "Field_176",
+      "key": "enquirySummary",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe what is the patient asking about? in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Answer given",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_177",
+        "columns": null
+      },
+      "id": "Field_177",
+      "key": "responseGiven",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe answer given in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Is the enquiry resolved?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_178",
+        "columns": null
+      },
+      "id": "Field_178",
+      "key": "resolvedNow",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "description": "Required. Choose one. Is the enquiry resolved?."
+    },
+    {
+      "label": "Answered by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_179",
+        "columns": null
+      },
+      "id": "Field_179",
+      "key": "answeredBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter answered by."
+    }
+  ],
+  "type": "default",
+  "id": "answer-financial-enquiry",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Payment and funding enquiries passed over by the call handling team."
+}

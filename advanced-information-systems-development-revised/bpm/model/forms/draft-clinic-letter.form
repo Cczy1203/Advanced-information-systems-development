@@ -1,0 +1,216 @@
+{
+  "components": [
+    {
+      "label": "The consultation",
+      "type": "group",
+      "id": "Field_draft_clinic_G0",
+      "path": "",
+      "components": [
+        {
+          "label": "Date of the appointment (any date)",
+          "type": "datetime",
+          "layout": {
+            "row": "Row_058",
+            "columns": null
+          },
+          "id": "Field_058",
+          "key": "consultationDate",
+          "validate": {
+            "required": true
+          },
+          "subtype": "date",
+          "description": "Required. Choose a date."
+        },
+        {
+          "label": "Letter type",
+          "type": "select",
+          "layout": {
+            "row": "Row_059",
+            "columns": null
+          },
+          "id": "Field_059",
+          "key": "letterType",
+          "validate": {
+            "required": true
+          },
+          "values": [
+            {
+              "label": "New patient clinic letter",
+              "value": "New patient clinic letter"
+            },
+            {
+              "label": "Follow-up clinic letter",
+              "value": "Follow-up clinic letter"
+            }
+          ],
+          "description": "Required. Choose one. Letter type."
+        },
+        {
+          "label": "Diagnosis",
+          "type": "textarea",
+          "layout": {
+            "row": "Row_061",
+            "columns": null
+          },
+          "id": "Field_061",
+          "key": "diagnosisSummary",
+          "validate": {
+            "required": true
+          },
+          "properties": {
+            "rows": 3
+          },
+          "description": "Required. Describe diagnosis in your own words. This is what the next team reads."
+        },
+        {
+          "label": "Clinical findings",
+          "type": "textarea",
+          "layout": {
+            "row": "Row_062",
+            "columns": null
+          },
+          "id": "Field_062",
+          "key": "clinicalFindings",
+          "properties": {
+            "rows": 3
+          },
+          "description": "Optional. Describe clinical findings in your own words. This is what the next team reads."
+        },
+        {
+          "label": "Treatment decisions",
+          "type": "textarea",
+          "layout": {
+            "row": "Row_063",
+            "columns": null
+          },
+          "id": "Field_063",
+          "key": "treatmentDecisions",
+          "properties": {
+            "rows": 3
+          },
+          "description": "Optional. Describe treatment decisions in your own words. This is what the next team reads."
+        },
+        {
+          "label": "Follow-up arrangements",
+          "type": "textarea",
+          "layout": {
+            "row": "Row_064",
+            "columns": null
+          },
+          "id": "Field_064",
+          "key": "followUpArrangements",
+          "properties": {
+            "rows": 3
+          },
+          "description": "Optional. Describe follow-up arrangements in your own words. This is what the next team reads."
+        },
+        {
+          "label": "Anything that must be passed on",
+          "type": "textarea",
+          "layout": {
+            "row": "Row_065",
+            "columns": null
+          },
+          "id": "Field_065",
+          "key": "instructionsToCommunicate",
+          "properties": {
+            "rows": 3
+          },
+          "description": "Optional. Describe anything that must be passed on in your own words. This is what the next team reads."
+        }
+      ]
+    },
+    {
+      "label": "Approval and distribution",
+      "type": "group",
+      "id": "Field_draft_clinic_G1",
+      "path": "",
+      "components": [
+        {
+          "label": "Do you approve this letter for distribution?",
+          "type": "radio",
+          "layout": {
+            "row": "Row_066",
+            "columns": null
+          },
+          "id": "Field_066",
+          "key": "letterApproved",
+          "validate": {
+            "required": true
+          },
+          "values": [
+            {
+              "label": "Yes",
+              "value": "true"
+            },
+            {
+              "label": "No",
+              "value": "false"
+            }
+          ],
+          "description": "Required. Choose one. Do you approve this letter for distribution?."
+        },
+        {
+          "label": "Approved by",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_067",
+            "columns": null
+          },
+          "id": "Field_067",
+          "key": "approvingClinician",
+          "validate": {
+            "required": true,
+            "maxLength": 80,
+            "pattern": "^(?!\\s*\\d+\\s*$).+$",
+            "patternErrorMessage": "This must be a name, not only digits."
+          },
+          "description": "Required. Enter approved by."
+        },
+        {
+          "label": "Who should receive this letter?",
+          "type": "checklist",
+          "layout": {
+            "row": "Row_060",
+            "columns": null
+          },
+          "id": "Field_060",
+          "key": "letterRecipients",
+          "values": [
+            {
+              "label": "Patient",
+              "value": "patient"
+            },
+            {
+              "label": "Patient's GP",
+              "value": "gp"
+            },
+            {
+              "label": "Referring hospital",
+              "value": "referring-hospital"
+            },
+            {
+              "label": "Another healthcare provider",
+              "value": "other-provider"
+            },
+            {
+              "label": "Other professional",
+              "value": "other-professional"
+            }
+          ],
+          "description": "Optional. Tick everything that applies to who should receive this letter?."
+        }
+      ]
+    }
+  ],
+  "type": "default",
+  "id": "draft-clinic-letter",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "The clinic letter. The Consultant owns the clinical content and approves it; Medical Secretaries may only correct formatting and administrative errors afterwards."
+}

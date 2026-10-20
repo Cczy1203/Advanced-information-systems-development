@@ -1,0 +1,103 @@
+{
+  "components": [
+    {
+      "label": "Worst case days outstanding",
+      "type": "number",
+      "layout": {
+        "row": "Row_200",
+        "columns": null
+      },
+      "id": "Field_200",
+      "key": "letterOverdueDays",
+      "description": "Seven days or less is on target. Over thirty days goes to the Administrative Manager, over ninety goes higher.",
+      "validate": {
+        "required": true,
+        "min": 0,
+        "max": 365
+      }
+    },
+    {
+      "label": "Letters reviewed",
+      "type": "number",
+      "layout": {
+        "row": "Row_201",
+        "columns": null
+      },
+      "id": "Field_201",
+      "key": "outstandingLettersReviewed",
+      "validate": {
+        "min": 0
+      },
+      "description": "Optional. Enter a number."
+    },
+    {
+      "label": "Action for this batch",
+      "type": "radio",
+      "layout": {
+        "row": "Row_202",
+        "columns": null
+      },
+      "id": "Field_202",
+      "key": "reminderAction",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Send the weekly reminder",
+          "value": "SEND_REMINDER"
+        },
+        {
+          "label": "Escalate to the Administrative Manager",
+          "value": "ESCALATE_MANAGER"
+        },
+        {
+          "label": "Escalate beyond three months",
+          "value": "ESCALATE_HIGHER"
+        }
+      ],
+      "description": "Required. Choose one. Action for this batch."
+    },
+    {
+      "label": "Any valid reason recorded for the delay",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_203",
+        "columns": null
+      },
+      "id": "Field_203",
+      "key": "reasonForDelay",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe any valid reason recorded for the delay in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_204",
+        "columns": null
+      },
+      "id": "Field_204",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter reviewed by."
+    }
+  ],
+  "type": "default",
+  "id": "review-outstanding-correspondence",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Weekly review of clinic letters that have slipped past the seven day target."
+}

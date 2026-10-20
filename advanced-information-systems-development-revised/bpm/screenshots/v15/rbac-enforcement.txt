@@ -1,0 +1,76 @@
+﻿===================================================================
+ RBAC enforcement check
+ time: 2026-10-15 19:52:34
+===================================================================
+
+=== 0. cleanup ===
+
+=== 1. start engine ===
+=== 2. wait for readiness ===
+  topology ready = True
+
+=== 3. deploy model and forms (as admin demo/demo) ===
+  admin deploy -> deploymentKey=2251799813685383 processDefs=9 forms=36
+
+=== 3b. record the real REST paths ===
+  /v3/api-docs lists 395 paths
+
+=== 4. authentication: anonymous must be refused ===
+  anonymous -> /v2/user-tasks/search                   HTTP 401  {"type":"about:blank","title":"Unauthorized","status":401,"detail":"An Authentication object was not found in the SecurityContext","instance...
+
+=== 5. authorisation (A): AUTHORIZATION resource - none of our 10 roles holds it ===
+  sec.demo (medical-secretaries)                       HTTP 200  {"items":[],"page":{"totalItems":0,"hasMoreTotalItems":false,"startCursor":null,"endCursor":null}}
+  audit.demo (auditor)                                 HTTP 200  {"items":[],"page":{"totalItems":0,"hasMoreTotalItems":false,"startCursor":null,"endCursor":null}}
+  fin.demo (finance)                                   HTTP 200  {"items":[],"page":{"totalItems":0,"hasMoreTotalItems":false,"startCursor":null,"endCursor":null}}
+  demo (built-in admin)                                HTTP 200  {"items":[{"ownerId":"demo","ownerType":"USER","resourceType":"USER","resourceId":"demo","resourcePropertyName":null,"permissionTypes":["REA...
+
+=== 6. authorisation (B): the same identities, on resources they DO hold ===
+  sec.demo -> /v2/process-instances/search             HTTP 200  {"items":[],"page":{"totalItems":0,"hasMoreTotalItems":false,"startCursor":null,"endCursor":null}}
+  audit.demo -> /v2/process-instances/search           HTTP 200  {"items":[],"page":{"totalItems":0,"hasMoreTotalItems":false,"startCursor":null,"endCursor":null}}
+  audit.demo -> /v2/audit-logs/search                  HTTP 200  {"items":[{"auditLogKey":"1-307","entityKey":"2251799813685417","entityType":"RESOURCE","operationType":"CREATE","batchOperationKey":null,"b...
+  sec.demo -> /v2/user-tasks/search                    HTTP 200  {"items":[],"page":{"totalItems":0,"hasMoreTotalItems":false,"startCursor":null,"endCursor":null}}
+
+=== 7. read the persisted grant matrix back from the engine H2 database ===
+
+########## COUNTS ##########
+USERS | ROLES | AUTHZ | MEMBERS
+11    | 16    | 213   | 11
+(1 row, 18 ms)
+
+########## AUDITOR_ROWS ##########
+OWNER_ID | RESOURCE_TYPE      | RESOURCE_ID | PERMISSION_TYPE
+auditor  | AUDIT_LOG          | *           | READ
+auditor  | PROCESS_DEFINITION | *           | READ_PROCESS_DEFINITION
+auditor  | PROCESS_DEFINITION | *           | READ_PROCESS_INSTANCE
+(3 rows, 20 ms)
+
+########## SEC_ROWS ##########
+OWNER_ID            | RESOURCE_TYPE      | RESOURCE_ID | PERMISSION_TYPE
+medical-secretaries | PROCESS_DEFINITION | *           | READ_PROCESS_DEFINITION
+medical-secretaries | PROCESS_DEFINITION | *           | READ_PROCESS_INSTANCE
+medical-secretaries | USER_TASK          | *           | READ
+medical-secretaries | USER_TASK          | *           | UPDATE
+medical-secretaries | USER_TASK          | *           | CLAIM
+medical-secretaries | USER_TASK          | *           | COMPLETE
+(6 rows, 19 ms)
+
+########## AUTHORIZATION_RES ##########
+OWNER_ID       | N
+admin          | 4
+readonly-admin | 1
+(2 rows, 20 ms)
+
+=== 8. verdict ===
+
+  check                                                    expect   actual   verdict
+  anonymous -> user-tasks/search                           401      401      PASS
+  sec.demo -> authorizations/search (no grant, must refuse) 403      200      FAIL
+  audit.demo -> authorizations/search (no grant, must refuse) 403      200      FAIL
+  fin.demo -> authorizations/search (no grant, must refuse) 403      200      FAIL
+  demo/admin -> authorizations/search (has grant)          200      200      PASS
+  sec.demo -> process-instances/search (has grant)         200      200      PASS
+  audit.demo -> process-instances/search (has grant)       200      200      PASS
+  audit.demo -> audit-logs/search (has grant)              200      200      PASS
+  sec.demo -> user-tasks/search (has grant)                200      200      PASS
+
+  passed 6 / 9   refused 0   allowed 8

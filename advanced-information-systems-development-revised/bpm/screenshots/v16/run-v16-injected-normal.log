@@ -1,0 +1,18 @@
+   7  user task   OUT_Task_ChooseSlot                Choose and confirm the appointment
+   9  service     OUT_Auto_CreateAppointment
+   9  user task   CALL_Task_ContactPatient           Telephone the patient about the appointment
+  10  user task   OUT_Task_ChaseLetter               Resolve the distribution problem and pick another channel
+  12  service     CALL_Auto_RecordContactAttempt
+  12  service     OUT_Auto_DispatchAppointmentLetter
+  12  user task   OUT_Task_RecordAttendance          Record the patient's attendance at the new patient appointment
+  14  user task   CON_Task_RecordConsent             Record consent and complete the treatment booking request
+  16  service     CON_Auto_AuthoriseRequest
+  16  user task   CON_Task_DraftLetter               Draft and approve the clinic letter
+  18  user task   SEC_Task_ProcessLetter             Check and process the approved clinic letter
+  20  service     SEC_Auto_DispatchClinicLetter
+  20  service     SEC_Auto_PrepareDispatch
+  20  user task   FIN_Task_DetermineFunding          Establish the funding route and record the authorisation
+  22  service     FIN_Auto_AuditFunding
+  22  user task   FIN_Task_ManualCharge              Price the treatment manually
+
+instance state: COMPLETED after 23 steps

@@ -1,0 +1,34 @@
+scenario: declined-payment
+  created from the none start event  (correlationKey=P-1001)
+  [debug] instances before: 150
+  ... instance 2251799815001501 is not readable yet, waiting
+  instance 2251799815001501
+
+   1  user task   SEC_Task_CheckPack                 Check the referral pack against the document checklist
+  correlation key read from the instance: patientRef=P-1001
+   3  service     SEC_Auto_ValidateDocuments
+   3  user task   CON_Task_ReviewReferral            Review the referral and record the clinical decision
+   5  service     CON_Auto_AuditDecision
+   5  user task   SEC_Task_NotifyReferrer            Record the decision and notify the referring organisation
+   7  service     OUT_Auto_FindSlots
+   7  service     OUT_Auto_CheckPriority
+   7  user task   OUT_Task_ChooseSlot                Choose and confirm the appointment
+   9  service     OUT_Auto_DispatchAppointmentLetter
+   9  service     OUT_Auto_CreateAppointment
+   9  user task   CALL_Task_ContactPatient           Telephone the patient about the appointment
+  11  service     CALL_Auto_RecordContactAttempt
+  11  user task   OUT_Task_RecordAttendance          Record the patient's attendance at the new patient appointment
+  13  user task   CON_Task_RecordConsent             Record consent and complete the treatment booking request
+  15  service     CON_Auto_AuthoriseRequest
+  15  user task   CON_Task_DraftLetter               Draft and approve the clinic letter
+  17  user task   SEC_Task_ProcessLetter             Check and process the approved clinic letter
+  19  service     SEC_Auto_PrepareDispatch
+  19  service     SEC_Auto_DispatchClinicLetter
+  19  user task   FIN_Task_DetermineFunding          Establish the funding route and record the authorisation
+  21  service     FIN_Auto_CalculateCharge
+  21  service     FIN_Auto_ProcessPayment
+  21  service     FIN_Auto_AuditFunding
+  21  service     FIN_Auto_PreparePayment
+  21  user task   TRT_Task_ReviewDeclinedPayment     Decide how to handle the failed payment
+
+instance state: COMPLETED after 22 steps

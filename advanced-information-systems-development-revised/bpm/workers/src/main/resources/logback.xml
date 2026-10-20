@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Plain console logging for the hospital external workers.
+
+  Every job completion / failure is logged on one line with the job key, the
+  element id and the process instance key, so a demo can be followed in one
+  terminal next to Operate.
+
+  Set the root level with -Dlogback.level=debug (see below) or by editing this
+  file. `io.camunda.zeebe.client` is kept at WARN because the client logs every
+  poll at DEBUG, which drowns everything else out.
+-->
+<configuration>
+
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5level %logger{28} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- Quiet the gRPC / netty noise during demos. -->
+  <logger name="io.grpc" level="WARN"/>
+  <logger name="io.netty" level="WARN"/>
+  <logger name="io.camunda.zeebe.client" level="WARN"/>
+  <logger name="io.camunda.zeebe.client.impl.worker" level="WARN"/>
+  <logger name="org.apache.hc" level="WARN"/>
+
+  <logger name="uk.ac.uwe.ufcep603.hospital" level="${logback.level:-INFO}"/>
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+  </root>
+</configuration>

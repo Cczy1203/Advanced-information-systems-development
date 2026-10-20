@@ -1,0 +1,77 @@
+{
+  "components": [
+    {
+      "label": "Date the patient attended (any date)",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_190",
+        "columns": null
+      },
+      "id": "Field_190",
+      "key": "attendanceDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date",
+      "description": "Required. The day the patient came in for this appointment."
+    },
+    {
+      "label": "Anything the clinic recorded at the desk",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_191",
+        "columns": null
+      },
+      "id": "Field_191",
+      "key": "attendanceNotes",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Arrived late, brought a carer, needs an interpreter - whatever the next team should know. This is what the consultant reads before recording consent."
+    },
+    {
+      "label": "Recorded by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_192",
+        "columns": null
+      },
+      "id": "Field_192",
+      "key": "attendanceRecordedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. The member of the bookings team marking the patient in."
+    },
+    {
+      "label": "Patient reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_193",
+        "columns": null
+      },
+      "id": "Field_193",
+      "key": "patientRef",
+      "validate": {
+        "required": true,
+        "maxLength": 40,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+        "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+      },
+      "description": "Required. The reference this case is open under, so the appointment record joins the right pathway."
+    }
+  ],
+  "type": "default",
+  "id": "record-attendance",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "The patient came in for the new patient appointment. The bookings team records the attendance here, and the consultant records consent on the next task. Nothing clinical is decided at this step."
+}

@@ -1,0 +1,132 @@
+{
+  "components": [
+    {
+      "label": "Letter reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_219",
+        "columns": null
+      },
+      "id": "Field_219",
+      "key": "letterRef",
+      "validate": {
+        "maxLength": 40,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+        "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+      },
+      "description": "Optional. Enter letter reference."
+    },
+    {
+      "label": "Months outstanding",
+      "type": "number",
+      "layout": {
+        "row": "Row_220",
+        "columns": null
+      },
+      "id": "Field_220",
+      "key": "monthsOutstanding",
+      "validate": {
+        "required": true,
+        "min": 1,
+        "max": 60
+      },
+      "description": "Required. Enter a number between 1 and 60."
+    },
+    {
+      "label": "Which team?",
+      "type": "select",
+      "layout": {
+        "row": "Row_221",
+        "columns": null
+      },
+      "id": "Field_221",
+      "key": "higherManagementTeam",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Clinical directorate",
+          "value": "Clinical directorate"
+        },
+        {
+          "label": "Medical director",
+          "value": "Medical director"
+        },
+        {
+          "label": "Executive team",
+          "value": "Executive team"
+        }
+      ],
+      "description": "Required. Choose one. Which team?."
+    },
+    {
+      "label": "Why is this being escalated?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_222",
+        "columns": null
+      },
+      "id": "Field_222",
+      "key": "reasonForEscalation",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe why is this being escalated? in your own words. This is what the next team reads."
+    },
+    {
+      "type": "text",
+      "text": "**Date rule: today or earlier.** The calendar cannot block a future date. A future date is rejected and stops the case until it is corrected.",
+      "id": "Text_referralDate_rule",
+      "layout": {
+        "row": "Row_referralDate_rule",
+        "columns": null
+      }
+    },
+    {
+      "label": "Date of referral (today or earlier)",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_223",
+        "columns": null
+      },
+      "id": "Field_223",
+      "key": "referralDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date",
+      "description": "Required. This date cannot be in the future. The calendar cannot stop a future date being picked, so the worker rejects one and the case stops until it is corrected."
+    },
+    {
+      "label": "Referred by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_224",
+        "columns": null
+      },
+      "id": "Field_224",
+      "key": "referredBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter referred by."
+    }
+  ],
+  "type": "default",
+  "id": "refer-to-higher-management",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Anything still outstanding after three months leaves the pathway team and goes up."
+}

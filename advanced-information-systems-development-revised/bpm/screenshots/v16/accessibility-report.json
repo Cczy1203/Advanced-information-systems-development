@@ -1,0 +1,316 @@
+{
+ "method": "static audit of the .form definitions. It cannot measure colour contrast, run a screen reader, or time a keyboard-only pass; those were not done and are not claimed.",
+ "forms": 37,
+ "fields": 237,
+ "groups": 15,
+ "described": 237,
+ "required": 156,
+ "errors": 0,
+ "warnings": 0,
+ "findingsByRule": {},
+ "rules": {
+  "A1": "a control must carry a human label, not its variable name",
+  "A2": "in a form of more than three fields every field should explain itself",
+  "A3": "a choice should offer words; a code shown as its own label is not words",
+  "A4": "a tick box that is not required cannot be told apart from one that was ignored",
+  "A5": "a form of more than seven fields should be grouped"
+ },
+ "detail": [
+  {
+   "form": "answer-administrative-enquiry.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 5,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "answer-financial-enquiry.form",
+   "fields": 5,
+   "groups": 0,
+   "required": 4,
+   "described": 5,
+   "findings": []
+  },
+  {
+   "form": "authorise-treatment-modification.form",
+   "fields": 7,
+   "groups": 0,
+   "required": 6,
+   "described": 7,
+   "findings": []
+  },
+  {
+   "form": "authorise-urgent-treatment.form",
+   "fields": 5,
+   "groups": 0,
+   "required": 3,
+   "described": 5,
+   "findings": []
+  },
+  {
+   "form": "chase-funding-approval.form",
+   "fields": 5,
+   "groups": 0,
+   "required": 2,
+   "described": 5,
+   "findings": []
+  },
+  {
+   "form": "chase-pre-authorisation.form",
+   "fields": 7,
+   "groups": 0,
+   "required": 2,
+   "described": 7,
+   "findings": []
+  },
+  {
+   "form": "check-referral-pack.form",
+   "fields": 10,
+   "groups": 2,
+   "required": 8,
+   "described": 10,
+   "findings": []
+  },
+  {
+   "form": "choose-appointment-slot.form",
+   "fields": 8,
+   "groups": 2,
+   "required": 6,
+   "described": 8,
+   "findings": []
+  },
+  {
+   "form": "clinical-review-advice.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 4,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "confirm-follow-up-appointment.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 4,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "contact-consultant-overdue-letter.form",
+   "fields": 8,
+   "groups": 2,
+   "required": 7,
+   "described": 8,
+   "findings": []
+  },
+  {
+   "form": "correct-clinic-letter.form",
+   "fields": 4,
+   "groups": 0,
+   "required": 3,
+   "described": 4,
+   "findings": []
+  },
+  {
+   "form": "decide-cancellation-action.form",
+   "fields": 7,
+   "groups": 0,
+   "required": 3,
+   "described": 7,
+   "findings": []
+  },
+  {
+   "form": "decide-refund.form",
+   "fields": 7,
+   "groups": 0,
+   "required": 4,
+   "described": 7,
+   "findings": []
+  },
+  {
+   "form": "determine-funding-route.form",
+   "fields": 9,
+   "groups": 2,
+   "required": 3,
+   "described": 9,
+   "findings": []
+  },
+  {
+   "form": "draft-clinic-letter.form",
+   "fields": 10,
+   "groups": 2,
+   "required": 5,
+   "described": 10,
+   "findings": []
+  },
+  {
+   "form": "investigate-unconfirmed-payment.form",
+   "fields": 7,
+   "groups": 0,
+   "required": 4,
+   "described": 7,
+   "findings": []
+  },
+  {
+   "form": "log-enquiry.form",
+   "fields": 9,
+   "groups": 3,
+   "required": 7,
+   "described": 9,
+   "findings": []
+  },
+  {
+   "form": "manual-charge-entry.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 5,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "notify-referrer-outcome.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 4,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "process-clinic-letter.form",
+   "fields": 7,
+   "groups": 0,
+   "required": 3,
+   "described": 7,
+   "findings": []
+  },
+  {
+   "form": "record-attendance.form",
+   "fields": 4,
+   "groups": 0,
+   "required": 3,
+   "described": 4,
+   "findings": []
+  },
+  {
+   "form": "record-consent-and-treatment-request.form",
+   "fields": 11,
+   "groups": 2,
+   "required": 7,
+   "described": 11,
+   "findings": []
+  },
+  {
+   "form": "record-cycle-delay.form",
+   "fields": 5,
+   "groups": 0,
+   "required": 4,
+   "described": 5,
+   "findings": []
+  },
+  {
+   "form": "record-telephone-contact-attempt.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 3,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "record-treatment-decline.form",
+   "fields": 5,
+   "groups": 0,
+   "required": 3,
+   "described": 5,
+   "findings": []
+  },
+  {
+   "form": "refer-to-higher-management.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 5,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "resolve-dispatch-problem.form",
+   "fields": 5,
+   "groups": 0,
+   "required": 3,
+   "described": 5,
+   "findings": []
+  },
+  {
+   "form": "review-appointment-availability.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 5,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "review-booking-delay.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 3,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "review-chemotherapy-cycle.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 5,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "review-declined-payment.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 3,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "review-financial-impact.form",
+   "fields": 4,
+   "groups": 0,
+   "required": 3,
+   "described": 4,
+   "findings": []
+  },
+  {
+   "form": "review-outstanding-correspondence.form",
+   "fields": 5,
+   "groups": 0,
+   "required": 3,
+   "described": 5,
+   "findings": []
+  },
+  {
+   "form": "review-referral.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 5,
+   "described": 6,
+   "findings": []
+  },
+  {
+   "form": "review-treatment-change.form",
+   "fields": 5,
+   "groups": 0,
+   "required": 4,
+   "described": 5,
+   "findings": []
+  },
+  {
+   "form": "triage-clinical-enquiry.form",
+   "fields": 6,
+   "groups": 0,
+   "required": 5,
+   "described": 6,
+   "findings": []
+  }
+ ]
+}

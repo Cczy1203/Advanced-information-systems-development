@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Project-local Maven settings.
+
+  Why this file exists
+  ====================
+  The worker build is run offline against a populated local repository. Maven
+  verifies that a cached artefact came from a repository id that is present in
+  the current build context, and the artefacts in ~/.m2/repository were cached
+  under the id `central` (visible as `>central=` in each artefact directory's
+  `_remote.repositories`). Declaring a mirror here would make Maven re-check the
+  origin against the mirror's own id and fail the offline build with:
+
+      Artifact ... is present in the local repository, but cached from a remote
+      repository ID that is unavailable in current build context
+
+  Leaving <mirrors/> empty keeps the default central id, so the cache resolves.
+  This file also makes the build independent of any machine-level settings.xml.
+
+  Build command
+  =============
+      mvn -gs maven-settings.xml -s maven-settings.xml -o package
+
+  Both -gs and -s are used so that neither the global nor the user settings file
+  can re-introduce a mirror. When a network build is needed, add a repository on
+  the command line rather than editing this file:
+
+      mvn -gs maven-settings.xml -s maven-settings.xml -Dmaven.repo.remote=https://repo.maven.apache.org/maven2 ...
+-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                              https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <!-- Intentionally empty. A mirror here breaks the offline build; see above. -->
+  <mirrors/>
+
+</settings>

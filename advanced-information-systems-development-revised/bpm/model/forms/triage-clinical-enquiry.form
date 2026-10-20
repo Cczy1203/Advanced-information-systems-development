@@ -1,0 +1,131 @@
+{
+  "components": [
+    {
+      "label": "Enquiry reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_180",
+        "columns": null
+      },
+      "id": "Field_180",
+      "key": "enquiryRef",
+      "validate": {
+        "required": true,
+        "maxLength": 40,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+        "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+      },
+      "description": "Required. Enter enquiry reference."
+    },
+    {
+      "label": "Does a Consultant need to look at this?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_181",
+        "columns": null
+      },
+      "id": "Field_181",
+      "key": "needsConsultantReview",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "description": "Required. Choose one. Does a Consultant need to look at this?."
+    },
+    {
+      "label": "Clinical assessment",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_182",
+        "columns": null
+      },
+      "id": "Field_182",
+      "key": "clinicalAssessment",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe clinical assessment in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Advice given to the patient",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_183",
+        "columns": null
+      },
+      "id": "Field_183",
+      "key": "clinicalAdviceSummary",
+      "properties": {
+        "rows": 4
+      },
+      "description": "Optional. Describe advice given to the patient in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Priority",
+      "type": "select",
+      "layout": {
+        "row": "Row_184",
+        "columns": null
+      },
+      "id": "Field_184",
+      "key": "priority",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Urgent",
+          "value": "Urgent"
+        },
+        {
+          "label": "Same day",
+          "value": "Same day"
+        },
+        {
+          "label": "Routine",
+          "value": "Routine"
+        }
+      ],
+      "description": "Required. Choose one. Priority."
+    },
+    {
+      "label": "Advised by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_185",
+        "columns": null
+      },
+      "id": "Field_185",
+      "key": "advisedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter advised by."
+    }
+  ],
+  "type": "default",
+  "id": "triage-clinical-enquiry",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Clinical enquiries are answered by a qualified clinical professional. Call handlers never diagnose or interpret results, so nothing reaches this form until it has been routed here."
+}

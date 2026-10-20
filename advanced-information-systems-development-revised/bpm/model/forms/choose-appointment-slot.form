@@ -1,0 +1,183 @@
+{
+  "components": [
+    {
+      "label": "The appointment",
+      "type": "group",
+      "id": "Field_choose_appoi_G0",
+      "path": "",
+      "components": [
+        {
+          "label": "Slot reference from the scheduling service",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_083",
+            "columns": null
+          },
+          "id": "Field_083",
+          "key": "chosenSlotRef",
+          "validate": {
+            "required": true,
+            "maxLength": 40,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+            "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+          },
+          "description": "Required. Enter slot reference from the scheduling service."
+        },
+        {
+          "type": "text",
+          "text": "**Date rule: today or later.** The calendar already blocks past dates.",
+          "id": "Text_appointmentDateTime_rule",
+          "layout": {
+            "row": "Row_appointmentDateTime_rule",
+            "columns": null
+          }
+        },
+        {
+          "subtype": "datetime",
+          "label": "Appointment date and time (today or later)",
+          "type": "datetime",
+          "layout": {
+            "row": "Row_084",
+            "columns": null
+          },
+          "id": "Field_084",
+          "key": "appointmentDateTime",
+          "validate": {
+            "required": true
+          },
+          "disallowPassedDates": true,
+          "disabled": false,
+          "description": "Required. This date cannot be in the past. The calendar blocks earlier dates, and the worker rejects one as well."
+        },
+        {
+          "label": "Clinic location",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_085",
+            "columns": null
+          },
+          "id": "Field_085",
+          "key": "appointmentLocation",
+          "validate": {
+            "required": true,
+            "maxLength": 120
+          },
+          "description": "Required. Enter clinic location."
+        },
+        {
+          "label": "Priority",
+          "values": [
+            {
+              "label": "Routine",
+              "value": "Routine"
+            },
+            {
+              "label": "Urgent",
+              "value": "Urgent"
+            },
+            {
+              "label": "Two week wait",
+              "value": "Two week wait"
+            }
+          ],
+          "type": "select",
+          "layout": {
+            "row": "Row_086",
+            "columns": null
+          },
+          "id": "Field_086",
+          "key": "appointmentPriority",
+          "validate": {
+            "required": true
+          },
+          "description": "Required. Choose one. Priority."
+        }
+      ]
+    },
+    {
+      "label": "The patient's needs",
+      "type": "group",
+      "id": "Field_choose_appoi_G1",
+      "path": "",
+      "components": [
+        {
+          "label": "An interpreter is needed",
+          "type": "checkbox",
+          "layout": {
+            "row": "Row_087",
+            "columns": null
+          },
+          "id": "Field_087",
+          "key": "interpreterRequired",
+          "defaultValue": false,
+          "description": "Optional. Tick if an interpreter is needed. Leave it clear if not - an unticked box is a decision, not a blank."
+        },
+        {
+          "label": "Access or communication needs",
+          "type": "textarea",
+          "layout": {
+            "row": "Row_088",
+            "columns": null
+          },
+          "id": "Field_088",
+          "key": "patientAccessibilityNeeds",
+          "description": "For example a large print letter, a step free route, or a carer attending.",
+          "properties": {
+            "rows": 3
+          }
+        },
+        {
+          "label": "Does this patient also need a telephone call about the appointment?",
+          "type": "radio",
+          "layout": {
+            "row": "Row_Phone",
+            "columns": null
+          },
+          "id": "Field_Phone",
+          "key": "requiresPhoneCall",
+          "description": "The letter always goes. Say yes when the appointment is inside two weeks, or when the patient has asked to be telephoned.",
+          "validate": {
+            "required": true
+          },
+          "values": [
+            {
+              "label": "Yes - telephone the patient as well",
+              "value": "true"
+            },
+            {
+              "label": "No - the letter is enough",
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "label": "Booked by",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_089",
+            "columns": null
+          },
+          "id": "Field_089",
+          "key": "chosenBy",
+          "validate": {
+            "required": true,
+            "maxLength": 80,
+            "pattern": "^(?!\\s*\\d+\\s*$).+$",
+            "patternErrorMessage": "This must be a name, not only digits."
+          },
+          "description": "Required. Enter booked by."
+        }
+      ]
+    }
+  ],
+  "type": "default",
+  "id": "choose-appointment-slot",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Booking a new patient appointment. The slot is confirmed in the hospital system and any access requirement is captured at the same time so the clinic can prepare."
+}

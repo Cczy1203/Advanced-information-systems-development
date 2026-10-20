@@ -1,0 +1,39 @@
+﻿# Deployment A/B evidence for the merging-gateway candidate model
+# Deployment A/B: does the merging-gateway candidate model deploy?
+#
+# Captured: 2026-10-15
+# Engine  : Camunda 8.10.0-alpha5, local orchestration cluster (bpm/camunda/start-engine.ps1 -WorkersProfile)
+# Method  : within one fresh engine session, 5 consecutive POST /v2/deployments; the only variable is the model file
+# Model size: v14 = 447,481 bytes   v15 candidate = 448,603 bytes (+1,122 bytes, +14 exclusive gateways)
+#
+# Results
+# ---------------------------------------------------------------------------
+# A) deploy the v15 model only (no forms)
+#      -> HTTP 400  INVALID_ARGUMENT
+#         "Expected to deploy new resources, but encountered the following errors ..."
+# B) deploy the v14 model only (no forms)
+#      -> HTTP 400  INVALID_ARGUMENT   (identical to A - independent of the model)
+# C) deploy the 36 forms only (no model)
+#      -> HTTP 200  deploymentKey = 2251799813685383
+# D) v15 candidate model + 36 forms (same batch)
+#      -> HTTP 500  EXCEEDED_BATCH_RECORD_SIZE
+# E) v14 model + 36 forms (same batch)  <-- baseline
+#      -> HTTP 200  deploymentKey = 2251799813685420, 9 process definitions
+#
+# Conclusion
+# ---------------------------------------------------------------------------
+# 1) A and B fail identically => the model cannot be deployed without its 36 forms: the
+#    form a zeebe:formDefinition formId points at is not deployed yet, so validation fails.
+#    Model and forms must ship in one batch (as bpm/RUNBOOK.md records).
+# 2) D and E are the same batch differing only in the model file: v14 succeeds, v15 fails.
+#    The conclusion is therefore clean: the v15 candidate pushed this batch past the cluster record limit.
+# 3) This is risk R-01 in the register (docs/09) - deployment refused for size. The register already
+#    records one rejection at currentBatchSize: 4095764; this is that same ceiling blocking a change a second
+#    time, and this time the increment was only 1,122 bytes.
+#
+# Decision
+# ---------------------------------------------------------------------------
+# The candidate model is NOT shipped as a deployable model. The shipped model remains
+# UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn, and every gate in section 4 was run against it. The candidate
+# Next step (out of scope here): split the deployment first (the RUNBOOK already notes that the BPMN is better
+# deployed separately from the forms), or slim the model before adding merging gateways - rather than risking a

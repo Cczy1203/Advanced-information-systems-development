@@ -1,0 +1,143 @@
+{
+  "components": [
+    {
+      "label": "What did the provider report?",
+      "type": "select",
+      "layout": {
+        "row": "Row_114",
+        "columns": null
+      },
+      "id": "Field_114",
+      "key": "paymentStatus",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Approved",
+          "value": "APPROVED"
+        },
+        {
+          "label": "Declined by the provider",
+          "value": "DECLINED"
+        },
+        {
+          "label": "Taken twice - duplicate charge",
+          "value": "DUPLICATE"
+        },
+        {
+          "label": "Cancelled before it was taken",
+          "value": "CANCELLED"
+        },
+        {
+          "label": "Still pending with the provider",
+          "value": "PENDING"
+        },
+        {
+          "label": "Confirmed by the provider",
+          "value": "CONFIRMED"
+        },
+        {
+          "label": "Nothing was taken",
+          "value": "UNKNOWN"
+        }
+      ],
+      "description": "The status the payment provider reported. These are the values the recording step understands."
+    },
+    {
+      "label": "Message from the provider",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_115",
+        "columns": null
+      },
+      "id": "Field_115",
+      "key": "providerMessage",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe message from the provider in your own words. This is what the next team reads."
+    },
+    {
+      "label": "What should happen?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_116",
+        "columns": null
+      },
+      "id": "Field_116",
+      "key": "declinedAction",
+      "description": "A retry gets a new payment reference, so the patient is never charged twice.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Try the payment again",
+          "value": "RETRY_PAYMENT"
+        },
+        {
+          "label": "Ask a clinician whether treatment can go ahead anyway",
+          "value": "SEEK_AUTHORISATION"
+        },
+        {
+          "label": "Leave it with the Finance Team",
+          "value": "LEAVE_WITH_FINANCE"
+        }
+      ]
+    },
+    {
+      "label": "The patient has been told the payment did not go through",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_117",
+        "columns": null
+      },
+      "id": "Field_117",
+      "key": "patientInformed",
+      "defaultValue": false,
+      "description": "Optional. Tick if the patient has been told the payment did not go through. Leave it clear if not - an unticked box is a decision, not a blank."
+    },
+    {
+      "label": "Notes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_118",
+        "columns": null
+      },
+      "id": "Field_118",
+      "key": "notes",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe notes in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_119",
+        "columns": null
+      },
+      "id": "Field_119",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter reviewed by."
+    }
+  ],
+  "type": "default",
+  "id": "review-declined-payment",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Payment did not go through. The booking stays unconfirmed until this is resolved, and a second attempt must not create a duplicate charge."
+}

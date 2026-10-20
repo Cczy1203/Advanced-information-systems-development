@@ -1,0 +1,81 @@
+v16.0 engine record
+generated: 2026-10-16T06:34:10Z
+engine: c8run 8.10.0-alpha5, JDK 21, localhost:8080
+model : model/UFCEP6-0-3_Hospital_Patient_Pathway_v16.bpmn
+driver: tools/run_v16.py --form-fields-only   (nothing seeded; every variable
+        comes from a form or from a worker, which is what a person does)
+workers: workers/target/hospital-external-workers-1.0.0.jar
+
+=== scenario runs, all COMPLETED, no incident left open ===
+  run-v16-compensation.log                   instance state: COMPLETED after 26 steps
+  run-v16-declined-treatment.log             instance state: COMPLETED after 16 steps
+  run-v16-enquiry.log                        instance state: COMPLETED after 4 steps
+  run-v16-happy-path.log                     instance state: COMPLETED after 26 steps
+  run-v16-incomplete-pack.log                instance state: COMPLETED after 30 steps
+  run-v16-no-capacity.log                    instance state: COMPLETED after 10 steps
+  run-v16-no-refund.log                      instance state: COMPLETED after 30 steps
+  run-v16-refund.log                         instance state: COMPLETED after 30 steps
+
+=== instance counts for this process definition ===
+  total 129  {'ACTIVE': 0, 'COMPLETED': 75}
+  the COMPLETED ones include the eight scenario runs above; the rest are
+  instances left mid-path by the debugging runs that found the defects below.
+
+=== defects the runs found, and what happened to them ===
+  round 1, found by driving the model:
+    SEC_Auto_ValidateDocuments  UNHANDLED_ERROR_EVENT
+      the worker raises REFERRAL_PACK_INCOMPLETE and REFERRAL_PACK_UNREADABLE;
+      the model caught only the first. Fixed: SEC_Bnd_PackUnreadable.
+    SEC_Throw_InfoRequested     JOB_NO_RETRIES
+      every message throw needs a zeebe:header messageName for publish-message.
+      Fixed on all four throw events.
+    FIN_Auto_PreparePayment     JOB_NO_RETRIES
+      the driver supplied no treatmentPlan, so pricing failed into its boundary
+      and manual pricing handed on a blank chargeAmount. Driver fixed.
+    TRT_GW_MoreCycles           EXTRACT_VALUE_ERROR
+      the gateway tested cycleNumber, which nothing set; the worker returns
+      nextCycleNumber. Fixed with an output mapping.
+  round 2, found by the four build checks in tools/spec_v3.py:
+    consentGiven compared a string to a boolean - every consenting patient was
+      routed to the decline branch. This is the DEF-02 regression.
+    modificationAuthorised, outcomeAction and requiresPhoneCall were read by
+      gateways and written by nothing.
+    answerableNow was answered by a form completed after the gateway reads it.
+    delayAction tested a value no form offers.
+    appointmentOutcome and paymentStatus offered values the workers reject.
+    cycleNumber was retyped on a review form, resetting the loop counter.
+  round 3, found by a person using Tasklist - the only test that exercises the
+  forms as forms, because every automated run fills them over the API:
+    seven forms grouped their fields under a group `path`, so every field was
+      submitted one level deep and no worker could read any of them. The first
+      form failed as REFERRAL_PACK_UNREADABLE however it was filled.
+      Fixed: tools/fix_form_group_paths.py; guarded by
+      forms_inventory.py KEY_NESTED_BY_GROUP_PATH.
+    four of the five letters were dispatched with no prepare step, so
+      dispatchRecipients was never set and the appointment letter's error
+      boundary retried the same failure for ever. Fixed in the dispatch worker,
+      which now falls back to the patient as its prepare step always did.
+    fundingLimitations was read as a list from a textarea, so the funding
+      approval failed the moment anybody typed in it. Fixed:
+      JobContext.stringListOrText; guarded by spec_v3.check_form_worker_types.
+    treatmentPlan was hidden by a conditional comparing a string to a boolean,
+      and a hidden required field is not validated, so the form submitted empty
+      and the pathway died two steps later. Fixed; guarded by
+      forms_inventory.py CONDITIONAL_TYPE_MISMATCH.
+
+=== element history of the last completed instance ===
+  instance 2251799814789366   v15   2026-10-16T06:32:19.513Z -> 2026-10-16T06:32:27
+   START_EVENT            Start_Referral
+   USER_TASK              SEC_Task_CheckPack
+   SERVICE_TASK           SEC_Auto_ValidateDocuments
+   USER_TASK              CON_Task_ReviewReferral
+   SERVICE_TASK           CON_Auto_AuditDecision
+   USER_TASK              SEC_Task_NotifyReferrer
+   INTERMEDIATE_THROW_EVENT SEC_Throw_OutcomeToReferrer
+   SERVICE_TASK           OUT_Auto_CheckPriority
+   SERVICE_TASK           OUT_Auto_FindSlots
+   USER_TASK              OUT_Task_ReviewAvailability
+   USER_TASK              PCW_Task_ReviewDelay
+   SERVICE_TASK           PCW_Auto_SendDelayLetter
+   END_EVENT              End_PatientInformed
+  distinct elements visited: 18

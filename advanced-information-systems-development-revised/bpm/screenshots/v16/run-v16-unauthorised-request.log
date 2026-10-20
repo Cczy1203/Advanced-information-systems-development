@@ -1,0 +1,20 @@
+  ... instance 2251799815007894 is not readable yet, waiting
+  instance 2251799815007894
+
+   1  user task   SEC_Task_CheckPack                 Check the referral pack against the document checklist
+  correlation key read from the instance: patientRef=P-1001
+   3  service     SEC_Auto_ValidateDocuments
+   3  user task   CON_Task_ReviewReferral            Review the referral and record the clinical decision
+   5  service     CON_Auto_AuditDecision
+   5  user task   SEC_Task_NotifyReferrer            Record the decision and notify the referring organisation
+   7  service     OUT_Auto_FindSlots
+   7  service     OUT_Auto_CheckPriority
+   7  user task   OUT_Task_ChooseSlot                Choose and confirm the appointment
+   9  service     OUT_Auto_DispatchAppointmentLetter
+   9  service     OUT_Auto_CreateAppointment
+   9  user task   CALL_Task_ContactPatient           Telephone the patient about the appointment
+  11  service     CALL_Auto_RecordContactAttempt
+  11  user task   OUT_Task_RecordAttendance          Record the patient's attendance at the new patient appointment
+  12  user task   CON_Task_RecordConsent             Record consent and complete the treatment booking request
+INCIDENT after 14 steps:
+   CON_Auto_AuthoriseRequest | JOB_NO_RETRIES | Required process variable 'decidingClinician' is missing or blank (job type treatment.authorise-request)

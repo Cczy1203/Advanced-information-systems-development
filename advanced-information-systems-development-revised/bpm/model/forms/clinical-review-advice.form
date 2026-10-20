@@ -1,0 +1,126 @@
+{
+  "components": [
+    {
+      "label": "Enquiry reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_077",
+        "columns": null
+      },
+      "id": "Field_077",
+      "key": "enquiryRef",
+      "validate": {
+        "maxLength": 40,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+        "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+      },
+      "description": "Optional. Enter enquiry reference."
+    },
+    {
+      "label": "Clinical review outcome",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_078",
+        "columns": null
+      },
+      "id": "Field_078",
+      "key": "clinicalReviewOutcome",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe clinical review outcome in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Advice to pass back",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_079",
+        "columns": null
+      },
+      "id": "Field_079",
+      "key": "clinicalAdviceSummary",
+      "properties": {
+        "rows": 4
+      },
+      "description": "Optional. Describe advice to pass back in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Does this need a face to face review?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_080",
+        "columns": null
+      },
+      "id": "Field_080",
+      "key": "needsConsultantReview",
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "validate": {
+        "required": true
+      },
+      "description": "Answering Yes routes the enquiry to a Consultant; the clinical review outcome is recorded either way."
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_081",
+        "columns": null
+      },
+      "id": "Field_081",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter reviewed by."
+    },
+    {
+      "type": "text",
+      "text": "**Date rule: today or earlier.** The calendar cannot block a future date. A future date is rejected and stops the case until it is corrected.",
+      "id": "Text_reviewDate_rule",
+      "layout": {
+        "row": "Row_reviewDate_rule",
+        "columns": null
+      }
+    },
+    {
+      "label": "Review date (today or earlier)",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_082",
+        "columns": null
+      },
+      "id": "Field_082",
+      "key": "reviewDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date",
+      "description": "Required. This date cannot be in the future. The calendar cannot stop a future date being picked, so the worker rejects one and the case stops until it is corrected."
+    }
+  ],
+  "type": "default",
+  "id": "clinical-review-advice",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Consultant response to a clinical question raised by the nurse specialists or another team."
+}

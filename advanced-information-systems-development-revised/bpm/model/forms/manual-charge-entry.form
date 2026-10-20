@@ -1,0 +1,123 @@
+{
+  "components": [
+    {
+      "label": "Treatment being priced",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_144",
+        "columns": null
+      },
+      "id": "Field_144",
+      "key": "treatmentPlan",
+      "validate": {
+        "required": true,
+        "maxLength": 120
+      },
+      "description": "Required. Enter treatment being priced."
+    },
+    {
+      "label": "Tariff code",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_145",
+        "columns": null
+      },
+      "id": "Field_145",
+      "key": "tariffCode",
+      "validate": {
+        "maxLength": 30,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+        "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+      },
+      "description": "Optional. Enter tariff code."
+    },
+    {
+      "label": "Charge amount",
+      "type": "number",
+      "layout": {
+        "row": "Row_manual_amount",
+        "columns": 6
+      },
+      "id": "Field_146",
+      "key": "chargeAmount",
+      "validate": {
+        "required": true,
+        "min": 0,
+        "max": 1000000
+      },
+      "description": "Required. Enter a number between 0 and 1000000."
+    },
+    {
+      "label": "Currency",
+      "type": "select",
+      "layout": {
+        "row": "Row_manual_amount",
+        "columns": 6
+      },
+      "id": "Field_147",
+      "key": "currency",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Pounds sterling",
+          "value": "GBP"
+        },
+        {
+          "label": "Euros",
+          "value": "EUR"
+        },
+        {
+          "label": "US dollars",
+          "value": "USD"
+        }
+      ],
+      "description": "Required. Choose one. Currency."
+    },
+    {
+      "label": "Why is this being priced manually?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_148",
+        "columns": null
+      },
+      "id": "Field_148",
+      "key": "overrideReason",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe why is this being priced manually? in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Priced by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_149",
+        "columns": null
+      },
+      "id": "Field_149",
+      "key": "pricedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter priced by."
+    }
+  ],
+  "type": "default",
+  "id": "manual-charge-entry",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Fallback pricing when the automated tariff lookup cannot work out the charge."
+}

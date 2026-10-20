@@ -1,0 +1,155 @@
+{
+  "components": [
+    {
+      "label": "Refund decision",
+      "type": "radio",
+      "layout": {
+        "row": "Row_164",
+        "columns": null
+      },
+      "id": "Field_164",
+      "key": "refundDecision",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Full refund",
+          "value": "FULL_REFUND"
+        },
+        {
+          "label": "Partial refund",
+          "value": "PARTIAL_REFUND"
+        },
+        {
+          "label": "No refund due",
+          "value": "NO_REFUND"
+        }
+      ],
+      "description": "Required. Choose one. Refund decision."
+    },
+    {
+      "label": "Refund amount",
+      "type": "number",
+      "layout": {
+        "row": "Row_165",
+        "columns": null
+      },
+      "id": "Field_165",
+      "key": "refundAmount",
+      "validate": {
+        "min": 0,
+        "max": 1000000
+      },
+      "description": "Optional. Enter a number between 0 and 1000000."
+    },
+    {
+      "label": "Amount originally taken",
+      "type": "number",
+      "layout": {
+        "row": "Row_166",
+        "columns": null
+      },
+      "id": "Field_166",
+      "key": "paidAmount",
+      "validate": {
+        "min": 0,
+        "max": 1000000
+      },
+      "description": "Optional. Enter a number between 0 and 1000000."
+    },
+    {
+      "label": "Reason for the decision",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_167",
+        "columns": null
+      },
+      "id": "Field_167",
+      "key": "refundReason",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe reason for the decision in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Refund method",
+      "type": "select",
+      "layout": {
+        "row": "Row_168",
+        "columns": null
+      },
+      "id": "Field_168",
+      "key": "refundMethod",
+      "values": [
+        {
+          "label": "Original card",
+          "value": "Original card"
+        },
+        {
+          "label": "Bank transfer",
+          "value": "Bank transfer"
+        },
+        {
+          "label": "Credit on account",
+          "value": "Credit on account"
+        }
+      ],
+      "description": "Optional. Choose one. Refund method."
+    },
+    {
+      "type": "text",
+      "text": "**Date rule: today or earlier.** The calendar cannot block a future date. A future date is rejected and stops the case until it is corrected.",
+      "id": "Text_decisionDate_rule",
+      "layout": {
+        "row": "Row_decisionDate_rule",
+        "columns": null
+      }
+    },
+    {
+      "label": "Decision date (today or earlier)",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_169",
+        "columns": null
+      },
+      "id": "Field_169",
+      "key": "decisionDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date",
+      "description": "Required. This date cannot be in the future. The calendar cannot stop a future date being picked, so the worker rejects one and the case stops until it is corrected."
+    },
+    {
+      "label": "Decided by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_170",
+        "columns": null
+      },
+      "id": "Field_170",
+      "key": "decidedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter decided by."
+    }
+  ],
+  "type": "default",
+  "id": "decide-refund",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Refunds are a Finance decision. Clinical staff may explain the treatment decision, but only someone with financial authority approves the money."
+}

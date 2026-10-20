@@ -1,0 +1,30 @@
+convergence audit: UFCEP6-0-3_Hospital_Patient_Pathway_v16.bpmn
+  nodes with more than one incoming sequence flow: 21
+
+  safe: an incoming edge is a loop-back, so arrivals are sequential 17
+      SEC_Task_CheckPack                     via SEC_Catch_InfoReceived
+      SEC_Throw_InfoRequested                via SEC_GW_PackComplete
+      OUT_Auto_CheckPriority                 via OUT_GW_AvailabilityAction, PCW_GW_DelayAction
+      OUT_Task_ReviewAvailability            via OUT_GW_SlotsFound
+      PCW_Task_ReviewDelay                   via OUT_GW_AvailabilityAction, OUT_GW_FollowUpSlots, OUT_GW_OutcomeAction
+      OUT_Auto_DispatchAppointmentLetter     via OUT_GW_NotifyChannels
+      CON_Task_DraftLetter                   via CON_Auto_AuthoriseRequest, CON_GW_LetterApproved
+      SEC_Task_ProcessLetter                 via CON_GW_LetterApproved, CON_Task_CorrectLetter
+      FIN_Auto_RecordApproval                via FIN_GW_FundingRoute, FIN_Task_ChasePreAuthorisation
+      FIN_Task_ChasePreAuthorisation         via FIN_GW_FundingRoute
+      FIN_Auto_PreparePayment                via FIN_Auto_CalculateCharge, TRT_GW_DeclinedAction
+      TRT_Auto_ValidateRequest               via FIN_Auto_RecordApproval, FIN_Auto_RecordPayment, FIN_Auto_Deduplicate, CON_GW_UrgentAuthorised
+      FIN_Task_InvestigatePayment            via TRT_GW_DeclinedAction, CON_GW_UrgentAuthorised
+      FIN_Auto_RecordPayment                 via FIN_GW_PaymentOutcome, FIN_GW_InvestigationOutcome
+      TRT_Auto_CheckExternalResources        via TRT_Auto_CreateSeries
+      TRT_Auto_ScheduleCycle                 via TRT_Auto_SendTreatmentLetter, TRT_Task_RecordDelay, TRT_GW_MoreCycles
+      TRT_Task_RecordDelay                   via TRT_Auto_ReleaseCycle, CON_GW_CycleOutcome
+
+  safe: the sources share one exclusive fork, so one token exists 4
+      TRT_Auto_ReleaseSeries
+      ADM_Task_ReferHigher
+      CALL_Auto_CloseEnquiry
+      CNS_Auto_RecordAdvice
+
+  0 merges can double-fire: every convergence is either a return round a loop or a single exclusive branch
+OK

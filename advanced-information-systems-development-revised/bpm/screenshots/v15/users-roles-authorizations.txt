@@ -1,0 +1,62 @@
+﻿# Engine-side RBAC persistence evidence (second capture, empty database; the main data is in rbac-enforcement.txt)
+# RBAC read-back, second capture - EMPTY DATABASE. The real numbers are elsewhere.
+#
+# WHAT THIS FILE IS
+#   Capture taken at 21:15:39 against a SECOND engine database
+#   (_runtime\camunda\camunda-data\h2db) after the first one had been moved
+#   aside while the workers were being diagnosed. Nothing had been deployed or
+#   authorised into it yet, so every count below is zero. It proves nothing.
+#
+# WHERE THE REAL NUMBERS ARE
+#   screenshots/v15/rbac-enforcement.txt / , captured at 19:52:34 against the
+#   database that actually held the grants, section 7:
+#       USERS | ROLES | AUTHZ | MEMBERS
+#       11    | 16    | 213   | 11
+#   plus the auditor rows, the medical-secretaries rows, and the by-refusal
+#   checks in sections 4 to 6 of that file.
+#
+# WHY IT IS STILL HERE
+#   A capture that disagrees with the release note is worth more kept and
+#   explained than deleted. It is also the honest record of a mistake: the
+#   read-back was taken twice and the second run was read as if it were the
+#   first. Nothing in this repository now cites this file as evidence of the
+#   11/16/213 numbers.
+#
+# Captured: 2026-10-15 21:15:39
+# database: _runtime\camunda\camunda-data\h2db  (empty)
+# h2 jar  : h2-2.4.240.jar
+
+########## COUNTS ##########
+USERS | ROLES | AUTHZ
+0     | 0     | 0
+(1 row, 20 ms)
+
+########## USERS ##########
+USERNAME
+(0 rows, 17 ms)
+
+########## ROLES ##########
+ROLE_ID | NAME
+(0 rows, 18 ms)
+
+########## ROLE_MEMBERS ##########
+ROLE_ID | ENTITY_ID | ENTITY_TYPE
+(0 rows, 17 ms)
+
+########## AUTHZ_BY_TYPE ##########
+RESOURCE_TYPE | N
+(0 rows, 18 ms)
+
+########## OUR_ROLE_AUTHZ ##########
+OWNER_ID | RESOURCE_TYPE | RESOURCE_ID | PERMISSION_TYPE
+(0 rows, 20 ms)
+
+########## USER_TASK_AUTHZ ##########
+OWNER_ID | PERMISSION_TYPE | RESOURCE_ID | RESOURCE_MATCHER
+(0 rows, 19 ms)
+
+########## DEPLOYED ##########
+PROCESS_DEFINITIONS | FORMS
+0                   | 0
+(1 row, 18 ms)
+

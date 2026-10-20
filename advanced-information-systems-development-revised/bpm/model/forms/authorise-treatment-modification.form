@@ -1,0 +1,158 @@
+{
+  "components": [
+    {
+      "label": "Reason for the change",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_052",
+        "columns": null
+      },
+      "id": "Field_052",
+      "key": "modificationReason",
+      "description": "Say what changed clinically, not just what the new schedule should be.",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Has the Consultant authorised this change?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_Authorised",
+        "columns": null
+      },
+      "id": "Field_Authorised",
+      "key": "modificationAuthorised",
+      "description": "Answering No leaves the schedule exactly as it is. The gateway that follows this task reads this answer.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Yes - apply the change",
+          "value": "true"
+        },
+        {
+          "label": "No - leave the schedule unchanged",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Is this urgent for patient safety?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_053",
+        "columns": null
+      },
+      "id": "Field_053",
+      "key": "modificationUrgent",
+      "description": "Urgent changes are applied straight away and the financial impact is reviewed afterwards.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Does this affect a charge or a payment already taken?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_054",
+        "columns": null
+      },
+      "id": "Field_054",
+      "key": "modificationAffectsFinance",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "description": "Required. Choose one. Does this affect a charge or a payment already taken?."
+    },
+    {
+      "label": "New plan",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_055",
+        "columns": null
+      },
+      "id": "Field_055",
+      "key": "alternativePlan",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe new plan in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Authorised by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_056",
+        "columns": null
+      },
+      "id": "Field_056",
+      "key": "modificationAuthorisedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter authorised by."
+    },
+    {
+      "type": "text",
+      "text": "**Date rule: today or earlier.** The calendar cannot block a future date. A future date is rejected and stops the case until it is corrected.",
+      "id": "Text_modificationDate_rule",
+      "layout": {
+        "row": "Row_modificationDate_rule",
+        "columns": null
+      }
+    },
+    {
+      "label": "Date authorised (today or earlier)",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_057",
+        "columns": null
+      },
+      "id": "Field_057",
+      "key": "modificationDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date",
+      "description": "Required. This date cannot be in the future. The calendar cannot stop a future date being picked, so the worker rejects one and the case stops until it is corrected."
+    }
+  ],
+  "type": "default",
+  "id": "authorise-treatment-modification",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "A treatment change only counts once it has been authorised here. A change asked for by email or over the phone is not processed until this record exists."
+}

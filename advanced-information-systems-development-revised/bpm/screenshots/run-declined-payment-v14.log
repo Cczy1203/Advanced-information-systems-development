@@ -1,0 +1,62 @@
+evidence scoped to deployment: administrative-management=v2251799813952619, call-handling=v2251799813952617, clinical-nurse-specialists=v2251799813952616 ...
+   (9 pool processes, newest deployed version of each)
+   43 instances already on this deployment are excluded from the evidence
+patient reference: PAT-DEMO-91445
+
+1. referral arrives from the GP (message start event)
+2. Medical Secretaries check the pack
+   form submitted: Check referral pack against the document checklist
+3. Consultant records the clinical decision
+   form submitted: Review the referral and record the clinical decision
+4. Outpatient Bookings choose an appointment
+   form submitted: Choose and confirm the appointment
+5. Call Handling telephone the patient about the short notice appointment
+   form submitted: Attempt to telephone the patient
+
+--- after the booking is confirmed ---
+   incidents: none
+
+6. patient attends the new patient appointment (message from outside)
+7. Consultant records consent and completes the treatment booking request
+   form submitted: Record consent and complete the treatment booking request
+8. Finance Team determine the funding route
+   form submitted: Determine the funding route and record the approval
+9. branch work: whatever the current worker configuration produced
+   form submitted: decide how to handle the failed payment
+   not reached: TRT_Task_ReviewFundingTimeout (chase the outstanding funding approval)
+   not reached: FIN_Task_InvestigatePayment (investigate the payment the provider never confirmed)
+   not reached: CON_Task_AuthoriseUrgentTreatment (authorise urgent treatment without confirmed payment)
+   driven: TRT_Task_ReviewDeclinedPayment
+
+--- after treatment is booked ---
+   consultants                CON_Task_DraftLetter                 USER_TASK
+   incidents: none
+
+10. Consultant drafts and approves the clinic letter
+   form submitted: Draft and approve the clinic letter
+11. Medical Secretaries process and send the letter
+   form submitted: Check and process the approved clinic letter
+
+--- end of the demonstration ---
+   incidents: none
+
+What the run has shown
+    1. a referral message starts the Medical Secretaries process
+    2. the document check worker passes the pack and the case is handed to the Consultant pool
+    3. the Consultant accepts, and the Outpatient Bookings pool picks the booking up
+    4. the inclusive gateway sends a letter and, because the appointment is inside two weeks,
+       asks the Call Handling pool to telephone the patient as well
+    5. attendance, consent and an authorised treatment request reach the Treatment Bookings pool
+    6. the funding decision comes back from the Finance Team
+    7. the payment is taken through the simulated provider and the series is confirmed
+    8. the confirmed schedule triggers the clinic letter, which goes Consultant -> Medical
+       Secretaries -> correspondence service
+
+Branches this run could reach
+    python3 demo_scenario.py --exception                     unreadable referral pack
+    DEMO_PAYMENT_STATUS=DECLINED  ... --investigate           the provider declines, then the retry is approved
+    DEMO_PAYMENT_STATUS=NO_CONFIRMATION ... --investigate     the provider never confirms, so the case goes to
+                                                              investigation and a clinician authorises urgent care
+    ... --overdue                                            a clinic letter over three months old escalates to
+                                                              the Administrative Manager and to higher management
+

@@ -1,0 +1,131 @@
+{
+  "components": [
+    {
+      "label": "Payment reference under investigation",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_157",
+        "columns": null
+      },
+      "id": "Field_157",
+      "key": "paymentReference",
+      "validate": {
+        "required": true,
+        "maxLength": 40,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+        "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+      },
+      "description": "Required. Enter payment reference under investigation."
+    },
+    {
+      "label": "The provider's transaction list has been checked",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_158",
+        "columns": null
+      },
+      "id": "Field_158",
+      "key": "providerStatementChecked",
+      "defaultValue": false,
+      "description": "Optional. Tick if the provider's transaction list has been checked. Leave it clear if not - an unticked box is a decision, not a blank."
+    },
+    {
+      "label": "Was the money actually taken?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_159",
+        "columns": null
+      },
+      "id": "Field_159",
+      "key": "paymentFound",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "description": "Required. Choose one. Was the money actually taken?."
+    },
+    {
+      "label": "Matched transaction reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_invest",
+        "columns": 6
+      },
+      "id": "Field_160",
+      "key": "matchedTransactionRef",
+      "validate": {
+        "maxLength": 40,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+        "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+      },
+      "description": "Optional. Enter matched transaction reference."
+    },
+    {
+      "label": "Amount taken",
+      "type": "number",
+      "layout": {
+        "row": "Row_invest",
+        "columns": 6
+      },
+      "id": "Field_161",
+      "key": "amountTaken",
+      "validate": {
+        "min": 0
+      },
+      "description": "Optional. Enter a number."
+    },
+    {
+      "label": "What was found",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_162",
+        "columns": null
+      },
+      "id": "Field_162",
+      "key": "investigationNotes",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe what was found in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Investigated by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_163",
+        "columns": null
+      },
+      "id": "Field_163",
+      "key": "investigatedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter investigated by."
+    }
+  ],
+  "type": "default",
+  "id": "investigate-unconfirmed-payment",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "The provider took a payment but no confirmation reached the hospital. Nobody asks the patient for money again until this has been checked."
+}

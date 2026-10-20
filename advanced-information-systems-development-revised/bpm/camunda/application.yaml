@@ -1,0 +1,389 @@
+# =============================================================================
+# Group Mj — Camunda 8.10 orchestration cluster configuration  (v15.0)
+#
+# This file is **part of the deliverable**, not a temporary setting belonging to
+# one machine.
+#
+# The Group Feedback sheet (R7, Group Mj) item 1 requires:
+# "Implement role-based access control in Camunda".
+# In Camunda 8, users, roles and authorisations are declared at cluster
+# **start-up** by `camunda.security.*` and written to the database, so a
+# version-controlled, reproducible configuration is required. This file is that
+# configuration.
+#
+# Where the field names come from: not guesswork, but read back with javap from
+# the configuration classes in the distribution:
+#   camunda-security-library-api-0.1.0-alpha67.jar
+#     io.camunda.security.api.model.config.initialization.InitializationConfiguration
+#       -> users / roles / defaultRoles / authorizations / groups / tenants / mappingRules
+#     io.camunda.security.api.model.config.initialization.ConfiguredRole
+#       -> roleId, name, description, users, clients, mappingRules, groups
+#     io.camunda.security.api.model.config.initialization.ConfiguredAuthorization
+#       -> ownerType, ownerId, resourceType, resourceId, resourcePropertyName, permissions
+#     io.camunda.security.api.model.authz.AuthorizationOwnerType
+#       -> USER / CLIENT / ROLE / GROUP / MAPPING_RULE / TENANT / UNSPECIFIED
+#     io.camunda.security.api.model.authz.AuthorizationResourceType
+#       -> PROCESS_DEFINITION / USER_TASK / DECISION_DEFINITION / AUDIT_LOG / ...
+#     io.camunda.security.api.model.authz.PermissionType
+#       -> READ_PROCESS_DEFINITION / CREATE_PROCESS_INSTANCE / READ_USER_TASK /
+#          CLAIM_USER_TASK / COMPLETE_USER_TASK / UPDATE_USER_TASK / ...
+# Because ConfiguredRole / ConfiguredAuthorization are records (constructor
+# binding, which is stricter about property names than setter binding), the
+# blocks below use camelCase **exactly** matching the Java component names.
+#
+# Usage (the working directory must be writable, because the engine writes its H2
+# data and logs there):
+#   see start-engine.ps1 in the same directory
+# =============================================================================
+
+camunda:
+  data:
+    # Secondary storage: Camunda 8.10 keeps process instances, user tasks, audit
+    # logs and other runtime state here. An **embedded H2 file database** is used,
+    # which answers the Group Feedback sheet R7 item 3, "Implement database
+    # integration to support data persistence": the engine's own state is
+    # persistent too, so processes, tasks, users and roles survive a restart.
+    secondary-storage:
+      type: rdbms
+      rdbms:
+        # A relative ./ path means the engine process working directory, _runtime/camunda
+        url: jdbc:h2:file:./camunda-data/h2db
+        username: sa
+        password:
+        flushInterval: PT0.5S
+        queueSize: 1000
+
+  security:
+    # ---------------------------------------------------------------------
+    # User and role initialization. Runs only when the database is empty (first
+    # start-up); after that the database is authoritative, so this configuration is
+    # a "seed", not a "reapply on every start".
+    #
+    # Role names correspond **one to one** with the candidateGroups of the
+    # zeebe:assignmentDefinition on the BPMN user tasks (nine business roles in
+    # all), so that "task assignment in the model" and "authorisation control in
+    # the engine" use the same set of roles: the model cannot write consultants
+    # while the engine creates consultant.
+    # ---------------------------------------------------------------------
+    initialization:
+      users:
+        - username: demo
+          password: demo
+          name: Demo Administrator
+          email: demo@example.com
+        - username: sec.demo
+          password: sec.demo
+          name: Medical Secretary (demo)
+          email: sec.demo@example.nhs.uk
+        - username: con.demo
+          password: con.demo
+          name: Consultant (demo)
+          email: con.demo@example.nhs.uk
+        - username: fin.demo
+          password: fin.demo
+          name: Finance Officer (demo)
+          email: fin.demo@example.nhs.uk
+        - username: out.demo
+          password: out.demo
+          name: Outpatient Booking Clerk (demo)
+          email: out.demo@example.nhs.uk
+        - username: trt.demo
+          password: trt.demo
+          name: Treatment Booking Clerk (demo)
+          email: trt.demo@example.nhs.uk
+        - username: cns.demo
+          password: cns.demo
+          name: Clinical Nurse Specialist (demo)
+          email: cns.demo@example.nhs.uk
+        - username: call.demo
+          password: call.demo
+          name: Call Handler (demo)
+          email: call.demo@example.nhs.uk
+        - username: pcw.demo
+          password: pcw.demo
+          name: Patient Pathway Coordinator (demo)
+          email: pcw.demo@example.nhs.uk
+        - username: adm.demo
+          password: adm.demo
+          name: Administrative Manager (demo)
+          email: adm.demo@example.nhs.uk
+        # Read-only account: demonstrates "least privilege" — it can read the audit
+        # log but holds no write permission at all.
+        - username: audit.demo
+          password: audit.demo
+          name: Auditor (read only, demo)
+          email: audit.demo@example.nhs.uk
+
+      roles:
+        - roleId: medical-secretaries
+          name: Medical Secretaries
+          description: Referral intake, document checks and outpatient letter processing (BPMN candidate group medical-secretaries)
+          users: [sec.demo]
+        - roleId: consultants
+          name: Consultants
+          description: Clinical decisions, consent, chemotherapy cycle review and letter sign-off (BPMN candidate group consultants)
+          users: [con.demo]
+        - roleId: finance
+          name: Finance Team
+          description: Funding approval, charging, payment and refunds (BPMN candidate group finance)
+          users: [fin.demo]
+        - roleId: outpatient-bookings
+          name: Outpatient Bookings
+          description: New patient appointments, follow-up, cancellation and rebooking (BPMN candidate group outpatient-bookings)
+          users: [out.demo]
+        - roleId: treatment-bookings
+          name: Treatment Bookings
+          description: Treatment appointment series, cycle scheduling and capacity retries (BPMN candidate group treatment-bookings)
+          users: [trt.demo]
+        - roleId: clinical-nurse-specialists
+          name: Clinical Nurse Specialists
+          description: Triaging and answering clinical enquiries (BPMN candidate group clinical-nurse-specialists)
+          users: [cns.demo]
+        - roleId: call-handling
+          name: Call Handling
+          description: Logging and classifying calls, and outbound contact (BPMN candidate group call-handling)
+          users: [call.demo]
+        - roleId: pathway-coordinators
+          name: Patient Pathway Coordinators
+          description: Overdue letter tracking, delay review and the escalation ladder (BPMN candidate group pathway-coordinators)
+          users: [pcw.demo]
+        - roleId: administrative-management
+          name: Administrative Management
+          description: Receiving and escalating cases referred upward (BPMN candidate group administrative-management)
+          users: [adm.demo]
+        # Read-only auditor role: deliberately **granted no** *USER_TASK write
+        # permission, to prove that authorisation is genuinely being enforced.
+        - roleId: auditor
+          name: Auditor (read only)
+          description: Read-only access to process definitions and the audit log; cannot claim or complete any user task
+          users: [audit.demo]
+
+      # Built-in admin role: Camunda grants admin all permissions by default, for
+      # cluster administration.
+      defaultRoles:
+        admin:
+          users:
+            - demo
+
+      # ---------------------------------------------------------------------
+      # Role authorisations (once the master switch is on, operations that were not
+      # granted are refused).
+      #
+      # resourceId is mandatory and **must not be omitted**. This was measured, not
+      # guessed: omitting it makes the engine fail at start-up, reporting:
+      #   IdentityInitializationException: Cannot initialize configured authorizations
+      #   for tenant 'default': - Either resourceId or resourcePropertyName must be
+      #   provided
+      # The cause is that ConfiguredAuthorization.wildcard(...) is only a static
+      # factory and does not bind; decompiling shows it is idBased(..., "*", ...),
+      # so **a wildcard must be written out explicitly as resourceId: "*"**.
+      # To narrow a grant to a single process, replace "*" with the concrete
+      # process definition id.
+      #
+      # Every business role is deliberately given the same minimal permission set:
+      #   user tasks: READ / CLAIM / COMPLETE / UPDATE
+      #   process definitions and instances: READ_PROCESS_DEFINITION / READ_PROCESS_INSTANCE
+      # Note that DELETE_PROCESS_INSTANCE / MODIFY_PROCESS_INSTANCE /
+      # CANCEL_PROCESS_INSTANCE are **not** granted — a business role should not be
+      # able to delete or modify a running process instance.
+      #
+      # ⚠ A user-task permission name must use the **short form** READ / CLAIM /
+      #   COMPLETE / UPDATE, never READ_USER_TASK / CLAIM_USER_TASK /
+      #   COMPLETE_USER_TASK / UPDATE_USER_TASK. This was measured: with the long
+      #   form the engine **starts without complaint**, but not one USER_TASK
+      #   authorisation row is persisted (querying the AUTHORIZATIONS table shows
+      #   USER_TASK rows only for the built-in admin / readonly-admin /
+      #   task-worker). The result is the false impression of a system that looks
+      #   RBAC-configured but holds no task permission at all. The built-in roles
+      #   use the short form too; see the four admin rows in the AUTHORIZATIONS
+      #   table.
+      # ---------------------------------------------------------------------
+      authorizations:
+        - ownerType: ROLE
+          ownerId: medical-secretaries
+          resourceType: USER_TASK
+          resourceId: "*"
+          permissions: [READ, CLAIM, COMPLETE, UPDATE]
+        - ownerType: ROLE
+          ownerId: medical-secretaries
+          resourceType: PROCESS_DEFINITION
+          resourceId: "*"
+          permissions: [READ_PROCESS_DEFINITION, READ_PROCESS_INSTANCE]
+
+        - ownerType: ROLE
+          ownerId: consultants
+          resourceType: USER_TASK
+          resourceId: "*"
+          permissions: [READ, CLAIM, COMPLETE, UPDATE]
+        - ownerType: ROLE
+          ownerId: consultants
+          resourceType: PROCESS_DEFINITION
+          resourceId: "*"
+          permissions: [READ_PROCESS_DEFINITION, READ_PROCESS_INSTANCE]
+
+        - ownerType: ROLE
+          ownerId: finance
+          resourceType: USER_TASK
+          resourceId: "*"
+          permissions: [READ, CLAIM, COMPLETE, UPDATE]
+        - ownerType: ROLE
+          ownerId: finance
+          resourceType: PROCESS_DEFINITION
+          resourceId: "*"
+          permissions: [READ_PROCESS_DEFINITION, READ_PROCESS_INSTANCE]
+
+        - ownerType: ROLE
+          ownerId: outpatient-bookings
+          resourceType: USER_TASK
+          resourceId: "*"
+          permissions: [READ, CLAIM, COMPLETE, UPDATE]
+        - ownerType: ROLE
+          ownerId: outpatient-bookings
+          resourceType: PROCESS_DEFINITION
+          resourceId: "*"
+          permissions: [READ_PROCESS_DEFINITION, READ_PROCESS_INSTANCE]
+
+        - ownerType: ROLE
+          ownerId: treatment-bookings
+          resourceType: USER_TASK
+          resourceId: "*"
+          permissions: [READ, CLAIM, COMPLETE, UPDATE]
+        - ownerType: ROLE
+          ownerId: treatment-bookings
+          resourceType: PROCESS_DEFINITION
+          resourceId: "*"
+          permissions: [READ_PROCESS_DEFINITION, READ_PROCESS_INSTANCE]
+
+        - ownerType: ROLE
+          ownerId: clinical-nurse-specialists
+          resourceType: USER_TASK
+          resourceId: "*"
+          permissions: [READ, CLAIM, COMPLETE, UPDATE]
+        - ownerType: ROLE
+          ownerId: clinical-nurse-specialists
+          resourceType: PROCESS_DEFINITION
+          resourceId: "*"
+          permissions: [READ_PROCESS_DEFINITION, READ_PROCESS_INSTANCE]
+
+        - ownerType: ROLE
+          ownerId: call-handling
+          resourceType: USER_TASK
+          resourceId: "*"
+          permissions: [READ, CLAIM, COMPLETE, UPDATE]
+        - ownerType: ROLE
+          ownerId: call-handling
+          resourceType: PROCESS_DEFINITION
+          resourceId: "*"
+          permissions: [READ_PROCESS_DEFINITION, READ_PROCESS_INSTANCE]
+
+        - ownerType: ROLE
+          ownerId: pathway-coordinators
+          resourceType: USER_TASK
+          resourceId: "*"
+          permissions: [READ, CLAIM, COMPLETE, UPDATE]
+        - ownerType: ROLE
+          ownerId: pathway-coordinators
+          resourceType: PROCESS_DEFINITION
+          resourceId: "*"
+          permissions: [READ_PROCESS_DEFINITION, READ_PROCESS_INSTANCE]
+
+        - ownerType: ROLE
+          ownerId: administrative-management
+          resourceType: USER_TASK
+          resourceId: "*"
+          permissions: [READ, CLAIM, COMPLETE, UPDATE]
+        - ownerType: ROLE
+          ownerId: administrative-management
+          resourceType: PROCESS_DEFINITION
+          resourceId: "*"
+          permissions: [READ_PROCESS_DEFINITION, READ_PROCESS_INSTANCE]
+
+        # Read-only auditor role: can read process definitions and the audit log, but
+        # holds **no** user-task permission whatsoever.
+        # The demonstration uses it to prove authorisation is enforced: once logged
+        # in it can do nothing in Tasklist, and claiming or completing a user task
+        # through the API directly is refused with 403.
+        - ownerType: ROLE
+          ownerId: auditor
+          resourceType: PROCESS_DEFINITION
+          resourceId: "*"
+          permissions: [READ_PROCESS_DEFINITION, READ_PROCESS_INSTANCE]
+        - ownerType: ROLE
+          ownerId: auditor
+          resourceType: AUDIT_LOG
+          resourceId: "*"
+          permissions: [READ]
+
+    authentication:
+      method: BASIC
+      # It stays true (the distribution default) because of an engineering
+      # constraint that must be recorded honestly: our external workers use
+      # zeebe-client-java 8.9.0, which speaks only plaintext/OAuth and not BASIC, so
+      # setting this to false would stop all 36 workers from reaching the gateway.
+      # The **automation-facing API therefore stays open**, and the RBAC
+      # demonstration takes the "authenticated web application and REST calls"
+      # route: once a user signs in with BASIC credentials they can see and act
+      # only within their own role. This is written up as a known limitation in the
+      # feedback response, not glossed over.
+      # >>> PROTECTED-API SWITCH <<<
+      # `start-engine.ps1 -ProtectedApi` sets the next line to false (again only in
+      # the runtime copy).
+      #
+      # Why it is needed: measurement showed that `unprotected-api: true` means
+      # "the whole REST API is unauthenticated", and **no authentication means no
+      # authorisation** — the authorisation check does not run even when BASIC
+      # credentials are supplied. So switching authorizations.enabled on while
+      # leaving unprotected-api: true makes it **impossible to tell whether RBAC has
+      # any effect**: a role such as auditor, which holds not one USER_TASK
+      # permission, still gets 200 from every REST call.
+      # To demonstrate a refusal, this must also be set to false so that the API
+      # genuinely demands an identity.
+      unprotected-api: true
+
+    # RBAC master switch.
+    #
+    # Measured result (2026-10-15, reproducible, evidence in bpm/screenshots/v15/):
+    #   enabled: true  -> roles, members and authorisations are all persisted
+    #                     (USERS 11 / ROLES 16 / AUTHORIZATIONS 213), but for
+    #                     **unauthenticated gRPC job workers** jobs stay in the
+    #                     CREATED state and are never activated: the worker log shows
+    #                     COMPLETED = 0 and all five scenarios that need a service
+    #                     task fail on timeout.
+    #   enabled: false -> the same workers and the same models give COMPLETED = 11,
+    #                     and every scenario passes.
+    #
+    # Mechanism: this distribution supports only BASIC and OIDC authentication (the
+    # AuthenticationMethod enum has no NONE), and the `unprotected-api: true`
+    # exemption applies only to REST/web applications, not to the gRPC job
+    # activation channel. External workers use zeebe-client-java 8.9.0, which speaks
+    # only plaintext/OAuth and not BASIC, so in this offline environment there is
+    # **no way to make it present an identity to the gateway**.
+    # Conclusion: `authorizations.enabled: true` and "external gRPC workers can do
+    # their work" are mutually exclusive in the current environment.
+    #
+    # This file (the delivered RBAC configuration) therefore stays true — it is the
+    # answer to the Group Feedback sheet R7 item 1 and demonstrates what a role can
+    # and cannot do; to run the whole system end to end, override it with
+    # application-workers.yaml in the same directory (which turns this off).
+    # The limitation is recorded honestly as L-1 in docs/14-feedback-response.md.
+    authorizations:
+      # >>> WORKERS-PROFILE SWITCH <<<
+      # The line below is the only switch. `start-engine.ps1 -WorkersProfile` sets it
+      # to false **in the copy placed in the runtime directory**; the copy in the
+      # delivered repository always stays true (for the RBAC demonstration).
+      # The "marker plus edited copy" approach is used rather than maintaining a
+      # second complete yaml, to rule out drift between the two configurations.
+      enabled: true
+
+  mcp:
+    enabled: false
+
+zeebe:
+  broker:
+    network:
+      host: localhost
+      advertisedHost: localhost
+  gateway:
+    cluster:
+      initialContactPoints: localhost:26502
+      memberId: identity

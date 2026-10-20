@@ -1,0 +1,38 @@
+﻿=== 0. Clear the previous run's database files ===
+  removed bpm\workers\data
+
+################ run1 ################
+  18:56:48.938 INFO  u.a.u.u.h.d.HospitalDatabase - schema applied
+  18:56:48.978 INFO  u.a.u.u.h.d.HospitalDatabase - reference data and role matrix seeded
+  18:56:48.980 INFO  u.a.u.u.h.d.HospitalDatabase - database readydatabase ready: jdbc:h2:file:./data/hospital (user=sa)
+  18:56:48.984 INFO  u.a.u.u.h.WorkersApplication -  H2 persistence enabled
+  18:56:49.002 INFO  u.a.u.u.h.WorkersApplication -   business table rowsbusiness table rows: {gp_practice=3, patient=3, appointment=0, treatment_series=0, confirmed_series=0, clinic_letter=0, pathway_monitoring=0, letter_reminder=0, payment_reference=0, provider_payment=0, app_role=11, role_permission=63, audit_log=0}
+  18:56:49.011 INFO  u.a.u.u.h.WorkersApplication -   reference datareference data: {patients=3, gpPractices=3, practicesNotAccepting=[GP-5580]}
+  18:56:49.018 INFO  u.a.u.u.h.WorkersApplication -   role matrix and auditrole matrix and audit: {roles=11, permissions=63, auditAllowed=0, auditDenied=0}
+
+--- table counts after the first run ---
+  PATIENTS | PRACTICES | PERMISSIONS | APPOINTMENTS
+  3        | 3         | 63          | 0
+  (1 row, 27 ms)
+
+--- insert one business row (an appointment) ---
+  (Update count: 1, 12 ms)
+
+################ run2 ################
+  18:57:17.548 INFO  u.a.u.u.h.d.HospitalDatabase - schema applied
+  18:57:17.584 INFO  u.a.u.u.h.d.HospitalDatabase - reference data and role matrix seeded
+  18:57:17.586 INFO  u.a.u.u.h.d.HospitalDatabase - database readydatabase ready: jdbc:h2:file:./data/hospital (user=sa)
+  18:57:17.591 INFO  u.a.u.u.h.WorkersApplication -  H2 persistence enabled
+  18:57:17.607 INFO  u.a.u.u.h.WorkersApplication -   business table rowsbusiness table rows: {gp_practice=3, patient=3, appointment=1, treatment_series=0, confirmed_series=0, clinic_letter=0, pathway_monitoring=0, letter_reminder=0, payment_reference=0, provider_payment=0, app_role=11, role_permission=63, audit_log=0}
+  18:57:17.615 INFO  u.a.u.u.h.WorkersApplication -   reference datareference data: {patients=3, gpPractices=3, practicesNotAccepting=[GP-5580]}
+  18:57:17.620 INFO  u.a.u.u.h.WorkersApplication -   role matrix and auditrole matrix and audit: {roles=11, permissions=63, auditAllowed=0, auditDenied=0}
+
+--- table counts after the second run (must match the first, with the business row still present) ---
+  PATIENTS | PRACTICES | PERMISSIONS | APPOINTMENTS
+  3        | 3         | 63          | 1
+  (1 row, 20 ms)
+  STORE_KEY  | REFERENCE      | LOCATION
+  DEMO-KEY-1 | APPT-PERSIST-1 | Oncology Day Unit
+  (1 row, 16 ms)
+
+evidence files: bpm\screenshots\v15\workers-run1.out.log / workers-run2.out.log

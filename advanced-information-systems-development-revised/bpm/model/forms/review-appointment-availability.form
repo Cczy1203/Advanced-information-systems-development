@@ -1,0 +1,155 @@
+{
+  "components": [
+    {
+      "label": "How should this be handled?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_090",
+        "columns": null
+      },
+      "id": "Field_090",
+      "key": "availabilityAction",
+      "description": "Widening the search keeps the clinical window. Escalating hands it to the pathway team.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Search a wider period or another clinic",
+          "value": "WIDEN_SEARCH"
+        },
+        {
+          "label": "Offer the next available appointment",
+          "value": "OFFER_NEXT_AVAILABLE"
+        },
+        {
+          "label": "Escalate to the pathway team",
+          "value": "ESCALATE"
+        }
+      ]
+    },
+    {
+      "label": "Why was nothing available?",
+      "type": "select",
+      "layout": {
+        "row": "Row_091",
+        "columns": null
+      },
+      "id": "Field_091",
+      "key": "noSlotReason",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "No clinic capacity",
+          "value": "No clinic capacity"
+        },
+        {
+          "label": "Consultant unavailable",
+          "value": "Consultant unavailable"
+        },
+        {
+          "label": "Required resource unavailable",
+          "value": "Required resource unavailable"
+        },
+        {
+          "label": "Patient asked for a different period",
+          "value": "Patient asked for a different period"
+        }
+      ],
+      "description": "Required. Choose one. Why was nothing available?."
+    },
+    {
+      "type": "text",
+      "text": "**Date rule: today or later.** The calendar already blocks past dates.",
+      "id": "Text_preferredFromDate_rule",
+      "layout": {
+        "row": "Row_preferredFromDate_rule",
+        "columns": null
+      }
+    },
+    {
+      "label": "Search again from (today or later)",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_092",
+        "columns": null
+      },
+      "id": "Field_092",
+      "key": "preferredFromDate",
+      "subtype": "date",
+      "disallowPassedDates": true,
+      "validate": {
+        "required": true
+      },
+      "description": "Required. This date cannot be in the past. The calendar blocks earlier dates, and the worker rejects one as well."
+    },
+    {
+      "type": "text",
+      "text": "**Date rule: today or later.** The calendar already blocks past dates.",
+      "id": "Text_preferredToDate_rule",
+      "layout": {
+        "row": "Row_preferredToDate_rule",
+        "columns": null
+      }
+    },
+    {
+      "label": "Search again to (today or later)",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_093",
+        "columns": null
+      },
+      "id": "Field_093",
+      "key": "preferredToDate",
+      "subtype": "date",
+      "disallowPassedDates": true,
+      "validate": {
+        "required": true
+      },
+      "description": "Required. This date cannot be in the past. The calendar blocks earlier dates, and the worker rejects one as well."
+    },
+    {
+      "label": "Notes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_094",
+        "columns": null
+      },
+      "id": "Field_094",
+      "key": "notes",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe notes in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_095",
+        "columns": null
+      },
+      "id": "Field_095",
+      "key": "reviewedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter reviewed by."
+    }
+  ],
+  "type": "default",
+  "id": "review-appointment-availability",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "What to do when the scheduling service has nothing inside the period the Consultant asked for. The appointment is never quietly moved outside that window."
+}

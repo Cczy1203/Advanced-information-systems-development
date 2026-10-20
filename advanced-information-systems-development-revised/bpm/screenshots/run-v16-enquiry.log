@@ -1,0 +1,9 @@
+scenario: enquiry
+  published enquiry.received  (correlationKey=R6-enquiry)
+  instance 2251799814789071
+
+  correlation key read from the instance: patientRef=R6-enquiry
+   1  user task   CALL_Task_LogEnquiry               Log the enquiry, classify it and set a priority
+   3  user task   CALL_Task_AnswerAdmin              Answer the administrative question
+
+instance state: COMPLETED after 4 steps

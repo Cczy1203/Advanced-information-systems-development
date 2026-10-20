@@ -1,0 +1,98 @@
+{
+  "components": [
+    {
+      "label": "May treatment go ahead without confirmed payment?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_072",
+        "columns": null
+      },
+      "id": "Field_072",
+      "key": "urgentTreatmentAuthorised",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "description": "Required. Choose one. May treatment go ahead without confirmed payment?."
+    },
+    {
+      "label": "Clinical reason for proceeding now",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_073",
+        "columns": null
+      },
+      "id": "Field_073",
+      "key": "clinicalUrgencyReason",
+      "description": "Be specific. This record is what Finance and the audit team will read.",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "What is the risk if treatment is delayed?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_074",
+        "columns": null
+      },
+      "id": "Field_074",
+      "key": "clinicalRiskIfDelayed",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe what is the risk if treatment is delayed? in your own words. This is what the next team reads."
+    },
+    {
+      "label": "I understand this is being referred to the Finance Team",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_075",
+        "columns": null
+      },
+      "id": "Field_075",
+      "key": "financeReferralAccepted",
+      "defaultValue": false,
+      "description": "Optional. Tick if i understand this is being referred to the Finance Team. Leave it clear if not - an unticked box is a decision, not a blank."
+    },
+    {
+      "label": "Authorised by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_076",
+        "columns": null
+      },
+      "id": "Field_076",
+      "key": "authorisedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter authorised by."
+    }
+  ],
+  "type": "default",
+  "id": "authorise-urgent-treatment",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Only used when treatment must go ahead before payment is confirmed. A clinician has to justify it and Finance picks the money side up afterwards."
+}

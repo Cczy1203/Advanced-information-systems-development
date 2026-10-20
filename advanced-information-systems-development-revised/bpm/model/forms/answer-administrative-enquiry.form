@@ -1,0 +1,153 @@
+{
+  "components": [
+    {
+      "label": "Enquiry reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_225",
+        "columns": null
+      },
+      "id": "Field_225",
+      "key": "enquiryRef",
+      "validate": {
+        "required": true,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+        "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+      },
+      "description": "Required. Enter enquiry reference."
+    },
+    {
+      "label": "Type of administrative enquiry",
+      "values": [
+        {
+          "label": "Appointment date, time or location",
+          "value": "Appointment date, time or location"
+        },
+        {
+          "label": "Referral progress",
+          "value": "Referral progress"
+        },
+        {
+          "label": "Clinic letter query",
+          "value": "Clinic letter query"
+        },
+        {
+          "label": "Transport or access",
+          "value": "Transport or access"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_226",
+        "columns": null
+      },
+      "id": "Field_226",
+      "key": "enquiryCategory",
+      "validate": {
+        "required": true
+      },
+      "description": "Required. Choose one. Type of administrative enquiry."
+    },
+    {
+      "label": "Answer given",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_227",
+        "columns": null
+      },
+      "id": "Field_227",
+      "key": "responseGiven",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe answer given in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Answered with the information you have?",
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_228",
+        "columns": null
+      },
+      "id": "Field_228",
+      "key": "answerableNow",
+      "validate": {
+        "required": true
+      },
+      "description": "Required. Choose one. Answered with the information you have?."
+    },
+    {
+      "label": "If not, which team has it now?",
+      "values": [
+        {
+          "label": "Outpatient bookings",
+          "value": "Outpatient bookings"
+        },
+        {
+          "label": "Medical secretaries",
+          "value": "Medical secretaries"
+        },
+        {
+          "label": "Pathway coordinators",
+          "value": "Pathway coordinators"
+        },
+        {
+          "label": "Finance",
+          "value": "Finance"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_229",
+        "columns": null
+      },
+      "id": "Field_229",
+      "key": "handedToTeam",
+      "description": "Optional. Choose one. If not, which team has it now?."
+    },
+    {
+      "label": "Answered by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_230",
+        "columns": null
+      },
+      "id": "Field_230",
+      "key": "answeredBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter answered by."
+    }
+  ],
+  "type": "default",
+  "id": "answer-administrative-enquiry",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Shared by the call handling team and the outpatient bookings team so an enquiry record looks the same whichever team answers it."
+}

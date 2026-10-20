@@ -1,0 +1,144 @@
+{
+  "components": [
+    {
+      "label": "Period requested by the clinical team",
+      "type": "select",
+      "layout": {
+        "row": "Row_096",
+        "columns": null
+      },
+      "id": "Field_096",
+      "key": "requestedReviewPeriod",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "2 weeks",
+          "value": "2 weeks"
+        },
+        {
+          "label": "4 weeks",
+          "value": "4 weeks"
+        },
+        {
+          "label": "3 months",
+          "value": "3 months"
+        },
+        {
+          "label": "6 months",
+          "value": "6 months"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ],
+      "description": "Required. Choose one. Period requested by the clinical team."
+    },
+    {
+      "type": "text",
+      "text": "**Date rule: today or later.** The calendar already blocks past dates.",
+      "id": "Text_appointmentDateTime_rule",
+      "layout": {
+        "row": "Row_appointmentDateTime_rule",
+        "columns": null
+      }
+    },
+    {
+      "label": "Appointment date and time (today or later)",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_097",
+        "columns": null
+      },
+      "id": "Field_097",
+      "key": "appointmentDateTime",
+      "validate": {
+        "required": true
+      },
+      "subtype": "datetime",
+      "disallowPassedDates": true,
+      "description": "Required. This date cannot be in the past. The calendar blocks earlier dates, and the worker rejects one as well."
+    },
+    {
+      "label": "Clinic location",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_098",
+        "columns": null
+      },
+      "id": "Field_098",
+      "key": "appointmentLocation",
+      "validate": {
+        "maxLength": 120
+      },
+      "description": "Optional. Enter clinic location."
+    },
+    {
+      "label": "Is this inside the requested period?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_099",
+        "columns": null
+      },
+      "id": "Field_099",
+      "key": "withinRequestedPeriod",
+      "description": "Answering no sends the case to the pathway team instead of booking it anyway.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "If not, why not?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_100",
+        "columns": null
+      },
+      "id": "Field_100",
+      "key": "outsidePeriodReason",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe if not, why not? in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Confirmed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_101",
+        "columns": null
+      },
+      "id": "Field_101",
+      "key": "confirmedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter confirmed by."
+    }
+  ],
+  "type": "default",
+  "id": "confirm-follow-up-appointment",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Follow-up bookings must land inside the period the clinical team asked for."
+}

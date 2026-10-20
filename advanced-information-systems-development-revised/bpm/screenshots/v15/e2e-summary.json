@@ -1,0 +1,22 @@
+﻿{
+    "python":  "python3",
+    "java":  "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.6.7-hotspot\\bin\\java.exe",
+    "topologyReady":  true,
+    "deploymentKey":  "2251799813694474",
+    "processDefinitions":  9,
+    "forms":  36,
+    "workers":  "running (pid 27112)",
+    "workerGateway":  "localhost:26500",
+    "workerGatewayVersion":  "8.10.0-alpha5,",
+    "workerClasses":  36,
+    "jobTypeSubscriptions":  37,
+    "workerRoleMatrix":  "{roles=11, permissions=63, auditAllowed=0, auditDenied=0}",
+    "driverExitCode":  0,
+    "formsCovered":  36,
+    "formsDeployed":  36,
+    "formsMissing":  0,
+    "driverErrors":  0,
+    "engineErrorLines":  14,
+    "result":  "PASS",
+    "finishedAt":  "2026-10-15 21:17:10"
+}

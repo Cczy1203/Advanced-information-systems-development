@@ -1,0 +1,122 @@
+{
+  "components": [
+    {
+      "label": "What is being asked for?",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_130",
+        "columns": null
+      },
+      "id": "Field_130",
+      "key": "modificationReason",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe what is being asked for? in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Requested by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_131",
+        "columns": null
+      },
+      "id": "Field_131",
+      "key": "requestedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter requested by."
+    },
+    {
+      "label": "Was the request submitted through the system?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_132",
+        "columns": null
+      },
+      "id": "Field_132",
+      "key": "requestFormallySubmitted",
+      "description": "Email and telephone requests are not processed until they are formally authorised.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "label": "Type of change",
+      "type": "select",
+      "layout": {
+        "row": "Row_133",
+        "columns": null
+      },
+      "id": "Field_133",
+      "key": "changeCategory",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Date change",
+          "value": "Date change"
+        },
+        {
+          "label": "Dose change",
+          "value": "Dose change"
+        },
+        {
+          "label": "Regimen change",
+          "value": "Regimen change"
+        },
+        {
+          "label": "Stop treatment",
+          "value": "Stop treatment"
+        },
+        {
+          "label": "Other",
+          "value": "Other"
+        }
+      ],
+      "description": "Required. Choose one. Type of change."
+    },
+    {
+      "label": "Notes",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_134",
+        "columns": null
+      },
+      "id": "Field_134",
+      "key": "notes",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe notes in your own words. This is what the next team reads."
+    }
+  ],
+  "type": "default",
+  "id": "review-treatment-change",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "First pass at a treatment change request. A change that only arrived informally is sent back for proper authorisation."
+}

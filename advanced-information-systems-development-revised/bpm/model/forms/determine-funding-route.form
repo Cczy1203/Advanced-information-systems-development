@@ -1,0 +1,222 @@
+{
+  "components": [
+    {
+      "label": "Who is paying",
+      "type": "group",
+      "id": "Field_determine_fu_G0",
+      "path": "",
+      "components": [
+        {
+          "label": "Funding route",
+          "type": "radio",
+          "layout": {
+            "row": "Row_135",
+            "columns": null
+          },
+          "id": "Field_135",
+          "key": "fundingRoute",
+          "validate": {
+            "required": true
+          },
+          "values": [
+            {
+              "label": "Funded by the hospital",
+              "value": "HOSPITAL_FUNDED"
+            },
+            {
+              "label": "Approved by the insurer",
+              "value": "INSURER_APPROVED"
+            },
+            {
+              "label": "Payable by the patient",
+              "value": "PATIENT_PAYS"
+            },
+            {
+              "label": "Exempt from charge",
+              "value": "EXEMPTION"
+            }
+          ],
+          "description": "Required. Choose one. Funding route."
+        },
+        {
+          "label": "Responsible funding organisation",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_funder",
+            "columns": 6
+          },
+          "id": "Field_136",
+          "key": "funderName",
+          "description": "Required for insurer or funding organisation routes.",
+          "validate": {
+            "maxLength": 120,
+            "pattern": "^(?!\\s*\\d+\\s*$).+$",
+            "patternErrorMessage": "This must be a name, not only digits."
+          }
+        },
+        {
+          "label": "Exemption reason",
+          "type": "select",
+          "layout": {
+            "row": "Row_141",
+            "columns": null
+          },
+          "id": "Field_141",
+          "key": "exemptionReason",
+          "values": [
+            {
+              "label": "Not applicable",
+              "value": "Not applicable"
+            },
+            {
+              "label": "Overseas visitor exemption",
+              "value": "Overseas visitor exemption"
+            },
+            {
+              "label": "Clinical trial",
+              "value": "Clinical trial"
+            },
+            {
+              "label": "Prescribed special service",
+              "value": "Prescribed special service"
+            },
+            {
+              "label": "Other",
+              "value": "Other"
+            }
+          ],
+          "description": "Optional. Choose one. Exemption reason."
+        }
+      ]
+    },
+    {
+      "label": "Authorisation",
+      "type": "group",
+      "id": "Field_determine_fu_G1",
+      "path": "",
+      "components": [
+        {
+          "label": "Authorisation reference",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_funder",
+            "columns": 6
+          },
+          "id": "Field_137",
+          "key": "authorisationRef",
+          "validate": {
+            "maxLength": 40,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+            "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+          },
+          "description": "Optional. Enter authorisation reference."
+        },
+        {
+          "label": "Approved amount",
+          "type": "number",
+          "layout": {
+            "row": "Row_amount",
+            "columns": 6
+          },
+          "id": "Field_138",
+          "key": "approvedAmount",
+          "validate": {
+            "min": 0,
+            "max": 1000000
+          },
+          "description": "Optional. Enter a number between 0 and 1000000."
+        },
+        {
+          "label": "Currency",
+          "type": "select",
+          "layout": {
+            "row": "Row_amount",
+            "columns": 6
+          },
+          "id": "Field_139",
+          "key": "currency",
+          "values": [
+            {
+              "label": "Pounds sterling",
+              "value": "GBP"
+            },
+            {
+              "label": "Euros",
+              "value": "EUR"
+            },
+            {
+              "label": "US dollars",
+              "value": "USD"
+            }
+          ],
+          "description": "Optional. Choose one. Currency."
+        },
+        {
+          "label": "Limits attached to the approval",
+          "type": "textarea",
+          "layout": {
+            "row": "Row_140",
+            "columns": null
+          },
+          "id": "Field_140",
+          "key": "fundingLimitations",
+          "description": "For example a capped number of cycles or a named treatment only.",
+          "properties": {
+            "rows": 3
+          }
+        },
+        {
+          "type": "text",
+          "text": "**Date rule: today or earlier.** The calendar cannot block a future date. A future date is rejected and stops the case until it is corrected.",
+          "id": "Text_approvalDate_rule",
+          "layout": {
+            "row": "Row_approvalDate_rule",
+            "columns": null
+          }
+        },
+        {
+          "label": "Decision date (today or earlier)",
+          "type": "datetime",
+          "layout": {
+            "row": "Row_142",
+            "columns": null
+          },
+          "id": "Field_142",
+          "key": "approvalDate",
+          "validate": {
+            "required": true
+          },
+          "subtype": "date",
+          "description": "Required. This date cannot be in the future. The calendar cannot stop a future date being picked, so the worker rejects one and the case stops until it is corrected."
+        },
+        {
+          "label": "Decided by",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_143",
+            "columns": null
+          },
+          "id": "Field_143",
+          "key": "decidedBy",
+          "validate": {
+            "required": true,
+            "maxLength": 80,
+            "pattern": "^(?!\\s*\\d+\\s*$).+$",
+            "patternErrorMessage": "This must be a name, not only digits."
+          },
+          "description": "Required. Enter decided by."
+        }
+      ]
+    }
+  ],
+  "type": "default",
+  "id": "determine-funding-route",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "The funding decision. The responsible organisation, the authorisation reference, the approved amount and any limits all have to be recorded."
+}

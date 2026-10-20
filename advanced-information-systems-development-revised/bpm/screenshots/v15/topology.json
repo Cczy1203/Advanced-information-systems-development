@@ -1,0 +1,25 @@
+﻿{
+    "brokers":  [
+                    {
+                        "nodeId":  0,
+                        "brokerId":  "0",
+                        "host":  "localhost",
+                        "port":  26501,
+                        "partitions":  [
+                                           {
+                                               "partitionId":  1,
+                                               "role":  "leader",
+                                               "health":  "healthy",
+                                               "state":  "active"
+                                           }
+                                       ],
+                        "version":  "8.10.0-alpha5"
+                    }
+                ],
+    "clusterId":  "607a71cc-e702-40ef-a46a-e774ff664941",
+    "clusterSize":  1,
+    "partitionsCount":  1,
+    "replicationFactor":  1,
+    "gatewayVersion":  "8.10.0-alpha5",
+    "lastCompletedChangeId":  "-1"
+}

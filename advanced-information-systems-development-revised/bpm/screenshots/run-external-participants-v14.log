@@ -1,0 +1,23 @@
+outside-participant reference: PAT-DEMO-EXTOWN-1790589842
+
+starting the six outside participants
+  referring-organisation           started directly            instance 2251799813954274
+  patient-representative           started directly            instance 2251799813954300
+  external-scheduling-service      started by scheduling.slot-search-requested  
+  external-payment-service         started by payment.transaction-requested     
+  external-clinical-services       started by external-resources.capacity-requested
+  external-correspondence-service  started by correspondence.dispatch-requested 
+
+result
+  referring-organisation           COMPLETED  no incident
+  patient-representative           COMPLETED  no incident
+  external-scheduling-service      COMPLETED  no incident
+  external-correspondence-service  COMPLETED  no incident
+  external-payment-service         COMPLETED  no incident
+  external-clinical-services       COMPLETED  no incident
+
+integration (the outside process publishes, the hospital process starts)
+  referring-organisation     throws referral.received      -> 1 new medical-secretaries instance(s)
+  patient-representative     throws appointment.attended   -> 1 new consultants instance(s)
+
+PASS - all outside participants ran and completed

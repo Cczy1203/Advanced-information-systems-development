@@ -1,0 +1,157 @@
+{
+  "components": [
+    {
+      "label": "What happened?",
+      "type": "select",
+      "layout": {
+        "row": "Row_102",
+        "columns": null
+      },
+      "id": "Field_102",
+      "key": "appointmentOutcome",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Attended",
+          "value": "ATTENDED"
+        },
+        {
+          "label": "Cancelled",
+          "value": "CANCELLED"
+        },
+        {
+          "label": "Patient declined",
+          "value": "DECLINED"
+        },
+        {
+          "label": "Did not attend",
+          "value": "DNA"
+        }
+      ],
+      "description": "The values here are the ones the recording step understands. Say whether the patient cancelled, declined or simply did not come; the detail goes in the reason."
+    },
+    {
+      "label": "Reason given",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_103",
+        "columns": null
+      },
+      "id": "Field_103",
+      "key": "cancellationReason",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe reason given in your own words. This is what the next team reads."
+    },
+    {
+      "label": "What happens next?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_104",
+        "columns": null
+      },
+      "id": "Field_104",
+      "key": "cancellationAction",
+      "description": "Clinical review and discharge decisions belong to the clinical team.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Offer another appointment",
+          "value": "REBOOK"
+        },
+        {
+          "label": "Ask the clinical team to review the pathway",
+          "value": "CLINICAL_REVIEW"
+        },
+        {
+          "label": "Close the pathway and inform the referring organisation",
+          "value": "CLOSE_AND_INFORM_REFERRER"
+        }
+      ]
+    },
+    {
+      "label": "Offer another appointment within (days)",
+      "type": "number",
+      "layout": {
+        "row": "Row_booking_action",
+        "columns": 6
+      },
+      "id": "Field_105",
+      "key": "rebookWithinDays",
+      "validate": {
+        "min": 1,
+        "max": 180
+      },
+      "description": "Optional. Enter a number between 1 and 180."
+    },
+    {
+      "label": "How should the patient be told?",
+      "type": "select",
+      "layout": {
+        "row": "Row_booking_action",
+        "columns": 6
+      },
+      "id": "Field_106",
+      "key": "communicationChannel",
+      "values": [
+        {
+          "label": "Letter",
+          "value": "Letter"
+        },
+        {
+          "label": "Telephone",
+          "value": "Telephone"
+        },
+        {
+          "label": "Secure email",
+          "value": "Secure email"
+        }
+      ],
+      "description": "Optional. Choose one. How should the patient be told?."
+    },
+    {
+      "label": "The patient has been told what the options are",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_107",
+        "columns": null
+      },
+      "id": "Field_107",
+      "key": "patientInformedOfOptions",
+      "defaultValue": false,
+      "description": "Optional. Tick if the patient has been told what the options are. Leave it clear if not - an unticked box is a decision, not a blank."
+    },
+    {
+      "label": "Recorded by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_108",
+        "columns": null
+      },
+      "id": "Field_108",
+      "key": "recordedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter recorded by."
+    }
+  ],
+  "type": "default",
+  "id": "decide-cancellation-action",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Cancellations, declines and missed appointments all land here. Administrative staff coordinate the next step; they do not decide whether treatment continues."
+}

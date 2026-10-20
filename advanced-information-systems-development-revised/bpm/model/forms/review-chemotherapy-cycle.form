@@ -1,0 +1,129 @@
+{
+  "components": [
+    {
+      "label": "Cycle number being reviewed",
+      "type": "number",
+      "layout": {
+        "row": "Row_046",
+        "columns": null
+      },
+      "id": "Field_046",
+      "key": "cycleNumber",
+      "validate": {
+        "required": true,
+        "min": 1,
+        "max": 30
+      },
+      "readonly": true,
+      "description": "Shown for reference. Set by the booking team's schedule step; the pathway decides from this number whether another cycle follows, so it is not editable here."
+    },
+    {
+      "label": "Blood results have been reviewed",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_047",
+        "columns": null
+      },
+      "id": "Field_047",
+      "key": "bloodResultsReviewed",
+      "defaultValue": false,
+      "description": "Optional. Tick if blood results have been reviewed. Leave it clear if not - an unticked box is a decision, not a blank."
+    },
+    {
+      "label": "Outcome of the review",
+      "type": "radio",
+      "layout": {
+        "row": "Row_048",
+        "columns": null
+      },
+      "id": "Field_048",
+      "key": "cycleReviewOutcome",
+      "description": "Fit to continue books the next cycle. Delay or change the plan goes back to the bookings team.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Fit to continue",
+          "value": "FIT_TO_CONTINUE"
+        },
+        {
+          "label": "Delay the next cycle",
+          "value": "DELAY"
+        },
+        {
+          "label": "Change the treatment plan",
+          "value": "CHANGE_PLAN"
+        }
+      ]
+    },
+    {
+      "label": "Notes to support the decision",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_049",
+        "columns": null
+      },
+      "id": "Field_049",
+      "key": "cycleReviewNotes",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      },
+      "description": "Required. Describe notes to support the decision in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Reviewed by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_050",
+        "columns": null
+      },
+      "id": "Field_050",
+      "key": "reviewClinician",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter reviewed by."
+    },
+    {
+      "type": "text",
+      "text": "**Date rule: today or earlier.** The calendar cannot block a future date. A future date is rejected and stops the case until it is corrected.",
+      "id": "Text_reviewDate_rule",
+      "layout": {
+        "row": "Row_reviewDate_rule",
+        "columns": null
+      }
+    },
+    {
+      "label": "Review date (today or earlier)",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_051",
+        "columns": null
+      },
+      "id": "Field_051",
+      "key": "reviewDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date",
+      "description": "Required. This date cannot be in the future. The calendar cannot stop a future date being picked, so the worker rejects one and the case stops until it is corrected."
+    }
+  ],
+  "type": "default",
+  "id": "review-chemotherapy-cycle",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Clinical review before a further cycle. Administrative teams cannot make this decision and the form says so on the face of it."
+}

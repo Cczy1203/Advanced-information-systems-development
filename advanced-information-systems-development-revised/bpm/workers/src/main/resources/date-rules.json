@@ -1,0 +1,149 @@
+{
+  "_comment": [
+    "Single source of truth for date rules.",
+    "",
+    "Why it lives here: this table is read from two places at once, and one copy is the only way to stop the two rule sets drifting apart.",
+    "  1) Java worker — DateRuleValidator reads it from the classpath and applies a server-side fallback check to every job;",
+    "  2) Python tooling — bpm/tools/harden_forms.py and forms_inventory.py read it to decide which",
+    "     form fields get disallowPassedDates and which ones the worker covers as a fallback.",
+    "It lives under workers/src/main/resources because it has to be packaged in the jar; the Python tooling reads the same file by path.",
+    "",
+    "Rule semantics, aligned with form-js (important):",
+    "  form-js implements disallowPassedDates by setting minDate: 'today' on flatpickr.",
+    "  That is a **picker constraint**, not server-side validation — hc() does not check it at all.",
+    "  The server must therefore supply its own fallback, and must compare at **date** granularity rather than instant granularity:",
+    "    NOT_IN_PAST    — the date part is >= today (today passes, consistent with minDate being inclusive)",
+    "    NOT_IN_FUTURE  — the date part is <= today",
+    "  Comparing instants would make NOW_ISO = todayT09:00:00 in the demo driver fail everywhere after 9 a.m."
+  ],
+  "version": "15.0",
+  "futureDates": [
+    {
+      "form": "choose-appointment-slot",
+      "field": "appointmentDateTime",
+      "note": "Appointment date and time; must not fall in the past"
+    },
+    {
+      "form": "confirm-follow-up-appointment",
+      "field": "appointmentDateTime",
+      "note": "Follow-up appointment date and time"
+    },
+    {
+      "form": "record-consent-and-treatment-request",
+      "field": "treatmentStartDate",
+      "note": "Treatment start date must be in the future"
+    },
+    {
+      "form": "record-cycle-delay",
+      "field": "newProposedStartDate",
+      "note": "Start date re-proposed after the delay"
+    },
+    {
+      "form": "record-telephone-contact-attempt",
+      "field": "preferredAlternativeDate",
+      "note": "Alternative date agreed with the patient"
+    },
+    {
+      "form": "review-appointment-availability",
+      "field": "preferredFromDate",
+      "note": "Start of the acceptable appointment window"
+    },
+    {
+      "form": "review-appointment-availability",
+      "field": "preferredToDate",
+      "note": "End of the acceptable appointment window"
+    },
+    {
+      "form": "contact-consultant-overdue-letter",
+      "field": "expectedCompletionDate",
+      "note": "Completion date agreed with the consultant"
+    }
+  ],
+  "pastOnlyDates": [
+    {
+      "form": "authorise-treatment-modification",
+      "field": "modificationDate",
+      "note": "Date of the approved treatment change; an accomplished fact"
+    },
+    {
+      "form": "check-referral-pack",
+      "field": "referralDate",
+      "note": "Date the referral was received; cannot be later than today"
+    },
+    {
+      "form": "clinical-review-advice",
+      "field": "reviewDate",
+      "note": "The clinical review has already taken place"
+    },
+    {
+      "form": "contact-consultant-overdue-letter",
+      "field": "contactedOn",
+      "note": "Date the consultant was contacted; already took place"
+    },
+    {
+      "form": "decide-refund",
+      "field": "decisionDate",
+      "note": "Refund decision date"
+    },
+    {
+      "form": "determine-funding-route",
+      "field": "approvalDate",
+      "note": "Funding approval date"
+    },
+    {
+      "form": "refer-to-higher-management",
+      "field": "referralDate",
+      "note": "Referral date cited when escalating to management"
+    },
+    {
+      "form": "review-chemotherapy-cycle",
+      "field": "reviewDate",
+      "note": "Chemotherapy cycle review date"
+    },
+    {
+      "form": "review-referral",
+      "field": "decisionDate",
+      "note": "Referral decision date"
+    }
+  ],
+  "crossFieldRules": [
+    {
+      "id": "WINDOW_ORDER",
+      "fields": [
+        "preferredFromDate",
+        "preferredToDate"
+      ],
+      "rule": "LESS_THAN_OR_EQUAL",
+      "message": "The end of the preferred window must not be before its start."
+    }
+  ],
+  "freeDates": [
+    {
+      "form": "draft-clinic-letter",
+      "field": "consultationDate",
+      "reason": "A clinic letter is written up during the demonstration timebox, whose appointments sit in the future: whoever fills the form naturally records the consultation day as the appointment day, so a \"not later than today\" check manufactures false failures in normal operation. On 2026-10-16 it raised an incident on this exact field. Both clinic-letter forms carry it, and a datetime cannot express an upper bound in the renderer, so the field carries no date constraint."
+    },
+    {
+      "form": "process-clinic-letter",
+      "field": "consultationDate",
+      "reason": "A clinic letter is written up during the demonstration timebox, whose appointments sit in the future: whoever fills the form naturally records the consultation day as the appointment day, so a \"not later than today\" check manufactures false failures in normal operation. On 2026-10-16 it raised an incident on this exact field. Both clinic-letter forms carry it, and a datetime cannot express an upper bound in the renderer, so the field carries no date constraint."
+    },
+    {
+      "form": "record-attendance",
+      "field": "attendanceDate",
+      "reason": "The demonstration compresses time: the appointment is booked in the future, so whoever fills in the form will naturally record the attendance date as the appointment day. Treating it as an accomplished fact (not later than today) would only manufacture false failures under normal operation, so this field carries no date constraint. See docs/17 section 4."
+    }
+  ],
+  "knownOptionalDates": [
+    {
+      "form": "record-consent-and-treatment-request",
+      "field": "treatmentStartDate",
+      "reason": "There is no start date when the patient declines further treatment, and the form has a separate declineReason branch; forcing it to be required would produce fabricated data"
+    },
+    {
+      "form": "record-telephone-contact-attempt",
+      "field": "preferredAlternativeDate",
+      "reason": "Completed only when the patient offers an alternative date"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+scenario: no-slots
+  created from the none start event  (correlationKey=R6-no-capacity)
+  [debug] instances before: 128
+  ... instance 2251799814789366 is not readable yet, waiting
+  instance 2251799814789366
+
+   1  user task   SEC_Task_CheckPack                 Check the referral pack against the document checklist
+  correlation key read from the instance: patientRef=R6-no-capacity
+   3  service     SEC_Auto_ValidateDocuments
+   3  user task   CON_Task_ReviewReferral            Review the referral and record the clinical decision
+   5  service     CON_Auto_AuditDecision
+   5  user task   SEC_Task_NotifyReferrer            Record the decision and notify the referring organisation
+   7  service     OUT_Auto_CheckPriority
+   7  service     OUT_Auto_FindSlots
+   7  user task   OUT_Task_ReviewAvailability        Decide what to do without a suitable slot
+   9  user task   PCW_Task_ReviewDelay               Review the delay and agree the next step
+
+instance state: COMPLETED after 10 steps

@@ -1,0 +1,109 @@
+﻿{
+    "items":  [
+                  {
+                      "name":  "Medical Secretaries",
+                      "resourceName":  "UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn",
+                      "version":  1,
+                      "versionTag":  "2.0.0",
+                      "processDefinitionId":  "medical-secretaries",
+                      "tenantId":  "\u003cdefault\u003e",
+                      "processDefinitionKey":  "2251799813686872",
+                      "hasStartForm":  false,
+                      "state":  "ACTIVE"
+                  },
+                  {
+                      "name":  "Finance Team",
+                      "resourceName":  "UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn",
+                      "version":  1,
+                      "versionTag":  "2.0.0",
+                      "processDefinitionId":  "finance-team",
+                      "tenantId":  "\u003cdefault\u003e",
+                      "processDefinitionKey":  "2251799813686873",
+                      "hasStartForm":  false,
+                      "state":  "ACTIVE"
+                  },
+                  {
+                      "name":  "Treatment and Chemotherapy Bookings Team",
+                      "resourceName":  "UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn",
+                      "version":  1,
+                      "versionTag":  "2.0.0",
+                      "processDefinitionId":  "treatment-bookings",
+                      "tenantId":  "\u003cdefault\u003e",
+                      "processDefinitionKey":  "2251799813686874",
+                      "hasStartForm":  false,
+                      "state":  "ACTIVE"
+                  },
+                  {
+                      "name":  "Consultants",
+                      "resourceName":  "UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn",
+                      "version":  1,
+                      "versionTag":  "2.0.0",
+                      "processDefinitionId":  "consultants",
+                      "tenantId":  "\u003cdefault\u003e",
+                      "processDefinitionKey":  "2251799813686875",
+                      "hasStartForm":  false,
+                      "state":  "ACTIVE"
+                  },
+                  {
+                      "name":  "Outpatient Bookings Team",
+                      "resourceName":  "UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn",
+                      "version":  1,
+                      "versionTag":  "2.0.0",
+                      "processDefinitionId":  "outpatient-bookings",
+                      "tenantId":  "\u003cdefault\u003e",
+                      "processDefinitionKey":  "2251799813686876",
+                      "hasStartForm":  false,
+                      "state":  "ACTIVE"
+                  },
+                  {
+                      "name":  "Clinical Nurse Specialist Team",
+                      "resourceName":  "UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn",
+                      "version":  1,
+                      "versionTag":  "2.0.0",
+                      "processDefinitionId":  "clinical-nurse-specialists",
+                      "tenantId":  "\u003cdefault\u003e",
+                      "processDefinitionKey":  "2251799813686877",
+                      "hasStartForm":  false,
+                      "state":  "ACTIVE"
+                  },
+                  {
+                      "name":  "Call Handling Team",
+                      "resourceName":  "UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn",
+                      "version":  1,
+                      "versionTag":  "2.0.0",
+                      "processDefinitionId":  "call-handling",
+                      "tenantId":  "\u003cdefault\u003e",
+                      "processDefinitionKey":  "2251799813686878",
+                      "hasStartForm":  false,
+                      "state":  "ACTIVE"
+                  },
+                  {
+                      "name":  "Patient Pathway Coordinators",
+                      "resourceName":  "UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn",
+                      "version":  1,
+                      "versionTag":  "2.0.0",
+                      "processDefinitionId":  "patient-pathway-coordinators",
+                      "tenantId":  "\u003cdefault\u003e",
+                      "processDefinitionKey":  "2251799813686879",
+                      "hasStartForm":  false,
+                      "state":  "ACTIVE"
+                  },
+                  {
+                      "name":  "Administrative Management Team",
+                      "resourceName":  "UFCEP6-0-3_Hospital_Patient_Pathway_v14.bpmn",
+                      "version":  1,
+                      "versionTag":  "2.0.0",
+                      "processDefinitionId":  "administrative-management",
+                      "tenantId":  "\u003cdefault\u003e",
+                      "processDefinitionKey":  "2251799813686880",
+                      "hasStartForm":  false,
+                      "state":  "ACTIVE"
+                  }
+              ],
+    "page":  {
+                 "totalItems":  9,
+                 "hasMoreTotalItems":  false,
+                 "startCursor":  "WzIyNTE3OTk4MTM2ODY4NzJd",
+                 "endCursor":  "WzIyNTE3OTk4MTM2ODY4ODBd"
+             }
+}

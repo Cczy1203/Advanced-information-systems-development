@@ -1,0 +1,198 @@
+{
+  "components": [
+    {
+      "label": "The letter",
+      "type": "group",
+      "id": "Field_contact_cons_G0",
+      "path": "",
+      "components": [
+        {
+          "label": "Letter reference",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_211",
+            "columns": null
+          },
+          "id": "Field_211",
+          "key": "letterRef",
+          "validate": {
+            "maxLength": 40,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+            "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+          },
+          "description": "Optional. Enter letter reference."
+        },
+        {
+          "label": "Responsible Consultant",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_212",
+            "columns": null
+          },
+          "id": "Field_212",
+          "key": "consultantName",
+          "validate": {
+            "required": true,
+            "maxLength": 80,
+            "pattern": "^(?!\\s*\\d+\\s*$).+$",
+            "patternErrorMessage": "This must be a name, not only digits."
+          },
+          "description": "Required. Enter responsible Consultant."
+        },
+        {
+          "label": "How were they contacted?",
+          "type": "radio",
+          "layout": {
+            "row": "Row_213",
+            "columns": null
+          },
+          "id": "Field_213",
+          "key": "contactMethod",
+          "validate": {
+            "required": true
+          },
+          "values": [
+            {
+              "label": "Email",
+              "value": "Email"
+            },
+            {
+              "label": "Telephone",
+              "value": "Telephone"
+            },
+            {
+              "label": "In person",
+              "value": "In person"
+            }
+          ],
+          "description": "Required. Choose one. How were they contacted?."
+        },
+        {
+          "type": "text",
+          "text": "**Date rule: today or earlier.** The calendar cannot block a future date. A future date is rejected and stops the case until it is corrected.",
+          "id": "Text_contactedOn_rule",
+          "layout": {
+            "row": "Row_contactedOn_rule",
+            "columns": null
+          }
+        },
+        {
+          "label": "Date of contact (today or earlier)",
+          "type": "datetime",
+          "layout": {
+            "row": "Row_217",
+            "columns": null
+          },
+          "id": "Field_217",
+          "key": "contactedOn",
+          "subtype": "date",
+          "validate": {
+            "required": true
+          },
+          "description": "Required. This date cannot be in the future. The calendar cannot stop a future date being picked, so the worker rejects one and the case stops until it is corrected."
+        },
+        {
+          "label": "Contacted by",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_218",
+            "columns": null
+          },
+          "id": "Field_218",
+          "key": "contactedBy",
+          "validate": {
+            "required": true,
+            "maxLength": 80,
+            "pattern": "^(?!\\s*\\d+\\s*$).+$",
+            "patternErrorMessage": "This must be a name, not only digits."
+          },
+          "description": "Required. Enter contacted by."
+        }
+      ]
+    },
+    {
+      "label": "Outcome",
+      "type": "group",
+      "id": "Field_contact_cons_G1",
+      "path": "",
+      "components": [
+        {
+          "label": "Has the letter been completed?",
+          "type": "radio",
+          "layout": {
+            "row": "Row_214",
+            "columns": null
+          },
+          "id": "Field_214",
+          "key": "letterNowCompleted",
+          "validate": {
+            "required": true
+          },
+          "values": [
+            {
+              "label": "Yes",
+              "value": "true"
+            },
+            {
+              "label": "No",
+              "value": "false"
+            }
+          ],
+          "description": "Required. Choose one. Has the letter been completed?."
+        },
+        {
+          "type": "text",
+          "text": "**Date rule: today or later.** The calendar already blocks past dates.",
+          "id": "Text_expectedCompletionDate_rule",
+          "layout": {
+            "row": "Row_expectedCompletionDate_rule",
+            "columns": null
+          }
+        },
+        {
+          "label": "Expected completion date (today or later)",
+          "type": "datetime",
+          "layout": {
+            "row": "Row_215",
+            "columns": null
+          },
+          "id": "Field_215",
+          "key": "expectedCompletionDate",
+          "subtype": "date",
+          "disallowPassedDates": true,
+          "validate": {
+            "required": true
+          },
+          "description": "Required. This date cannot be in the past. The calendar blocks earlier dates, and the worker rejects one as well."
+        },
+        {
+          "label": "What was agreed?",
+          "type": "textarea",
+          "layout": {
+            "row": "Row_216",
+            "columns": null
+          },
+          "id": "Field_216",
+          "key": "escalationNotes",
+          "validate": {
+            "required": true
+          },
+          "properties": {
+            "rows": 4
+          },
+          "description": "Required. Describe what was agreed? in your own words. This is what the next team reads."
+        }
+      ]
+    }
+  ],
+  "type": "default",
+  "id": "contact-consultant-overdue-letter",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "A letter outstanding for more than a month is taken up with the responsible Consultant directly."
+}

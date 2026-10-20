@@ -1,0 +1,228 @@
+{
+  "components": [
+    {
+      "label": "Who is calling",
+      "type": "group",
+      "id": "Field_log_enquiry_G0",
+      "path": "",
+      "components": [
+        {
+          "label": "Caller name",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_191",
+            "columns": null
+          },
+          "id": "Field_191",
+          "key": "callerName",
+          "validate": {
+            "maxLength": 80,
+            "pattern": "^(?!\\s*\\d+\\s*$).+$",
+            "patternErrorMessage": "This must be a name, not only digits."
+          },
+          "description": "Optional. Enter caller name."
+        },
+        {
+          "label": "Contact number or email",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_192",
+            "columns": null
+          },
+          "id": "Field_192",
+          "key": "callerContact",
+          "validate": {
+            "maxLength": 120
+          },
+          "description": "Optional. Enter contact number or email."
+        },
+        {
+          "label": "How did the enquiry come in?",
+          "type": "radio",
+          "layout": {
+            "row": "Row_187",
+            "columns": null
+          },
+          "id": "Field_187",
+          "key": "enquiryChannel",
+          "validate": {
+            "required": true
+          },
+          "values": [
+            {
+              "label": "Telephone",
+              "value": "Telephone"
+            },
+            {
+              "label": "Email",
+              "value": "Email"
+            },
+            {
+              "label": "Post",
+              "value": "Post"
+            },
+            {
+              "label": "In person",
+              "value": "In person"
+            }
+          ],
+          "description": "Required. Choose one. How did the enquiry come in?."
+        }
+      ]
+    },
+    {
+      "label": "The enquiry",
+      "type": "group",
+      "id": "Field_log_enquiry_G1",
+      "path": "",
+      "components": [
+        {
+          "label": "Enquiry reference",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_186",
+            "columns": null
+          },
+          "id": "Field_186",
+          "key": "enquiryRef",
+          "validate": {
+            "required": true,
+            "minLength": 3,
+            "maxLength": 40,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+            "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+          },
+          "description": "Required. Enter enquiry reference."
+        },
+        {
+          "label": "What kind of enquiry is it?",
+          "type": "radio",
+          "layout": {
+            "row": "Row_188",
+            "columns": null
+          },
+          "id": "Field_188",
+          "key": "enquiryCategory",
+          "description": "Clinical enquiries go to a qualified clinical professional. Call handlers do not advise.",
+          "validate": {
+            "required": true
+          },
+          "values": [
+            {
+              "label": "Administrative question",
+              "value": "ADMINISTRATIVE"
+            },
+            {
+              "label": "Payment or funding question",
+              "value": "FINANCIAL"
+            },
+            {
+              "label": "Clinical question",
+              "value": "CLINICAL"
+            }
+          ]
+        },
+        {
+          "label": "Priority",
+          "type": "radio",
+          "layout": {
+            "row": "Row_189",
+            "columns": null
+          },
+          "id": "Field_189",
+          "key": "enquiryPriority",
+          "description": "Urgent clinical concerns are flagged immediately. The full urgency rules are still being agreed.",
+          "validate": {
+            "required": true
+          },
+          "values": [
+            {
+              "label": "Urgent",
+              "value": "URGENT"
+            },
+            {
+              "label": "Routine",
+              "value": "ROUTINE"
+            }
+          ]
+        },
+        {
+          "label": "What is the enquiry about?",
+          "type": "textarea",
+          "layout": {
+            "row": "Row_190",
+            "columns": null
+          },
+          "id": "Field_190",
+          "key": "enquirySummary",
+          "validate": {
+            "required": true
+          },
+          "properties": {
+            "rows": 4
+          },
+          "description": "Required. Describe what is the enquiry about? in your own words. This is what the next team reads."
+        },
+        {
+          "label": "Can this be answered now, from the information you have?",
+          "type": "radio",
+          "layout": {
+            "row": "Row_Answerable",
+            "columns": null
+          },
+          "id": "Field_Answerable",
+          "key": "answerableNow",
+          "description": "Answering No hands the enquiry to the team that owns it. A call handler may answer administrative questions but must not give clinical advice.",
+          "validate": {
+            "required": true
+          },
+          "values": [
+            {
+              "label": "Yes - the caller can be answered now",
+              "value": "true"
+            },
+            {
+              "label": "No - another team has to answer it",
+              "value": "false"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Recorded by",
+      "type": "group",
+      "id": "Field_log_enquiry_G2",
+      "path": "",
+      "components": [
+        {
+          "label": "Logged by",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_193",
+            "columns": null
+          },
+          "id": "Field_193",
+          "key": "loggedBy",
+          "validate": {
+            "required": true,
+            "maxLength": 80,
+            "pattern": "^(?!\\s*\\d+\\s*$).+$",
+            "patternErrorMessage": "This must be a name, not only digits."
+          },
+          "description": "Required. Enter logged by."
+        }
+      ]
+    }
+  ],
+  "type": "default",
+  "id": "log-enquiry",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Every enquiry gets a record, a category and a priority before it goes anywhere."
+}

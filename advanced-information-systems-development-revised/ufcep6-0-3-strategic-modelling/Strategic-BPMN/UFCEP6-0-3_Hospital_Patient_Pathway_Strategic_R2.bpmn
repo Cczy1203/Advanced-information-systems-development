@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_StrategicPathwayR2" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.51.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.10.0">
+  <bpmn:message id="Message_Referral" name="Referral received" />
+  <bpmn:message id="Message_Enquiry" name="Enquiry or contact received" />
+  <bpmn:collaboration id="Collaboration_Strategic">
+    <bpmn:documentation>Strategic (level 1) view of the Hospital Patient Referral, Treatment and Administration Service. It shows the main business stages of the planned pathway, the organisational group responsible for each stage, the messages exchanged with outside participants, and the operational process each stage calls down to (calledElement). Decisions, failure paths and detailed data are deliberately left to the operational process models; each stage below carries the business rules from the case study in its documentation.</bpmn:documentation>
+    <bpmn:participant id="P_Hospital" name="Hospital Patient Referral, Treatment and Administration Service" processRef="strategic-hospital-pathway" />
+    <bpmn:participant id="P_Referrer" name="Referring organisation (GP or other hospital)" />
+    <bpmn:participant id="P_Patient" name="Patient or authorised representative" />
+    <bpmn:participant id="P_Scheduling" name="External scheduling service" />
+    <bpmn:participant id="P_Correspondence" name="External correspondence service" />
+    <bpmn:participant id="P_Payment" name="External payment service provider" />
+    <bpmn:participant id="P_ClinicalServices" name="External treatment, laboratory and imaging services" />
+    <bpmn:messageFlow id="MF_ReferralIn" name="Referral and documents" sourceRef="P_Referrer" targetRef="Start_Referral">
+      <bpmn:documentation>The referral and its supporting documents (previous clinic letters, investigation results, diagnostic reports and other clinical documentation) are sent by the GP or the referring hospital.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_InformationRequest" name="Missing information" sourceRef="T_Check" targetRef="P_Referrer">
+      <bpmn:documentation>Medical Secretaries ask the referring organisation for anything the hospital needs that the referral does not carry. They may not assess clinical suitability.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_ReferralOutcome" name="Referral decision" sourceRef="T_Review" targetRef="P_Referrer">
+      <bpmn:documentation>The decision, the reason for it and the identity of the decision maker go back to the referring organisation.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_SlotSearch" name="Slot search" sourceRef="T_Book" targetRef="P_Scheduling">
+      <bpmn:documentation>The Outpatient Bookings Team asks the external scheduling service for an appointment matching the speciality, priority, preferred timeframe and patient requirements.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_SlotOffers" name="Available slots" sourceRef="P_Scheduling" targetRef="T_Book">
+      <bpmn:documentation>The external scheduling service returns the appointments it can offer; the booking is confirmed in the hospital system.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_AppointmentLetter" name="Appointment letter" sourceRef="T_Book" targetRef="P_Correspondence">
+      <bpmn:documentation>The new patient appointment letter is sent to the patient through the external correspondence service.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_ShortNoticeCall" name="Call if within 2 weeks" sourceRef="T_Book" targetRef="P_Patient">
+      <bpmn:documentation>Where the appointment is within the following two weeks the patient must also be contacted by telephone; every contact attempt and its outcome is recorded.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_PatientAttends" name="Patient attends" sourceRef="P_Patient" targetRef="T_Consult">
+      <bpmn:documentation>The patient attends the new patient appointment.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_LetterDispatch" name="Clinic letter" sourceRef="T_Letter" targetRef="P_Correspondence">
+      <bpmn:documentation>The approved clinic letter goes to the external correspondence service for distribution to the recipients identified by the Consultant.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_PaymentRequest" name="Payment request" sourceRef="T_Funding" targetRef="P_Payment">
+      <bpmn:documentation>A secure payment request is sent to the external payment service provider. The hospital system does not store complete card details.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_RefundRequest" name="Refund request" sourceRef="T_Funding" targetRef="P_Payment">
+      <bpmn:documentation>Where treatment is cancelled, postponed or changed after payment, the Finance Team decides whether a full or partial refund is due and sends the refund request to the provider.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_PaymentStatus" name="Payment result" sourceRef="P_Payment" targetRef="T_Funding">
+      <bpmn:documentation>The provider returns the payment or refund status, transaction reference, date and amount.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_CapacityCheck" name="Capacity request" sourceRef="T_Treatment" targetRef="P_ClinicalServices">
+      <bpmn:documentation>The Treatment and Chemotherapy Bookings Team asks the external treatment, laboratory and imaging services for capacity. If a service is unavailable the booking stays pending and further attempts are recorded without creating duplicate appointments.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_CapacityConfirm" name="Capacity reply" sourceRef="P_ClinicalServices" targetRef="T_Treatment">
+      <bpmn:documentation>The external services confirm the capacity they can offer, or report that it is unavailable.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_FollowUpSlotSearch" name="Follow-up search" sourceRef="T_FollowUp" targetRef="P_Scheduling">
+      <bpmn:documentation>The Outpatient Bookings Team looks for a follow-up appointment within the period requested by the clinical team; a case that does not fit is highlighted and referred to the pathway team.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_FollowUpLetter" name="Follow-up letter" sourceRef="T_FollowUp" targetRef="P_Correspondence">
+      <bpmn:documentation>The patient is told about the follow-up appointment through the appropriate communication channel.</bpmn:documentation>
+    </bpmn:messageFlow>
+    <bpmn:messageFlow id="MF_EnquiryIn" name="Enquiry or concern" sourceRef="P_Patient" targetRef="Start_Enquiry">
+      <bpmn:documentation>A patient or an authorised representative contacts the service. Every enquiry must be recorded, classified, given a priority and routed to the team that may answer it.</bpmn:documentation>
+    </bpmn:messageFlow>
+  </bpmn:collaboration>
+  <bpmn:process id="strategic-hospital-pathway" name="Hospital Patient Referral, Treatment and Administration Service" isExecutable="true">
+    <bpmn:documentation>The planned patient pathway at business stage level. Each stage is a call activity whose calledElement names the operational process that delivers it. The enquiry pathway is the second way the service is entered and is modelled in the same pool because the same service owns it.</bpmn:documentation>
+    <bpmn:laneSet id="LaneSet_1">
+      <bpmn:lane id="Lane_clinical" name="Clinical responsibility">
+        <bpmn:flowNodeRef>T_Review</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_Consult</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>G_Accepted</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>G_Treat</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_admin" name="Administrative responsibility">
+        <bpmn:flowNodeRef>T_Check</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_Book</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_Letter</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_Treatment</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_FollowUp</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_Monitor</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_Enquiry</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Start_Referral</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Complete</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Start_Enquiry</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Enquiry</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_NotAccepted</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Declined</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_financial" name="Financial responsibility">
+        <bpmn:flowNodeRef>T_Funding</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start_Referral" name="Referral received">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MD_Start_Referral" messageRef="Message_Referral" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="End_Complete" name="Pathway complete">
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="Start_Enquiry" name="Enquiry or contact received">
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MD_Start_Enquiry" messageRef="Message_Enquiry" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="End_Enquiry" name="Enquiry answered and recorded">
+      <bpmn:incoming>Flow_12</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="End_NotAccepted" name="Referral not accepted; referrer informed">
+      <bpmn:incoming>Flow_ReferralNotAccepted</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="End_Declined" name="Patient does not proceed with treatment">
+      <bpmn:incoming>Flow_TreatmentDeclined</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:callActivity id="T_Check" name="Check the referral pack and request missing information">
+      <bpmn:documentation>Responsible: Medical Secretaries. Checks that the referral carries the expected supporting information (previous clinic letters, investigation results, diagnostic reports and other clinical documentation) and requests anything that is missing from the referring organisation. Medical Secretaries may not assess the patient's clinical suitability or decide whether the referral should be accepted.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="medical-secretaries" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="T_Review" name="Clinically review the referral and record the decision">
+      <bpmn:documentation>Responsible: Consultants. Reviews the referral and records the decision, the reason for it and who made it. The outcome may be acceptance, rejection, a request for further information or a redirection to another specialist service, and it is returned to the referring organisation. A new patient appointment may only be arranged once an authorised Consultant has accepted the referral.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="consultants" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="T_Book" name="Book and confirm the new patient appointment and tell the patient">
+      <bpmn:documentation>Responsible: Outpatient Bookings Team. Works out the speciality, appointment priority, preferred timeframe and patient requirements, searches the external scheduling service, confirms the booking and records every contact attempt and its outcome. The patient is informed by letter and, where the appointment is within two weeks, also by telephone. Urgent referrals that cannot wait for normal administrative timescales, and cases where no suitable appointment is available in the requested period, must be highlighted.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="outpatient-bookings" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Accepted</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="T_Consult" name="Hold the new patient consultation and record consent">
+      <bpmn:documentation>Responsible: Consultants and the relevant clinical team. Holds the new patient appointment, assesses the patient, discusses the diagnosis and the treatment options, records the patient's consent and creates the authorised Treatment Booking Request (proposed treatment, start date, number and frequency of cycles, reviews between cycles and any special resources). A request that has not been completed and authorised by an appropriate clinical professional must not be processed by administrative staff.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="consultants" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="T_Letter" name="Process and dispatch the approved clinic letter">
+      <bpmn:documentation>Responsible: Medical Secretaries, on a letter whose clinical content the Consultant has approved. Every consultation produces a clinic letter; the first is the New Patient Clinic Letter. The letter must be completed, approved, processed and sent within seven days so that recipients normally receive it within about two weeks. Administrative staff confirm the recipients and arrange distribution, may correct formatting and clear administrative errors but must not change the clinical meaning, and must return a suspected clinical error to the Consultant. The system records the appointment, drafting, approval, processing and distribution dates.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="medical-secretaries" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_TreatmentAgreed</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="T_Funding" name="Determine funding, take payment and resolve refunds">
+      <bpmn:documentation>Responsible: Finance Team. Establishes whether the treatment is funded by the hospital, covered by an approved insurer or funding organisation, or payable by the patient, and records the funding organisation, authorisation reference, approved amount and any limitations. Where payment is required it obtains or calculates the charge, sends a secure payment request to the external payment service provider and records the payment status, transaction reference, date and amount; complete card details are not stored. A treatment appointment is not confirmed until payment, an approved exemption, a funding approval or a payment arrangement has been recorded. Declined, cancelled, duplicated or incomplete payments, and a payment taken without the confirmation being returned, are marked for investigation and notified rather than charged again. Where treatment is cancelled, postponed or changed after payment, the Finance Team decides and records whether a full or partial refund is due and sends the refund request to the provider. Clinical staff must not approve refunds and the Finance Team must not decide clinical need.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="finance-team" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="T_Treatment" name="Plan, book and deliver the treatment series">
+      <bpmn:documentation>Responsible: Treatment and Chemotherapy Bookings Team. Receives the authorised Treatment Booking Request, plans the series with the patient and coordinates the appointments, using hospital facilities where possible and obtaining capacity from the external treatment, laboratory, imaging and scheduling services where necessary. If an external service is temporarily unavailable the booking stays pending, the responsible team is notified and further attempts are recorded without creating duplicate appointments. A patient receiving several cycles is clinically reviewed before each subsequent cycle to decide whether to continue, delay or change the plan. A change to the treatment schedule requires an authorised Treatment Modification Request; a change that affects a charge, funding approval or completed payment is referred to the Finance Team.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="treatment-bookings" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="T_FollowUp" name="Arrange follow-up and re-book cancelled or missed appointments">
+      <bpmn:documentation>Responsible: Outpatient Bookings Team. Arranges the follow-up appointment requested by the clinical team within the period specified, using the external scheduling service, and informs the patient through the appropriate communication channel. Where no appointment can be found within the requested period the case is highlighted and referred to the relevant pathway team rather than being booked outside the clinically requested period. Cancellations, declines and non-attendance are recorded and a decision is taken on offering another appointment, reviewing the pathway or informing the referring organisation; a paid appointment that is cancelled or rescheduled is referred to the Finance Team. Decisions on continuing, delaying or ending treatment remain with authorised clinical professionals.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="outpatient-bookings" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="T_Monitor" name="Monitor the pathway, chase delays and escalate">
+      <bpmn:documentation>Responsible: Patient Pathway Coordinators, escalating to the Administrative Manager and to higher management. Reviews outstanding actions across the pathway and issues weekly reminders. Correspondence still incomplete or unapproved more than seven days after the appointment is treated as delayed; more than one month is escalated to the Administrative Manager, who contacts the responsible Consultant, and more than three months to higher management. Reminders stop once an item is completed, valid reasons for delay are recorded, and the history of reminders, responses and escalations is retained. The stage also produces the management reports on referral volumes, outstanding referrals, appointment waiting times, unsuccessful contact attempts, delayed clinic letters, unresolved enquiries, treatment booking delays, outstanding funding approvals, failed or incomplete payments, refunds awaiting processing and the progress of individual pathways.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="patient-pathway-coordinators" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="T_Enquiry" name="Record, classify, prioritise and answer or route the enquiry">
+      <bpmn:documentation>Responsible: Call Handling Team; clinical questions are answered by the Clinical Nurse Specialist Team and payment or funding questions by the Finance Team. Records, classifies and prioritises every enquiry and routes it to the team that may answer it, showing when it was received, who handled it, which team owns it, the response given and whether the matter is resolved. A call handler may answer straightforward administrative questions and transfer other administrative matters, but must not diagnose a condition, interpret test results, recommend treatment or give clinical advice; clinical matters go to an appropriately qualified member of the Clinical Nurse Specialist Team. Payment and funding enquiries that cannot be answered from authorised information go to the Finance Team. Urgent clinical concerns must be highlighted immediately; the rules for determining urgency are still to be agreed with the stakeholders.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="call-handling" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+      <bpmn:outgoing>Flow_12</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:exclusiveGateway id="G_Accepted" name="Referral accepted?" default="Flow_ReferralNotAccepted">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_Accepted</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ReferralNotAccepted</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="G_Treat" name="Treatment agreed?" default="Flow_TreatmentDeclined">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_TreatmentAgreed</bpmn:outgoing>
+      <bpmn:outgoing>Flow_TreatmentDeclined</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start_Referral" targetRef="T_Check" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="T_Check" targetRef="T_Review" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="T_Review" targetRef="G_Accepted" />
+    <bpmn:sequenceFlow id="Flow_Accepted" name="referral accepted" sourceRef="G_Accepted" targetRef="T_Book">
+      <bpmn:documentation>The Consultant has accepted the referral, so a new patient appointment may be arranged.</bpmn:documentation>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= referralOutcome = "accepted"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_ReferralNotAccepted" name="not accepted / redirected" sourceRef="G_Accepted" targetRef="End_NotAccepted">
+      <bpmn:documentation>The referral was not accepted, further information was requested, or the referral was redirected to another specialist service. The referring organisation is told the decision, the reason for it and who made it.</bpmn:documentation>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="T_Book" targetRef="T_Consult" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="T_Consult" targetRef="G_Treat" />
+    <bpmn:sequenceFlow id="Flow_TreatmentAgreed" name="treatment agreed" sourceRef="G_Treat" targetRef="T_Letter">
+      <bpmn:documentation>The patient agrees to proceed. The Consultant records consent and creates the authorised Treatment Booking Request.</bpmn:documentation>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= treatmentAgreed = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_TreatmentDeclined" name="treatment declined" sourceRef="G_Treat" targetRef="End_Declined">
+      <bpmn:documentation>The patient does not proceed with treatment. The decision and the reason are recorded and decisions about the pathway stay with the clinical team.</bpmn:documentation>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="T_Letter" targetRef="T_Funding" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="T_Funding" targetRef="T_Treatment" />
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="T_Treatment" targetRef="T_FollowUp" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="T_FollowUp" targetRef="T_Monitor" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="T_Monitor" targetRef="End_Complete" />
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="Start_Enquiry" targetRef="T_Enquiry" />
+    <bpmn:sequenceFlow id="Flow_12" sourceRef="T_Enquiry" targetRef="End_Enquiry" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_Strategic">
+      <bpmndi:BPMNShape id="P_Hospital_di" bpmnElement="P_Hospital" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="2960" height="810" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_financial_di" bpmnElement="Lane_financial" isHorizontal="true">
+        <dc:Bounds x="190" y="670" width="2900" height="220" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_admin_di" bpmnElement="Lane_admin" isHorizontal="true">
+        <dc:Bounds x="190" y="330" width="2900" height="340" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_clinical_di" bpmnElement="Lane_clinical" isHorizontal="true">
+        <dc:Bounds x="190" y="110" width="2900" height="220" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_Referral_di" bpmnElement="Start_Referral">
+        <dc:Bounds x="292" y="397" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="256" y="439" width="108" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Complete_di" bpmnElement="End_Complete">
+        <dc:Bounds x="2930" y="397" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2898" y="439" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_Enquiry_di" bpmnElement="Start_Enquiry">
+        <dc:Bounds x="340" y="577" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="305" y="619" width="89" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Enquiry_di" bpmnElement="End_Enquiry">
+        <dc:Bounds x="660" y="577" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="620" y="619" width="102" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_NotAccepted_di" bpmnElement="End_NotAccepted">
+        <dc:Bounds x="907" y="577" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="853" y="619" width="144" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_Declined_di" bpmnElement="End_Declined">
+        <dc:Bounds x="1527" y="577" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1473" y="619" width="144" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Check_di" bpmnElement="T_Check">
+        <dc:Bounds x="400" y="365" width="180" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Review_di" bpmnElement="T_Review">
+        <dc:Bounds x="660" y="170" width="180" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Book_di" bpmnElement="T_Book">
+        <dc:Bounds x="1020" y="365" width="180" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Consult_di" bpmnElement="T_Consult">
+        <dc:Bounds x="1280" y="170" width="180" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Letter_di" bpmnElement="T_Letter">
+        <dc:Bounds x="1640" y="365" width="180" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Funding_di" bpmnElement="T_Funding">
+        <dc:Bounds x="1900" y="730" width="180" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Treatment_di" bpmnElement="T_Treatment">
+        <dc:Bounds x="2160" y="365" width="180" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_FollowUp_di" bpmnElement="T_FollowUp">
+        <dc:Bounds x="2420" y="365" width="180" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Monitor_di" bpmnElement="T_Monitor">
+        <dc:Bounds x="2680" y="365" width="180" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_Enquiry_di" bpmnElement="T_Enquiry">
+        <dc:Bounds x="400" y="545" width="180" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="G_Accepted_di" bpmnElement="G_Accepted" isMarkerVisible="true">
+        <dc:Bounds x="900" y="195" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="868" y="175" width="114" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="G_Treat_di" bpmnElement="G_Treat" isMarkerVisible="true">
+        <dc:Bounds x="1520" y="195" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1491" y="175" width="108" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <di:waypoint x="328" y="415" />
+        <di:waypoint x="400" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <di:waypoint x="580" y="415" />
+        <di:waypoint x="620" y="415" />
+        <di:waypoint x="620" y="220" />
+        <di:waypoint x="660" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <di:waypoint x="840" y="220" />
+        <di:waypoint x="900" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Accepted_di" bpmnElement="Flow_Accepted">
+        <di:waypoint x="950" y="220" />
+        <di:waypoint x="990" y="220" />
+        <di:waypoint x="990" y="415" />
+        <di:waypoint x="1020" y="415" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="996" y="310" width="108" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ReferralNotAccepted_di" bpmnElement="Flow_ReferralNotAccepted">
+        <di:waypoint x="925" y="245" />
+        <di:waypoint x="925" y="577" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="859" y="404" width="122" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <di:waypoint x="1200" y="415" />
+        <di:waypoint x="1240" y="415" />
+        <di:waypoint x="1240" y="220" />
+        <di:waypoint x="1280" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <di:waypoint x="1460" y="220" />
+        <di:waypoint x="1520" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_TreatmentAgreed_di" bpmnElement="Flow_TreatmentAgreed">
+        <di:waypoint x="1570" y="220" />
+        <di:waypoint x="1600" y="220" />
+        <di:waypoint x="1600" y="415" />
+        <di:waypoint x="1640" y="415" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1606" y="310" width="102" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_TreatmentDeclined_di" bpmnElement="Flow_TreatmentDeclined">
+        <di:waypoint x="1545" y="245" />
+        <di:waypoint x="1545" y="577" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1425" y="404" width="114" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <di:waypoint x="1820" y="415" />
+        <di:waypoint x="1860" y="415" />
+        <di:waypoint x="1860" y="780" />
+        <di:waypoint x="1900" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <di:waypoint x="2080" y="780" />
+        <di:waypoint x="2120" y="780" />
+        <di:waypoint x="2120" y="415" />
+        <di:waypoint x="2160" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <di:waypoint x="2340" y="415" />
+        <di:waypoint x="2420" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <di:waypoint x="2600" y="415" />
+        <di:waypoint x="2680" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <di:waypoint x="2860" y="415" />
+        <di:waypoint x="2930" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <di:waypoint x="376" y="595" />
+        <di:waypoint x="400" y="595" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12">
+        <di:waypoint x="580" y="595" />
+        <di:waypoint x="660" y="595" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="P_Referrer_di" bpmnElement="P_Referrer" isHorizontal="true">
+        <dc:Bounds x="170" y="1290" width="440" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="P_Patient_di" bpmnElement="P_Patient" isHorizontal="true">
+        <dc:Bounds x="630" y="1290" width="440" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="P_Scheduling_di" bpmnElement="P_Scheduling" isHorizontal="true">
+        <dc:Bounds x="1090" y="1290" width="440" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="P_Correspondence_di" bpmnElement="P_Correspondence" isHorizontal="true">
+        <dc:Bounds x="1550" y="1290" width="440" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="P_Payment_di" bpmnElement="P_Payment" isHorizontal="true">
+        <dc:Bounds x="2010" y="1290" width="440" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="P_ClinicalServices_di" bpmnElement="P_ClinicalServices" isHorizontal="true">
+        <dc:Bounds x="2470" y="1290" width="440" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="MF_ReferralIn_di" bpmnElement="MF_ReferralIn">
+        <di:waypoint x="240" y="1290" />
+        <di:waypoint x="240" y="415" />
+        <di:waypoint x="292" y="415" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="197" y="381" width="138" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_InformationRequest_di" bpmnElement="MF_InformationRequest">
+        <di:waypoint x="490" y="465" />
+        <di:waypoint x="490" y="505" />
+        <di:waypoint x="275" y="505" />
+        <di:waypoint x="275" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="377" y="493" width="95" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_ReferralOutcome_di" bpmnElement="MF_ReferralOutcome">
+        <di:waypoint x="760" y="270" />
+        <di:waypoint x="760" y="930" />
+        <di:waypoint x="560" y="930" />
+        <di:waypoint x="560" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="718" y="408" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_SlotSearch_di" bpmnElement="MF_SlotSearch">
+        <di:waypoint x="1100" y="465" />
+        <di:waypoint x="1100" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1072" y="1036" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_SlotOffers_di" bpmnElement="MF_SlotOffers">
+        <di:waypoint x="1150" y="1290" />
+        <di:waypoint x="1150" y="465" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1114" y="1073" width="71" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_AppointmentLetter_di" bpmnElement="MF_AppointmentLetter">
+        <di:waypoint x="1200" y="460" />
+        <di:waypoint x="1200" y="1000" />
+        <di:waypoint x="1600" y="1000" />
+        <di:waypoint x="1600" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1479" y="993" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_ShortNoticeCall_di" bpmnElement="MF_ShortNoticeCall">
+        <di:waypoint x="1040" y="465" />
+        <di:waypoint x="1040" y="1035" />
+        <di:waypoint x="900" y="1035" />
+        <di:waypoint x="900" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1348" y="903" width="103" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_PatientAttends_di" bpmnElement="MF_PatientAttends">
+        <di:waypoint x="1000" y="1290" />
+        <di:waypoint x="1000" y="1160" />
+        <di:waypoint x="1400" y="1160" />
+        <di:waypoint x="1400" y="270" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="863" y="1201" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_LetterDispatch_di" bpmnElement="MF_LetterDispatch">
+        <di:waypoint x="1730" y="465" />
+        <di:waypoint x="1730" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1702" y="953" width="55" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_PaymentRequest_di" bpmnElement="MF_PaymentRequest">
+        <di:waypoint x="2020" y="830" />
+        <di:waypoint x="2020" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1978" y="973" width="84" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_RefundRequest_di" bpmnElement="MF_RefundRequest">
+        <di:waypoint x="2080" y="830" />
+        <di:waypoint x="2080" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2042" y="1054" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_PaymentStatus_di" bpmnElement="MF_PaymentStatus">
+        <di:waypoint x="2380" y="1290" />
+        <di:waypoint x="2380" y="760" />
+        <di:waypoint x="2080" y="760" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2343" y="1018" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_CapacityCheck_di" bpmnElement="MF_CapacityCheck">
+        <di:waypoint x="2220" y="465" />
+        <di:waypoint x="2220" y="1140" />
+        <di:waypoint x="2600" y="1140" />
+        <di:waypoint x="2600" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2178" y="933" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_CapacityConfirm_di" bpmnElement="MF_CapacityConfirm">
+        <di:waypoint x="2700" y="1290" />
+        <di:waypoint x="2700" y="905" />
+        <di:waypoint x="2300" y="905" />
+        <di:waypoint x="2300" y="465" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2665" y="1090" width="70" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_FollowUpSlotSearch_di" bpmnElement="MF_FollowUpSlotSearch">
+        <di:waypoint x="2460" y="465" />
+        <di:waypoint x="2460" y="1200" />
+        <di:waypoint x="1450" y="1200" />
+        <di:waypoint x="1450" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2408" y="573" width="84" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_FollowUpLetter_di" bpmnElement="MF_FollowUpLetter">
+        <di:waypoint x="2570" y="465" />
+        <di:waypoint x="2570" y="1105" />
+        <di:waypoint x="1800" y="1105" />
+        <di:waypoint x="1800" y="1290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2542" y="633" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MF_EnquiryIn_di" bpmnElement="MF_EnquiryIn">
+        <di:waypoint x="800" y="1290" />
+        <di:waypoint x="800" y="965" />
+        <di:waypoint x="300" y="965" />
+        <di:waypoint x="300" y="595" />
+        <di:waypoint x="340" y="595" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="753" y="1120" width="93" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

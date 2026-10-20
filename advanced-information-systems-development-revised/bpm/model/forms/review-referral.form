@@ -1,0 +1,146 @@
+{
+  "components": [
+    {
+      "label": "Clinical decision",
+      "type": "radio",
+      "layout": {
+        "row": "Row_029",
+        "columns": null
+      },
+      "id": "Field_029",
+      "key": "clinicalDecision",
+      "description": "Only a Consultant may answer this.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Accept the referral",
+          "value": "ACCEPT"
+        },
+        {
+          "label": "Reject the referral",
+          "value": "REJECT"
+        },
+        {
+          "label": "Redirect to another service",
+          "value": "REDIRECT"
+        },
+        {
+          "label": "Ask for more clinical information",
+          "value": "REQUEST_CLINICAL_INFORMATION"
+        }
+      ]
+    },
+    {
+      "label": "Reason for the decision",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_030",
+        "columns": null
+      },
+      "id": "Field_030",
+      "key": "clinicalDecisionReason",
+      "description": "This is what appears in the audit record and in any letter back to the referrer.",
+      "validate": {
+        "required": true
+      },
+      "properties": {
+        "rows": 4
+      }
+    },
+    {
+      "label": "Speciality to redirect to",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_031",
+        "columns": null
+      },
+      "id": "Field_031",
+      "key": "redirectSpeciality",
+      "validate": {
+        "maxLength": 80
+      },
+      "description": "Optional. Enter speciality to redirect to."
+    },
+    {
+      "label": "Priority confirmed at review",
+      "type": "select",
+      "layout": {
+        "row": "Row_032",
+        "columns": null
+      },
+      "id": "Field_032",
+      "key": "clinicalPriorityConfirmed",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Routine",
+          "value": "Routine"
+        },
+        {
+          "label": "Urgent",
+          "value": "Urgent"
+        },
+        {
+          "label": "Two week wait",
+          "value": "Two week wait"
+        }
+      ],
+      "description": "Required. Choose one. Priority confirmed at review."
+    },
+    {
+      "label": "Deciding clinician",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_033",
+        "columns": null
+      },
+      "id": "Field_033",
+      "key": "decidingClinician",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter deciding clinician."
+    },
+    {
+      "type": "text",
+      "text": "**Date rule: today or earlier.** The calendar cannot block a future date. A future date is rejected and stops the case.",
+      "id": "Text_decisionDate_rule",
+      "layout": {
+        "row": "Row_decisionDate_rule",
+        "columns": null
+      }
+    },
+    {
+      "label": "Date of decision (today or earlier)",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_034",
+        "columns": null
+      },
+      "id": "Field_034",
+      "key": "decisionDate",
+      "validate": {
+        "required": true
+      },
+      "subtype": "date",
+      "description": "Required. This date cannot be in the future. The calendar cannot stop a future date being picked, so the worker rejects one and the case stops until it is corrected."
+    }
+  ],
+  "type": "default",
+  "id": "review-referral",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "The clinical decision on a referral. The reason and the deciding clinician are kept for audit and cannot be edited once the decision is recorded."
+}

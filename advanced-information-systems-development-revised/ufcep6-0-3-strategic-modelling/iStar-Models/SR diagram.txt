@@ -1,0 +1,1534 @@
+{
+  "actors": [
+    {
+      "id": "a_doctor",
+      "text": "Referring doctor",
+      "type": "istar.Actor",
+      "x": 300,
+      "y": 300,
+      "nodes": [
+        {
+          "id": "n_doctor_r_notes",
+          "text": "Notes from my practice",
+          "type": "istar.Resource",
+          "x": 338,
+          "y": 495
+        },
+        {
+          "id": "n_doctor_t_send",
+          "text": "Send the referral pack",
+          "type": "istar.Task",
+          "x": 541,
+          "y": 494
+        },
+        {
+          "id": "n_doctor_g_seen",
+          "text": "My patient is seen in time",
+          "type": "istar.Goal",
+          "x": 769,
+          "y": 491
+        },
+        {
+          "id": "n_doctor_s_knows",
+          "text": "I know what happens to my patient",
+          "type": "istar.Quality",
+          "x": 738,
+          "y": 688
+        },
+        {
+          "id": "n_doctor_t_papers",
+          "text": "Send the missing papers",
+          "type": "istar.Task",
+          "x": 540,
+          "y": 582
+        },
+        {
+          "id": "n_doctor_g_answer",
+          "text": "A clear answer about my patient",
+          "type": "istar.Goal",
+          "x": 754,
+          "y": 569
+        },
+        {
+          "id": "n_doctor_s_private",
+          "text": "Patient data stays private",
+          "type": "istar.Quality",
+          "x": 774,
+          "y": 410
+        },
+        {
+          "id": "n_doctor_r_answer",
+          "text": "Answer from the hospital",
+          "type": "istar.Resource",
+          "x": 339,
+          "y": 705
+        },
+        {
+          "id": "n_doctor_t_read",
+          "text": "Read the answer",
+          "type": "istar.Task",
+          "x": 542,
+          "y": 706
+        }
+      ]
+    },
+    {
+      "id": "a_sec",
+      "text": "Medical Secretaries",
+      "type": "istar.Actor",
+      "x": 1900,
+      "y": 300,
+      "nodes": [
+        {
+          "id": "n_sec_r_ref",
+          "text": "Referral from the doctor",
+          "type": "istar.Resource",
+          "x": 1919,
+          "y": 441
+        },
+        {
+          "id": "n_sec_t_check",
+          "text": "Check the referral pack",
+          "type": "istar.Task",
+          "x": 2104,
+          "y": 442
+        },
+        {
+          "id": "n_sec_g_pack",
+          "text": "Complete pack before review",
+          "type": "istar.Goal",
+          "x": 2296,
+          "y": 437
+        },
+        {
+          "id": "n_sec_s_nodelay",
+          "text": "No long waits for the patient",
+          "type": "istar.Quality",
+          "x": 2495,
+          "y": 440
+        },
+        {
+          "id": "n_sec_t_chase",
+          "text": "Ask the doctor for the missing papers",
+          "type": "istar.Task",
+          "x": 2096,
+          "y": 523
+        },
+        {
+          "id": "n_sec_g_decision",
+          "text": "Clinical decision on time",
+          "type": "istar.Goal",
+          "x": 2290,
+          "y": 528
+        },
+        {
+          "id": "n_sec_s_data",
+          "text": "A record the patient can trust",
+          "type": "istar.Quality",
+          "x": 2484,
+          "y": 607
+        },
+        {
+          "id": "n_sec_r_letter",
+          "text": "Approved letter from the Consultant",
+          "type": "istar.Resource",
+          "x": 1917,
+          "y": 617
+        },
+        {
+          "id": "n_sec_t_send",
+          "text": "Check and send the letter",
+          "type": "istar.Task",
+          "x": 2100,
+          "y": 619
+        },
+        {
+          "id": "n_sec_g_7days",
+          "text": "Letter out within 7 days",
+          "type": "istar.Goal",
+          "x": 2293,
+          "y": 622
+        },
+        {
+          "id": "n_sec_s_proof",
+          "text": "Clear proof for audit",
+          "type": "istar.Quality",
+          "x": 2486,
+          "y": 705
+        },
+        {
+          "id": "n_sec_t_record",
+          "text": "Record every action",
+          "type": "istar.Task",
+          "x": 2103,
+          "y": 713
+        }
+      ]
+    },
+    {
+      "id": "a_cons",
+      "text": "Consultant",
+      "type": "istar.Actor",
+      "x": 3510,
+      "y": 309,
+      "nodes": [
+        {
+          "id": "n_cons_r_pack",
+          "text": "Referral pack",
+          "type": "istar.Resource",
+          "x": 3669,
+          "y": 443
+        },
+        {
+          "id": "n_cons_t_read",
+          "text": "Read the referral pack",
+          "type": "istar.Task",
+          "x": 3894,
+          "y": 443
+        },
+        {
+          "id": "n_cons_g_decide",
+          "text": "Right decision on the referral",
+          "type": "istar.Goal",
+          "x": 4137,
+          "y": 443
+        },
+        {
+          "id": "n_cons_s_safe",
+          "text": "Patient is safe",
+          "type": "istar.Quality",
+          "x": 4368,
+          "y": 430
+        },
+        {
+          "id": "n_cons_r_urgency",
+          "text": "Urgency and waiting time",
+          "type": "istar.Resource",
+          "x": 3669,
+          "y": 537
+        },
+        {
+          "id": "n_cons_t_plan",
+          "text": "Set the urgency",
+          "type": "istar.Task",
+          "x": 3894,
+          "y": 537
+        },
+        {
+          "id": "n_cons_g_treat",
+          "text": "Safe and right treatment",
+          "type": "istar.Goal",
+          "x": 4137,
+          "y": 537
+        },
+        {
+          "id": "n_cons_s_ontime",
+          "text": "Treatment starts without delay",
+          "type": "istar.Quality",
+          "x": 4371,
+          "y": 537
+        },
+        {
+          "id": "n_cons_r_reason",
+          "text": "Reason to treat now",
+          "type": "istar.Resource",
+          "x": 3669,
+          "y": 631
+        },
+        {
+          "id": "n_cons_t_see",
+          "text": "See the patient and agree care",
+          "type": "istar.Task",
+          "x": 3894,
+          "y": 631
+        },
+        {
+          "id": "n_cons_g_money",
+          "text": "Money ready before treatment",
+          "type": "istar.Goal",
+          "x": 4124,
+          "y": 614
+        },
+        {
+          "id": "n_cons_s_time",
+          "text": "Enough time for care",
+          "type": "istar.Quality",
+          "x": 4371,
+          "y": 631
+        },
+        {
+          "id": "n_cons_t_letter",
+          "text": "Write and approve the letter",
+          "type": "istar.Task",
+          "x": 3894,
+          "y": 725
+        },
+        {
+          "id": "n_cons_g_letter",
+          "text": "Letter approved and sent",
+          "type": "istar.Goal",
+          "x": 4137,
+          "y": 725
+        },
+        {
+          "id": "n_cons_t_report",
+          "text": "Send the report after treatment",
+          "type": "istar.Task",
+          "x": 3894,
+          "y": 819
+        },
+        {
+          "id": "n_cons_g_report",
+          "text": "The patient knows how it went",
+          "type": "istar.Goal",
+          "x": 4137,
+          "y": 819
+        }
+      ]
+    },
+    {
+      "id": "a_outp",
+      "text": "Outpatient Bookings",
+      "type": "istar.Actor",
+      "x": 301,
+      "y": 1506,
+      "nodes": [
+        {
+          "id": "n_outp_r_request",
+          "text": "Appointment request",
+          "type": "istar.Resource",
+          "x": 329,
+          "y": 1640
+        },
+        {
+          "id": "n_outp_t_find",
+          "text": "Find a free slot",
+          "type": "istar.Task",
+          "x": 501,
+          "y": 1640
+        },
+        {
+          "id": "n_outp_g_soon",
+          "text": "Right appointment, soon",
+          "type": "istar.Goal",
+          "x": 741,
+          "y": 1629
+        },
+        {
+          "id": "n_outp_s_nodelay",
+          "text": "Patient is not left waiting",
+          "type": "istar.Quality",
+          "x": 926,
+          "y": 1635
+        },
+        {
+          "id": "n_outp_r_urgency",
+          "text": "Urgency from the Consultant",
+          "type": "istar.Resource",
+          "x": 326,
+          "y": 1729
+        },
+        {
+          "id": "n_outp_t_ask",
+          "text": "Ask the Consultant how urgent it is",
+          "type": "istar.Task",
+          "x": 497,
+          "y": 1723
+        },
+        {
+          "id": "n_outp_s_clear",
+          "text": "Clear date and time for the patient",
+          "type": "istar.Quality",
+          "x": 745,
+          "y": 1905
+        },
+        {
+          "id": "n_outp_t_letter",
+          "text": "Send the appointment letter",
+          "type": "istar.Task",
+          "x": 493,
+          "y": 1817
+        },
+        {
+          "id": "n_outp_t_call",
+          "text": "Call the patient if it is soon",
+          "type": "istar.Task",
+          "x": 496,
+          "y": 1913
+        }
+      ]
+    },
+    {
+      "id": "a_patient",
+      "text": "Patient / carer",
+      "type": "istar.Actor",
+      "x": 1900,
+      "y": 1500,
+      "nodes": [
+        {
+          "id": "n_patient_r_times",
+          "text": "Times that suit me",
+          "type": "istar.Resource",
+          "x": 1928,
+          "y": 1632
+        },
+        {
+          "id": "n_patient_t_book",
+          "text": "Ask for an appointment",
+          "type": "istar.Task",
+          "x": 2112,
+          "y": 1631
+        },
+        {
+          "id": "n_patient_g_treated",
+          "text": "Get the treatment I need",
+          "type": "istar.Goal",
+          "x": 2316,
+          "y": 1628
+        },
+        {
+          "id": "n_patient_s_well",
+          "text": "To get better",
+          "type": "istar.Quality",
+          "x": 2543,
+          "y": 1624
+        },
+        {
+          "id": "n_patient_r_result",
+          "text": "Report on my treatment",
+          "type": "istar.Resource",
+          "x": 2363,
+          "y": 1821
+        },
+        {
+          "id": "n_patient_t_go",
+          "text": "Go to the appointment",
+          "type": "istar.Task",
+          "x": 2162,
+          "y": 1718
+        },
+        {
+          "id": "n_patient_s_knows",
+          "text": "I know how my treatment is going",
+          "type": "istar.Quality",
+          "x": 2506,
+          "y": 1736
+        },
+        {
+          "id": "n_patient_r_bill",
+          "text": "The bill for my care",
+          "type": "istar.Resource",
+          "x": 1928,
+          "y": 1917
+        },
+        {
+          "id": "n_patient_t_yes",
+          "text": "Say yes to treatment",
+          "type": "istar.Task",
+          "x": 2220,
+          "y": 1805
+        },
+        {
+          "id": "n_patient_t_pay",
+          "text": "Pay my share",
+          "type": "istar.Task",
+          "x": 2223,
+          "y": 1916
+        },
+        {
+          "id": "n_patient_s_safe",
+          "text": "Money and data stay safe",
+          "type": "istar.Quality",
+          "x": 2543,
+          "y": 1903
+        }
+      ]
+    },
+    {
+      "id": "a_fin",
+      "text": "Finance Team",
+      "type": "istar.Actor",
+      "x": 3500,
+      "y": 1500,
+      "nodes": [
+        {
+          "id": "n_fin_r_det",
+          "text": "Treatment details",
+          "type": "istar.Resource",
+          "x": 3542,
+          "y": 1638
+        },
+        {
+          "id": "n_fin_t_route",
+          "text": "Check who pays",
+          "type": "istar.Task",
+          "x": 3749,
+          "y": 1642
+        },
+        {
+          "id": "n_fin_g_know",
+          "text": "Know who pays",
+          "type": "istar.Goal",
+          "x": 3957,
+          "y": 1643
+        },
+        {
+          "id": "n_fin_s_sep",
+          "text": "Never decide if care is needed",
+          "type": "istar.Quality",
+          "x": 4190,
+          "y": 1636
+        },
+        {
+          "id": "n_fin_r_reason",
+          "text": "Reason to treat now",
+          "type": "istar.Resource",
+          "x": 3544,
+          "y": 1744
+        },
+        {
+          "id": "n_fin_t_tell",
+          "text": "Tell the patient the price",
+          "type": "istar.Task",
+          "x": 3743,
+          "y": 1731
+        },
+        {
+          "id": "n_fin_g_paid",
+          "text": "Money ready before treatment",
+          "type": "istar.Goal",
+          "x": 3946,
+          "y": 1730
+        },
+        {
+          "id": "n_fin_s_card",
+          "text": "Card details stay with the bank",
+          "type": "istar.Quality",
+          "x": 4189,
+          "y": 1729
+        },
+        {
+          "id": "n_fin_t_price",
+          "text": "Work out the price",
+          "type": "istar.Task",
+          "x": 3749,
+          "y": 1817
+        },
+        {
+          "id": "n_fin_s_twice",
+          "text": "Never charge the patient twice",
+          "type": "istar.Quality",
+          "x": 4184,
+          "y": 1903
+        },
+        {
+          "id": "n_fin_t_take",
+          "text": "Ask the bank to take the payment",
+          "type": "istar.Task",
+          "x": 3746,
+          "y": 1910
+        },
+        {
+          "id": "n_fin_t_check",
+          "text": "Check payments and refunds",
+          "type": "istar.Task",
+          "x": 3945,
+          "y": 1907
+        }
+      ]
+    }
+  ],
+  "orphans": [],
+  "dependencies": [
+    {
+      "id": "d_sr_0",
+      "text": "a full referral pack",
+      "type": "istar.Resource",
+      "x": 1100,
+      "y": 190,
+      "source": "a_sec",
+      "target": "a_doctor"
+    },
+    {
+      "id": "d_sr_1",
+      "text": "the missing papers",
+      "type": "istar.Resource",
+      "x": 1098,
+      "y": 293,
+      "source": "a_sec",
+      "target": "a_doctor"
+    },
+    {
+      "id": "d_sr_2",
+      "text": "a clear answer",
+      "type": "istar.Resource",
+      "x": 1096,
+      "y": 408,
+      "source": "a_doctor",
+      "target": "a_sec"
+    },
+    {
+      "id": "d_sr_3",
+      "text": "the clinical decision",
+      "type": "istar.Goal",
+      "x": 2694,
+      "y": 173,
+      "source": "a_sec",
+      "target": "a_cons"
+    },
+    {
+      "id": "d_sr_4",
+      "text": "the letter checked",
+      "type": "istar.Task",
+      "x": 2699,
+      "y": 294,
+      "source": "a_cons",
+      "target": "a_sec"
+    },
+    {
+      "id": "d_sr_5",
+      "text": "a date and time",
+      "type": "istar.Resource",
+      "x": 1100,
+      "y": 1390,
+      "source": "a_patient",
+      "target": "a_outp"
+    },
+    {
+      "id": "d_sr_6",
+      "text": "how urgent, and when",
+      "type": "istar.Resource",
+      "x": 1717,
+      "y": 1199,
+      "source": "a_outp",
+      "target": "a_cons"
+    },
+    {
+      "id": "d_sr_7",
+      "text": "the appointment letter",
+      "type": "istar.Resource",
+      "x": 1091,
+      "y": 1484,
+      "source": "a_outp",
+      "target": "a_patient"
+    },
+    {
+      "id": "d_sr_8",
+      "text": "the patient comes",
+      "type": "istar.Task",
+      "x": 2693,
+      "y": 784,
+      "source": "a_cons",
+      "target": "a_patient"
+    },
+    {
+      "id": "d_sr_9",
+      "text": "a yes to treatment",
+      "type": "istar.Resource",
+      "x": 2699,
+      "y": 897,
+      "source": "a_cons",
+      "target": "a_patient"
+    },
+    {
+      "id": "d_sr_10",
+      "text": "to get better",
+      "type": "istar.Quality",
+      "x": 2700,
+      "y": 1002,
+      "source": "a_patient",
+      "target": "a_cons"
+    },
+    {
+      "id": "d_sr_11",
+      "text": "the treatment report",
+      "type": "istar.Resource",
+      "x": 2700,
+      "y": 1120,
+      "source": "a_cons",
+      "target": "a_patient"
+    },
+    {
+      "id": "d_sr_12",
+      "text": "money ready before care",
+      "type": "istar.Goal",
+      "x": 3553,
+      "y": 910,
+      "source": "a_cons",
+      "target": "a_fin"
+    },
+    {
+      "id": "d_sr_13",
+      "text": "the reason to treat now",
+      "type": "istar.Resource",
+      "x": 3394,
+      "y": 912,
+      "source": "a_fin",
+      "target": "a_cons"
+    },
+    {
+      "id": "d_sr_14",
+      "text": "what I must pay",
+      "type": "istar.Quality",
+      "x": 2709,
+      "y": 1483,
+      "source": "a_patient",
+      "target": "a_fin"
+    },
+    {
+      "id": "d_sr_15",
+      "text": "my data is safe",
+      "type": "istar.Quality",
+      "x": 1763,
+      "y": 720,
+      "source": "a_patient",
+      "target": "a_sec"
+    }
+  ],
+  "links": [
+    {
+      "id": "9d8655eb-1fb5-4e38-b96a-fd4eb4f6d134",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_15",
+      "target": "a_sec"
+    },
+    {
+      "id": "51d6d0fb-04e3-494c-9a27-f31fcc0b21a4",
+      "type": "istar.DependencyLink",
+      "source": "a_patient",
+      "target": "d_sr_15"
+    },
+    {
+      "id": "007d37ce-8931-4750-8436-f2fb0b02f8f7",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_14",
+      "target": "a_fin"
+    },
+    {
+      "id": "1d291e75-6531-46dd-a8f6-436fe18edd4a",
+      "type": "istar.DependencyLink",
+      "source": "a_patient",
+      "target": "d_sr_14"
+    },
+    {
+      "id": "a2c5c381-0c4d-41c5-a46a-7a8184f68f05",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_13",
+      "target": "a_cons"
+    },
+    {
+      "id": "e07766fe-d3a7-484a-a593-37f5a05267c4",
+      "type": "istar.DependencyLink",
+      "source": "a_fin",
+      "target": "d_sr_13"
+    },
+    {
+      "id": "4e3adc40-cf2f-4d9c-a814-70d69a8b2664",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_12",
+      "target": "a_fin"
+    },
+    {
+      "id": "24f3bb29-d0c5-473d-a93e-6bc4e6c27abf",
+      "type": "istar.DependencyLink",
+      "source": "a_cons",
+      "target": "d_sr_12"
+    },
+    {
+      "id": "ca3887f7-622d-4eef-a288-fbf06472df2f",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_11",
+      "target": "a_patient"
+    },
+    {
+      "id": "7071025d-eabc-4131-a2a9-1b77f64d2411",
+      "type": "istar.DependencyLink",
+      "source": "a_cons",
+      "target": "d_sr_11"
+    },
+    {
+      "id": "f90d8c28-5ca4-46df-862e-fc5e87c4a75e",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_10",
+      "target": "a_cons"
+    },
+    {
+      "id": "5907a842-caab-45fe-9959-00699b351773",
+      "type": "istar.DependencyLink",
+      "source": "a_patient",
+      "target": "d_sr_10"
+    },
+    {
+      "id": "e1a933c2-9a06-474b-9796-ada98e035914",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_9",
+      "target": "a_patient"
+    },
+    {
+      "id": "84eef854-b77c-4b44-9d5f-3b1723684b52",
+      "type": "istar.DependencyLink",
+      "source": "a_cons",
+      "target": "d_sr_9"
+    },
+    {
+      "id": "77a05269-c303-487e-964b-ff03c4641792",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_8",
+      "target": "a_patient"
+    },
+    {
+      "id": "cee09800-83ea-4afa-b037-e257f2960d7b",
+      "type": "istar.DependencyLink",
+      "source": "a_cons",
+      "target": "d_sr_8"
+    },
+    {
+      "id": "29315fe0-dd5e-4838-8adf-58e59ff4e29c",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_7",
+      "target": "a_patient"
+    },
+    {
+      "id": "6ba47803-724a-4713-8cc1-afd3af365000",
+      "type": "istar.DependencyLink",
+      "source": "a_outp",
+      "target": "d_sr_7"
+    },
+    {
+      "id": "ededd9ed-2f57-4482-88ca-dd24207b76a2",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_6",
+      "target": "a_cons"
+    },
+    {
+      "id": "016ab419-5337-4de0-8670-dce9bc4520c3",
+      "type": "istar.DependencyLink",
+      "source": "a_outp",
+      "target": "d_sr_6"
+    },
+    {
+      "id": "e0cab5e2-e65e-4a14-8f17-ebcba9476ccb",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_5",
+      "target": "a_outp"
+    },
+    {
+      "id": "b44ff4f2-dc4d-4699-af16-7335e6092ef8",
+      "type": "istar.DependencyLink",
+      "source": "a_patient",
+      "target": "d_sr_5"
+    },
+    {
+      "id": "d0046770-1a10-4f08-959b-e69736ee31a0",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_4",
+      "target": "a_sec"
+    },
+    {
+      "id": "0929d1ce-044d-422c-a390-56b77a42ed1e",
+      "type": "istar.DependencyLink",
+      "source": "a_cons",
+      "target": "d_sr_4"
+    },
+    {
+      "id": "c7d6b0a2-403f-4fcd-acfd-87b8d8e943b3",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_3",
+      "target": "a_cons"
+    },
+    {
+      "id": "bd84dc60-389a-4817-96e3-12b112a0f966",
+      "type": "istar.DependencyLink",
+      "source": "a_sec",
+      "target": "d_sr_3"
+    },
+    {
+      "id": "3a9560a3-0252-4d8c-88b9-63e8a996cc05",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_2",
+      "target": "a_sec"
+    },
+    {
+      "id": "daf276a7-9d3b-4c36-8778-d4633cd485df",
+      "type": "istar.DependencyLink",
+      "source": "a_doctor",
+      "target": "d_sr_2"
+    },
+    {
+      "id": "c801a4fd-9ec8-4d93-9099-9d1fc17d4a9a",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_1",
+      "target": "a_doctor"
+    },
+    {
+      "id": "8fab9eb2-db8e-4fd0-a51c-a428c926ceba",
+      "type": "istar.DependencyLink",
+      "source": "a_sec",
+      "target": "d_sr_1"
+    },
+    {
+      "id": "594a9bb9-a3fe-432a-b50d-109943ff2375",
+      "type": "istar.DependencyLink",
+      "source": "d_sr_0",
+      "target": "a_doctor"
+    },
+    {
+      "id": "291e3498-3bfb-4a54-abc2-2e8a76dd31d6",
+      "type": "istar.DependencyLink",
+      "source": "a_sec",
+      "target": "d_sr_0"
+    },
+    {
+      "id": "8bc04beb-9f89-42e3-9fdc-257c01b04fb5",
+      "type": "istar.NeededByLink",
+      "source": "n_doctor_r_notes",
+      "target": "n_doctor_t_send"
+    },
+    {
+      "id": "2598c155-b0ab-4d06-97ed-07ccf64164c4",
+      "type": "istar.NeededByLink",
+      "source": "n_doctor_r_notes",
+      "target": "n_doctor_t_papers"
+    },
+    {
+      "id": "44c7dbae-05ce-4ac4-b277-67fab3b73d33",
+      "type": "istar.NeededByLink",
+      "source": "n_doctor_r_answer",
+      "target": "n_doctor_t_read"
+    },
+    {
+      "id": "46fa8f24-1ebb-4bba-af46-487d4770b016",
+      "type": "istar.AndRefinementLink",
+      "source": "n_doctor_g_seen",
+      "target": "n_doctor_t_send"
+    },
+    {
+      "id": "5ac329bf-c6c9-4734-ad50-fa1c7c2299b2",
+      "type": "istar.AndRefinementLink",
+      "source": "n_doctor_g_seen",
+      "target": "n_doctor_t_papers"
+    },
+    {
+      "id": "106d1fa2-6627-4e8e-a988-01ec957f4e88",
+      "type": "istar.ContributionLink",
+      "source": "n_doctor_t_read",
+      "target": "n_doctor_s_knows",
+      "label": "help"
+    },
+    {
+      "id": "26a6542b-a440-4b31-b634-3df719b4af65",
+      "type": "istar.ContributionLink",
+      "source": "n_doctor_g_answer",
+      "target": "n_doctor_s_knows",
+      "label": "help"
+    },
+    {
+      "id": "537d3abe-e3b5-4a15-ba96-60dc4fd0c7ac",
+      "type": "istar.ContributionLink",
+      "source": "n_doctor_t_send",
+      "target": "n_doctor_s_private",
+      "label": "hurt"
+    },
+    {
+      "id": "ae226104-c0f9-4ef1-9df2-ea5c28d5707d",
+      "type": "istar.NeededByLink",
+      "source": "n_sec_r_ref",
+      "target": "n_sec_t_check"
+    },
+    {
+      "id": "cfbfc32e-4a0d-4aac-b965-98cd852162e6",
+      "type": "istar.NeededByLink",
+      "source": "n_sec_r_letter",
+      "target": "n_sec_t_send"
+    },
+    {
+      "id": "68fb61dd-4b92-43e3-a96a-02562ab3370a",
+      "type": "istar.AndRefinementLink",
+      "source": "n_sec_g_pack",
+      "target": "n_sec_t_check"
+    },
+    {
+      "id": "14b47d3c-93ae-4e64-9dbe-d0531627c268",
+      "type": "istar.AndRefinementLink",
+      "source": "n_sec_g_pack",
+      "target": "n_sec_t_chase"
+    },
+    {
+      "id": "4c50dc9f-889c-4779-a117-53128d8b0d3c",
+      "type": "istar.AndRefinementLink",
+      "source": "n_sec_g_7days",
+      "target": "n_sec_t_send"
+    },
+    {
+      "id": "6cf3a8fd-bdb1-434d-adea-be38eceb2655",
+      "type": "istar.AndRefinementLink",
+      "source": "n_sec_g_7days",
+      "target": "n_sec_g_decision"
+    },
+    {
+      "id": "65f52106-cbaa-4b72-9e53-e33a95353664",
+      "type": "istar.ContributionLink",
+      "source": "n_sec_g_pack",
+      "target": "n_sec_s_nodelay",
+      "label": "help"
+    },
+    {
+      "id": "903009ba-969c-4f0d-a41d-ad905a15ec3a",
+      "type": "istar.ContributionLink",
+      "source": "n_sec_g_7days",
+      "target": "n_sec_s_nodelay",
+      "label": "help"
+    },
+    {
+      "id": "159960fd-4cb3-4815-9689-0b5af06a69d8",
+      "type": "istar.ContributionLink",
+      "source": "n_sec_t_record",
+      "target": "n_sec_s_proof",
+      "label": "help"
+    },
+    {
+      "id": "4a24e788-28f0-4a27-808d-6c0994160aa2",
+      "type": "istar.ContributionLink",
+      "source": "n_sec_t_record",
+      "target": "n_sec_s_data",
+      "label": "help"
+    },
+    {
+      "id": "06c6600d-aa34-4b38-ab14-7b3be6a3024b",
+      "type": "istar.NeededByLink",
+      "source": "n_cons_r_pack",
+      "target": "n_cons_t_read"
+    },
+    {
+      "id": "f66ac046-5092-4245-97b0-a8592aef0273",
+      "type": "istar.NeededByLink",
+      "source": "n_cons_r_urgency",
+      "target": "n_cons_t_plan"
+    },
+    {
+      "id": "83cd0694-b34a-4096-b00b-a3eada6a9949",
+      "type": "istar.NeededByLink",
+      "source": "n_cons_r_reason",
+      "target": "n_cons_t_see"
+    },
+    {
+      "id": "4e500c49-6ad9-4234-8f24-982e8586264e",
+      "type": "istar.AndRefinementLink",
+      "source": "n_cons_g_decide",
+      "target": "n_cons_t_read"
+    },
+    {
+      "id": "30438e13-366c-49b7-a3c4-5c581f33724d",
+      "type": "istar.AndRefinementLink",
+      "source": "n_cons_g_decide",
+      "target": "n_cons_t_plan"
+    },
+    {
+      "id": "bbc35eeb-5dd7-4908-9728-8ad14d9e7f42",
+      "type": "istar.OrRefinementLink",
+      "source": "n_cons_g_treat",
+      "target": "n_cons_t_see"
+    },
+    {
+      "id": "9bf23841-482f-40ca-876c-5f21183c69ec",
+      "type": "istar.OrRefinementLink",
+      "source": "n_cons_g_letter",
+      "target": "n_cons_t_letter"
+    },
+    {
+      "id": "03a67d49-8289-4dc6-86f6-cf7df014a07c",
+      "type": "istar.OrRefinementLink",
+      "source": "n_cons_g_report",
+      "target": "n_cons_t_report"
+    },
+    {
+      "id": "f6999ac4-795a-4530-a8fa-eb2309adaf2f",
+      "type": "istar.ContributionLink",
+      "source": "n_cons_g_decide",
+      "target": "n_cons_s_safe",
+      "label": "help"
+    },
+    {
+      "id": "fc7ef70c-2d9f-4301-b9b0-bdb55fee8943",
+      "type": "istar.ContributionLink",
+      "source": "n_cons_g_treat",
+      "target": "n_cons_s_safe",
+      "label": "help"
+    },
+    {
+      "id": "8855413b-4351-46a3-b2dd-fc9c72417a8f",
+      "type": "istar.ContributionLink",
+      "source": "n_cons_g_report",
+      "target": "n_cons_s_safe",
+      "label": "help"
+    },
+    {
+      "id": "9ff092af-671f-4695-bc90-f55f32dddcf8",
+      "type": "istar.ContributionLink",
+      "source": "n_cons_g_money",
+      "target": "n_cons_s_ontime",
+      "label": "help"
+    },
+    {
+      "id": "97ad2ce7-5b8b-4955-8d03-c8ce0cb430e1",
+      "type": "istar.ContributionLink",
+      "source": "n_cons_t_letter",
+      "target": "n_cons_s_time",
+      "label": "hurt"
+    },
+    {
+      "id": "f8c5ae5e-2fa7-430b-a400-b5872dc89ea6",
+      "type": "istar.NeededByLink",
+      "source": "n_outp_r_request",
+      "target": "n_outp_t_find"
+    },
+    {
+      "id": "686c5878-a205-4e05-85a6-6895391a2932",
+      "type": "istar.NeededByLink",
+      "source": "n_outp_r_urgency",
+      "target": "n_outp_t_ask"
+    },
+    {
+      "id": "adf0ca0a-df28-47c7-af3e-cb0d18e91a65",
+      "type": "istar.AndRefinementLink",
+      "source": "n_outp_g_soon",
+      "target": "n_outp_t_find"
+    },
+    {
+      "id": "cadc3cdd-2445-480c-958a-e4c72f07f9bd",
+      "type": "istar.AndRefinementLink",
+      "source": "n_outp_g_soon",
+      "target": "n_outp_t_ask"
+    },
+    {
+      "id": "70b6836b-036e-42e5-8c6c-ade3092bb0d8",
+      "type": "istar.AndRefinementLink",
+      "source": "n_outp_g_soon",
+      "target": "n_outp_t_letter"
+    },
+    {
+      "id": "1fbc5db9-f204-49d5-b643-1602e81c8fb5",
+      "type": "istar.AndRefinementLink",
+      "source": "n_outp_g_soon",
+      "target": "n_outp_t_call"
+    },
+    {
+      "id": "6d95179f-4cbb-49c2-a972-f03ed50bc325",
+      "type": "istar.ContributionLink",
+      "source": "n_outp_g_soon",
+      "target": "n_outp_s_nodelay",
+      "label": "help"
+    },
+    {
+      "id": "2bf43775-5714-4bac-b8a3-24ce14771a93",
+      "type": "istar.ContributionLink",
+      "source": "n_outp_t_letter",
+      "target": "n_outp_s_clear",
+      "label": "help"
+    },
+    {
+      "id": "f029b90a-ade9-460c-b6c2-96864baa5cf8",
+      "type": "istar.ContributionLink",
+      "source": "n_outp_t_call",
+      "target": "n_outp_s_clear",
+      "label": "help"
+    },
+    {
+      "id": "5afd141d-8a22-40a4-bd75-c15a54111dc4",
+      "type": "istar.NeededByLink",
+      "source": "n_patient_r_times",
+      "target": "n_patient_t_book"
+    },
+    {
+      "id": "c945dd9c-c690-487a-9b89-d069bdb36b41",
+      "type": "istar.NeededByLink",
+      "source": "n_patient_r_bill",
+      "target": "n_patient_t_pay"
+    },
+    {
+      "id": "316338f8-dcb0-4f7b-a8ba-477594a9e765",
+      "type": "istar.AndRefinementLink",
+      "source": "n_patient_g_treated",
+      "target": "n_patient_t_book"
+    },
+    {
+      "id": "b2b91802-ad97-4972-bc81-39819174fc19",
+      "type": "istar.AndRefinementLink",
+      "source": "n_patient_g_treated",
+      "target": "n_patient_t_go"
+    },
+    {
+      "id": "1b7e7e82-1afc-4682-ada7-7f0a222ec75b",
+      "type": "istar.AndRefinementLink",
+      "source": "n_patient_g_treated",
+      "target": "n_patient_t_yes"
+    },
+    {
+      "id": "bed78582-b4bb-44e2-bb7a-66f6cef6068a",
+      "type": "istar.ContributionLink",
+      "source": "n_patient_g_treated",
+      "target": "n_patient_s_well",
+      "label": "help"
+    },
+    {
+      "id": "f9801994-92a0-49ce-a4a1-9926e3a9b366",
+      "type": "istar.ContributionLink",
+      "source": "n_patient_r_result",
+      "target": "n_patient_s_knows",
+      "label": "help"
+    },
+    {
+      "id": "941a3a2a-c0f9-4ebd-a40a-9e45aca3df25",
+      "type": "istar.ContributionLink",
+      "source": "n_patient_t_pay",
+      "target": "n_patient_s_safe",
+      "label": "hurt"
+    },
+    {
+      "id": "3ac4c3f4-8d96-473a-b9ab-752cffef78ae",
+      "type": "istar.NeededByLink",
+      "source": "n_fin_r_det",
+      "target": "n_fin_t_route"
+    },
+    {
+      "id": "9ac0c9ab-cce1-4926-a221-c05d4df1ee3a",
+      "type": "istar.NeededByLink",
+      "source": "n_fin_r_det",
+      "target": "n_fin_t_price"
+    },
+    {
+      "id": "ff9a5289-21d4-49b0-99b8-58ef82d2d943",
+      "type": "istar.NeededByLink",
+      "source": "n_fin_r_reason",
+      "target": "n_fin_t_route"
+    },
+    {
+      "id": "c371d5a0-df11-41e9-a828-dfd853673abe",
+      "type": "istar.OrRefinementLink",
+      "source": "n_fin_g_know",
+      "target": "n_fin_t_route"
+    },
+    {
+      "id": "76132c74-ccfe-465a-afed-dc017cc31733",
+      "type": "istar.AndRefinementLink",
+      "source": "n_fin_g_paid",
+      "target": "n_fin_t_price"
+    },
+    {
+      "id": "4997d3e1-7120-4e92-8a2a-20a3ec7ac2bc",
+      "type": "istar.AndRefinementLink",
+      "source": "n_fin_g_paid",
+      "target": "n_fin_t_take"
+    },
+    {
+      "id": "4b8196e0-822a-48ef-bc12-5eab691f929c",
+      "type": "istar.AndRefinementLink",
+      "source": "n_fin_g_paid",
+      "target": "n_fin_t_check"
+    },
+    {
+      "id": "1b28ae5b-014f-4884-b124-056e5a794bc8",
+      "type": "istar.AndRefinementLink",
+      "source": "n_fin_g_paid",
+      "target": "n_fin_t_tell"
+    },
+    {
+      "id": "707e1464-5d56-4050-bd5c-737eb291d89c",
+      "type": "istar.ContributionLink",
+      "source": "n_fin_g_know",
+      "target": "n_fin_s_sep",
+      "label": "help"
+    },
+    {
+      "id": "a0c31596-a0b8-4025-aa56-ce1f74177d23",
+      "type": "istar.ContributionLink",
+      "source": "n_fin_t_take",
+      "target": "n_fin_s_card",
+      "label": "help"
+    },
+    {
+      "id": "4085fb71-7350-46bd-b088-dab69cc1e23f",
+      "type": "istar.ContributionLink",
+      "source": "n_fin_t_check",
+      "target": "n_fin_s_twice",
+      "label": "help"
+    }
+  ],
+  "display": {
+    "n_doctor_r_notes": {
+      "width": 89.4375,
+      "height": 46.25
+    },
+    "n_doctor_t_send": {
+      "width": 94.4375,
+      "height": 46.25
+    },
+    "n_doctor_g_seen": {
+      "width": 103.4375,
+      "height": 50.25
+    },
+    "n_doctor_s_knows": {
+      "width": 141.48016357421875,
+      "height": 77.25799560546875
+    },
+    "n_doctor_t_papers": {
+      "width": 98.4375,
+      "height": 51.25
+    },
+    "n_doctor_g_answer": {
+      "width": 115.4375,
+      "height": 76.25
+    },
+    "n_doctor_r_answer": {
+      "width": 96.4375,
+      "height": 46.25
+    },
+    "n_doctor_t_read": {
+      "width": 101.4375,
+      "height": 48.25
+    },
+    "n_sec_g_pack": {
+      "width": 89.95831298828125,
+      "height": 51.854156494140625
+    },
+    "n_sec_t_chase": {
+      "width": 104.95831298828125,
+      "height": 53.854156494140625
+    },
+    "n_sec_g_decision": {
+      "width": 98.95831298828125,
+      "height": 43.854156494140625
+    },
+    "n_sec_s_data": {
+      "width": 96.98760986328125,
+      "height": 62.860687255859375
+    },
+    "n_sec_r_letter": {
+      "width": 97.95831298828125,
+      "height": 47.854156494140625
+    },
+    "n_sec_t_send": {
+      "width": 103.95831298828125,
+      "height": 43.854156494140625
+    },
+    "n_sec_s_proof": {
+      "width": 95.98712158203125,
+      "height": 58.860260009765625
+    },
+    "n_cons_t_read": {
+      "width": 115.03125,
+      "height": 37.215362548828125
+    },
+    "n_cons_r_urgency": {
+      "width": 102.03125,
+      "height": 46.14349365234375
+    },
+    "n_cons_t_plan": {
+      "width": 100.95831298828125,
+      "height": 46.854156494140625
+    },
+    "n_cons_r_reason": {
+      "width": 101.03125,
+      "height": 45.14349365234375
+    },
+    "n_cons_t_see": {
+      "width": 106.95831298828125,
+      "height": 51.854156494140625
+    },
+    "n_cons_g_money": {
+      "width": 94.95831298828125,
+      "height": 52.854156494140625
+    },
+    "n_cons_t_letter": {
+      "width": 107.95831298828125,
+      "height": 54.854156494140625
+    },
+    "n_cons_g_letter": {
+      "width": 97.95831298828125,
+      "height": 57.854156494140625
+    },
+    "n_cons_t_report": {
+      "width": 104.95831298828125,
+      "height": 56.854156494140625
+    },
+    "n_cons_g_report": {
+      "width": 98.95831298828125,
+      "height": 54.854156494140625
+    },
+    "n_outp_r_request": {
+      "width": 95.95831298828125,
+      "height": 44.854156494140625
+    },
+    "n_outp_t_find": {
+      "width": 102.4375,
+      "height": 43.25
+    },
+    "n_outp_g_soon": {
+      "width": 95.95831298828125,
+      "height": 73.85415649414062
+    },
+    "n_outp_s_nodelay": {
+      "width": 95.98724365234375,
+      "height": 63.860748291015625
+    },
+    "n_outp_r_urgency": {
+      "width": 97.95831298828125,
+      "height": 47.854156494140625
+    },
+    "n_outp_t_ask": {
+      "width": 104.95831298828125,
+      "height": 58.854156494140625
+    },
+    "n_outp_s_clear": {
+      "width": 132.9984130859375,
+      "height": 71.86160278320312
+    },
+    "n_outp_t_letter": {
+      "width": 110.95831298828125,
+      "height": 59.854156494140625
+    },
+    "n_outp_t_call": {
+      "width": 110.95831298828125,
+      "height": 57.854156494140625
+    },
+    "n_patient_g_treated": {
+      "width": 98.95831298828125,
+      "height": 44.932281494140625
+    },
+    "n_patient_s_knows": {
+      "width": 96.98760986328125,
+      "height": 64.86087036132812
+    },
+    "n_fin_r_det": {
+      "width": 106.3985595703125,
+      "height": 44.9500732421875
+    },
+    "n_fin_t_route": {
+      "width": 103.95831298828125,
+      "height": 44.854156494140625
+    },
+    "n_fin_g_know": {
+      "width": 90.95831298828125,
+      "height": 45.854156494140625
+    },
+    "n_fin_s_sep": {
+      "width": 103.98956298828125,
+      "height": 66.86111450195312
+    },
+    "n_fin_r_reason": {
+      "width": 103.95831298828125,
+      "height": 47.854156494140625
+    },
+    "n_fin_t_tell": {
+      "width": 112.95831298828125,
+      "height": 47.854156494140625
+    },
+    "n_fin_g_paid": {
+      "width": 111.95831298828125,
+      "height": 56.854156494140625
+    },
+    "n_fin_s_card": {
+      "width": 105.99005126953125,
+      "height": 75.86196899414062
+    },
+    "n_fin_t_price": {
+      "width": 98.95831298828125,
+      "height": 50.854156494140625
+    },
+    "n_fin_s_twice": {
+      "width": 108.99151611328125,
+      "height": 76.86209106445312
+    },
+    "n_fin_t_take": {
+      "width": 115.95831298828125,
+      "height": 69.85415649414062
+    },
+    "n_fin_t_check": {
+      "width": 111.95831298828125,
+      "height": 69.85415649414062
+    },
+    "d_sr_0": {
+      "width": 86.4375,
+      "height": 67.25
+    },
+    "d_sr_1": {
+      "width": 96.4375,
+      "height": 58.25
+    },
+    "d_sr_2": {
+      "width": 93.4375,
+      "height": 52.25
+    },
+    "d_sr_3": {
+      "width": 102.4375,
+      "height": 66.25
+    },
+    "d_sr_4": {
+      "width": 94.4375,
+      "height": 59.25
+    },
+    "d_sr_5": {
+      "width": 88.4375,
+      "height": 67.25
+    },
+    "d_sr_6": {
+      "width": 90.4375,
+      "height": 55.25
+    },
+    "d_sr_7": {
+      "width": 109.29165649414062,
+      "height": 79.91665649414062
+    },
+    "d_sr_8": {
+      "width": 97.4375,
+      "height": 59.25
+    },
+    "d_sr_9": {
+      "width": 90.4375,
+      "height": 56.25
+    },
+    "d_sr_10": {
+      "width": 89.46435546875,
+      "height": 60.25634765625
+    },
+    "d_sr_11": {
+      "width": 93.4375,
+      "height": 68.25
+    },
+    "d_sr_12": {
+      "width": 93.4375,
+      "height": 49.25
+    },
+    "d_sr_13": {
+      "width": 84.4375,
+      "height": 51.25
+    },
+    "d_sr_14": {
+      "width": 96.466552734375,
+      "height": 63.2567138671875
+    },
+    "d_sr_15": {
+      "width": 108.47021484375,
+      "height": 59.25616455078125
+    },
+    "5ac329bf-c6c9-4734-ad50-fa1c7c2299b2": {
+      "vertices": [
+        {
+          "x": 698,
+          "y": 566
+        }
+      ]
+    }
+  },
+  "tool": "pistar.2.1.0",
+  "istar": "2.0",
+  "saveDate": "Wed, 14 Oct 2026 08:44:22 GMT",
+  "diagram": {
+    "width": 4700,
+    "height": 2300,
+    "name": "i-star SR",
+    "customProperties": {
+      "Description": ""
+    }
+  }
+}

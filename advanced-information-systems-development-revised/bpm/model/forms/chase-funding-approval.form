@@ -1,0 +1,105 @@
+{
+  "components": [
+    {
+      "label": "What is the position now?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_120",
+        "columns": null
+      },
+      "id": "Field_120",
+      "key": "fundingChaseOutcome",
+      "description": "Choose recheck once the approval is actually in the system.",
+      "validate": {
+        "required": true
+      },
+      "values": [
+        {
+          "label": "Check whether the approval has arrived",
+          "value": "RECHECK"
+        },
+        {
+          "label": "Still waiting",
+          "value": "STILL_WAITING"
+        },
+        {
+          "label": "Declined",
+          "value": "DECLINED"
+        }
+      ]
+    },
+    {
+      "label": "Who was spoken to",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_121",
+        "columns": null
+      },
+      "id": "Field_121",
+      "key": "payerContactName",
+      "validate": {
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Optional. Enter who was spoken to."
+    },
+    {
+      "label": "Payer reference",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_122",
+        "columns": null
+      },
+      "id": "Field_122",
+      "key": "payerReference",
+      "validate": {
+        "maxLength": 40,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._/\\-]*$",
+        "patternErrorMessage": "Use letters, digits and the separators . / - _ only, with no spaces."
+      },
+      "description": "Optional. Enter payer reference."
+    },
+    {
+      "label": "Notes from the chase",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_123",
+        "columns": null
+      },
+      "id": "Field_123",
+      "key": "chaseNotes",
+      "properties": {
+        "rows": 3
+      },
+      "description": "Optional. Describe notes from the chase in your own words. This is what the next team reads."
+    },
+    {
+      "label": "Chased by",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_124",
+        "columns": null
+      },
+      "id": "Field_124",
+      "key": "chasedBy",
+      "validate": {
+        "required": true,
+        "maxLength": 80,
+        "pattern": "^(?!\\s*\\d+\\s*$).+$",
+        "patternErrorMessage": "This must be a name, not only digits."
+      },
+      "description": "Required. Enter chased by."
+    }
+  ],
+  "type": "default",
+  "id": "chase-funding-approval",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.51.0"
+  },
+  "schemaVersion": 19,
+  "description": "Used when a funding decision has not come back inside the expected window."
+}

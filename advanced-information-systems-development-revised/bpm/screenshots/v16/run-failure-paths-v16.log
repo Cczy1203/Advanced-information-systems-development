@@ -1,0 +1,100 @@
+# v16.0 failure-path run evidence — 2026-10-18
+# Engine: c8run 8.10.0-alpha5 at localhost:26500. One worker instance at a time.
+# Extracted from the worker logs: every BPMN ERROR line, plus the demo switch block
+# that proves which injection was active. Full logs kept outside the repository.
+
+====================================================================================================
+## declined-payment (DEMO_PAYMENT_STATUS=DECLINED)
+====================================================================================================
+19:01:41.877 INFO  u.a.u.u.h.WorkersApplication -   paymentStatus          DECLINED (first only)
+19:01:41.877 INFO  u.a.u.u.h.WorkersApplication -   confirmationLostMode   BPMN-ERROR
+19:01:42.635 INFO  u.a.u.u.h.WorkersApplication - 37 job worker subscriptions on localhost:26500. Waiting for jobs - press Ctrl-C to stop.
+
+BPMN ERROR lines: 0
+jobs completed after the error: 22
+
+====================================================================================================
+## lost-confirmation (DEMO_PAYMENT_STATUS=NO_CONFIRMATION)
+====================================================================================================
+19:14:09.508 INFO  u.a.u.u.h.WorkersApplication -   paymentStatus          NO_CONFIRMATION (first only)
+19:14:09.508 INFO  u.a.u.u.h.WorkersApplication -   confirmationLostMode   BPMN-ERROR
+19:14:10.130 INFO  u.a.u.u.h.WorkersApplication - 37 job worker subscriptions on localhost:26500. Waiting for jobs - press Ctrl-C to stop.
+
+BPMN ERROR lines: 1
+19:15:11.536 WARN  u.a.u.u.h.AbstractHospitalWorker - BPMN ERROR jobKey=2251799815002913 type=payment.process-transaction elementId=FIN_Auto_ProcessPayment processInstanceKey=2251799815002570 process=hospital-patient-pathway code=PAYMENT_CONFIRMATION_LOST message=Payment provider took the payment but returned no confirmation for reference 'PAY-6AE596A0'. The transaction must be investigated before the patient is charged again (element FIN_Auto_ProcessPayment)
+jobs completed after the error: 19
+
+====================================================================================================
+## no-capacity (DEMO_EXTERNAL_UNAVAILABLE_RESOURCES=Laboratory)
+====================================================================================================
+19:18:36.221 INFO  u.a.u.u.h.WorkersApplication -   paymentStatus          APPROVED (first only)
+19:18:36.221 INFO  u.a.u.u.h.WorkersApplication -   confirmationLostMode   BPMN-ERROR
+19:18:36.839 INFO  u.a.u.u.h.WorkersApplication - 37 job worker subscriptions on localhost:26500. Waiting for jobs - press Ctrl-C to stop.
+
+BPMN ERROR lines: 0
+jobs completed after the error: 20
+
+====================================================================================================
+## service-down (simulated failure: scheduling.find-appointment-slots)
+====================================================================================================
+19:23:39.885 INFO  u.a.u.u.h.WorkersApplication -   paymentStatus          APPROVED (first only)
+19:23:39.885 INFO  u.a.u.u.h.WorkersApplication -   confirmationLostMode   BPMN-ERROR
+19:23:40.439 INFO  u.a.u.u.h.WorkersApplication - 37 job worker subscriptions on localhost:26500. Waiting for jobs - press Ctrl-C to stop.
+19:23:57.430 WARN  u.a.u.u.h.AbstractHospitalWorker - BPMN ERROR jobKey=2251799815005642 type=scheduling.find-appointment-slots elementId=OUT_Auto_FindSlots processInstanceKey=2251799815005557 process=hospital-patient-pathway code=SCHEDULING_SERVICE_UNAVAILABLE message=[simulated] the external scheduling service is unavailable - forced by demo.simulated-failure for job type scheduling.find-appointment-slots on element OUT_Auto_FindSlots (error code SCHEDULING_SERVICE_UNAVAILABLE)
+19:23:58.997 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:00.584 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:02.164 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:03.748 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:05.342 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:06.933 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:08.520 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:10.102 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:11.695 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:13.285 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:14.871 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:16.445 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:18.040 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:19.646 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:21.237 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:22.808 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:24.437 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:26.015 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:27.590 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:29.148 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:30.734 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:32.293 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:33.908 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:35.480 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:37.060 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:38.649 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+19:24:40.235 INFO  u.a.u.u.h.t.SchedulingFindAppointmentSlotsWorker - no slots offered for Medical oncology between 2026-11-01 and 2026-11-01 (forced=false)
+
+BPMN ERROR lines: 1
+19:23:57.430 WARN  u.a.u.u.h.AbstractHospitalWorker - BPMN ERROR jobKey=2251799815005642 type=scheduling.find-appointment-slots elementId=OUT_Auto_FindSlots processInstanceKey=2251799815005557 process=hospital-patient-pathway code=SCHEDULING_SERVICE_UNAVAILABLE message=[simulated] the external scheduling service is unavailable - forced by demo.simulated-failure for job type scheduling.find-appointment-slots on element OUT_Auto_FindSlots (error code SCHEDULING_SERVICE_UNAVAILABLE)
+jobs completed after the error: 58
+
+====================================================================================================
+## injected normal (simulated failure: dispatch-letter, calculate-charge, check-availability)
+====================================================================================================
+19:25:46.911 INFO  u.a.u.u.h.WorkersApplication -   paymentStatus          APPROVED (first only)
+19:25:46.911 INFO  u.a.u.u.h.WorkersApplication -   confirmationLostMode   BPMN-ERROR
+19:25:47.331 INFO  u.a.u.u.h.WorkersApplication - 37 job worker subscriptions on localhost:26500. Waiting for jobs - press Ctrl-C to stop.
+19:26:06.776 WARN  u.a.u.u.h.AbstractHospitalWorker - BPMN ERROR jobKey=2251799815006913 type=correspondence.dispatch-letter elementId=OUT_Auto_DispatchAppointmentLetter processInstanceKey=2251799815006753 process=hospital-patient-pathway code=CORRESPONDENCE_SERVICE_FAILED message=[simulated] the external correspondence service rejected the request - forced by demo.simulated-failure for job type correspondence.dispatch-letter on element OUT_Auto_DispatchAppointmentLetter (error code CORRESPONDENCE_SERVICE_FAILED)
+19:26:16.321 WARN  u.a.u.u.h.AbstractHospitalWorker - BPMN ERROR jobKey=2251799815007103 type=finance.calculate-charge elementId=FIN_Auto_CalculateCharge processInstanceKey=2251799815006753 process=hospital-patient-pathway code=CHARGE_CALCULATION_FAILED message=[simulated] a failure was forced for this job type by the demo configuration - forced by demo.simulated-failure for job type finance.calculate-charge on element FIN_Auto_CalculateCharge (error code CHARGE_CALCULATION_FAILED)
+19:26:17.966 WARN  u.a.u.u.h.AbstractHospitalWorker - BPMN ERROR jobKey=2251799815007178 type=external-resources.check-availability elementId=TRT_Auto_CheckExternalResources processInstanceKey=2251799815006753 process=hospital-patient-pathway code=EXTERNAL_RESOURCE_UNAVAILABLE message=[simulated] the external treatment, laboratory or imaging service is unavailable - forced by demo.simulated-failure for job type external-resources.check-availability on element TRT_Auto_CheckExternalResources (error code EXTERNAL_RESOURCE_UNAVAILABLE)
+
+BPMN ERROR lines: 3
+19:26:06.776 WARN  u.a.u.u.h.AbstractHospitalWorker - BPMN ERROR jobKey=2251799815006913 type=correspondence.dispatch-letter elementId=OUT_Auto_DispatchAppointmentLetter processInstanceKey=2251799815006753 process=hospital-patient-pathway code=CORRESPONDENCE_SERVICE_FAILED message=[simulated] the external correspondence service rejected the request - forced by demo.simulated-failure for job type correspondence.dispatch-letter on element OUT_Auto_DispatchAppointmentLetter (error code CORRESPONDENCE_SERVICE_FAILED)
+19:26:16.321 WARN  u.a.u.u.h.AbstractHospitalWorker - BPMN ERROR jobKey=2251799815007103 type=finance.calculate-charge elementId=FIN_Auto_CalculateCharge processInstanceKey=2251799815006753 process=hospital-patient-pathway code=CHARGE_CALCULATION_FAILED message=[simulated] a failure was forced for this job type by the demo configuration - forced by demo.simulated-failure for job type finance.calculate-charge on element FIN_Auto_CalculateCharge (error code CHARGE_CALCULATION_FAILED)
+19:26:17.966 WARN  u.a.u.u.h.AbstractHospitalWorker - BPMN ERROR jobKey=2251799815007178 type=external-resources.check-availability elementId=TRT_Auto_CheckExternalResources processInstanceKey=2251799815006753 process=hospital-patient-pathway code=EXTERNAL_RESOURCE_UNAVAILABLE message=[simulated] the external treatment, laboratory or imaging service is unavailable - forced by demo.simulated-failure for job type external-resources.check-availability on element TRT_Auto_CheckExternalResources (error code EXTERNAL_RESOURCE_UNAVAILABLE)
+jobs completed after the error: 20
+
+====================================================================================================
+## unauthorised-request (no injected failure)
+====================================================================================================
+19:28:45.059 INFO  u.a.u.u.h.WorkersApplication -   paymentStatus          APPROVED (first only)
+19:28:45.059 INFO  u.a.u.u.h.WorkersApplication -   confirmationLostMode   BPMN-ERROR
+19:28:45.576 INFO  u.a.u.u.h.WorkersApplication - 37 job worker subscriptions on localhost:26500. Waiting for jobs - press Ctrl-C to stop.
+
+BPMN ERROR lines: 0
+jobs completed after the error: 8
